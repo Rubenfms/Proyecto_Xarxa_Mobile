@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">Proyecto_Xarxa_Mobile</string>
+    <string name="app_name">Xarxa IES Doctor Balmis</string>
+    <string name="username">Nombre de usuario</string>
+    <string name="password">Contraseña</string>
+    <string name="iniciar_sesion">Iniciar sesión</string>
+    <string name="portada_xarxa">Portada de la Xarxa</string>
 </resources>
