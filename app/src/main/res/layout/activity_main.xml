@@ -6,75 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <ImageView
-        android:layout_height="150dp"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentRecycler"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
-        android:id="@+id/portadaXarxa"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="100dp"
-        android:src="@drawable/xarxa_portada"
-        android:contentDescription="@string/portada_xarxa"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/nombreUsuarioInputLayout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:hint="@string/username"
-        app:boxCornerRadiusTopEnd="10dp"
-        app:boxCornerRadiusTopStart="10dp"
-        app:layout_constraintEnd_toEndOf="@id/portadaXarxa"
-        app:layout_constraintStart_toStartOf="@id/portadaXarxa"
-        app:layout_constraintTop_toBottomOf="@id/portadaXarxa"
-        app:startIconContentDescription="Nombre de usuario"
-        app:startIconDrawable="@drawable/ic_person_black_24dp">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/nombreUsuarioEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:singleLine="true" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/contrasenyaInputLayout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="10dp"
-        android:hint="@string/password"
-        app:boxCornerRadiusTopEnd="10dp"
-        app:boxCornerRadiusTopStart="10dp"
-        app:layout_constraintEnd_toEndOf="@id/nombreUsuarioInputLayout"
-        app:layout_constraintStart_toStartOf="@id/nombreUsuarioInputLayout"
-        app:layout_constraintTop_toBottomOf="@id/nombreUsuarioInputLayout"
-        app:startIconContentDescription="Contrasenya"
-        app:startIconDrawable="@drawable/ic_baseline_key_24">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/contrasenyaEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:singleLine="true" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <Button
-        android:id="@+id/textButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="@string/iniciar_sesion"
-        app:layout_constraintTop_toBottomOf="@id/contrasenyaInputLayout"
-        app:layout_constraintEnd_toEndOf="@id/contrasenyaInputLayout"/>
-
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/navegador" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
