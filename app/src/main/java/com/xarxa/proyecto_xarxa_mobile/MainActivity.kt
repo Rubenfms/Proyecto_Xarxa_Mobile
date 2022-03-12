@@ -1,4 +1,4 @@
-package com.example.proyecto_xarxa_mobile
+package com.xarxa.proyecto_xarxa_mobile
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
