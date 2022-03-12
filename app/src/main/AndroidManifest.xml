@@ -18,5 +18,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.xarxa.proyecto_xarxa_mobile.AccionesActivity"/>
     </application>
 </manifest>
