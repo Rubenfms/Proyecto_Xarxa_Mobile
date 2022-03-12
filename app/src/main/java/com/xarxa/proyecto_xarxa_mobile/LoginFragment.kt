@@ -1,0 +1,33 @@
+package com.xarxa.proyecto_xarxa_mobile
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment
+import com.xarxa.proyecto_xarxa_mobile.databinding.LayoutLoginBinding
+
+class LoginFragment : Fragment() {
+
+    private lateinit var _binding: LayoutLoginBinding
+    private val binding get() = _binding
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        super.onCreateView(inflater, container, savedInstanceState)
+        _binding = LayoutLoginBinding.inflate(inflater, container, false)
+        val view = binding.root
+
+        binding.iniciarSesionButton.setOnClickListener {
+            val navController = NavHostFragment.findNavController(this)
+            if (navController.currentDestination?.id == R.id.loginFragment)
+                navController.navigate(R.id.action_loginFragment_to_principalFragment)
+        }
+
+        return view
+    }
+}
