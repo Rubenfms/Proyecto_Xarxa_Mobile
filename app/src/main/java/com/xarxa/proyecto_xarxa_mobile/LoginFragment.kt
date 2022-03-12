@@ -1,5 +1,6 @@
 package com.xarxa.proyecto_xarxa_mobile
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,9 +24,8 @@ class LoginFragment : Fragment() {
         val view = binding.root
 
         binding.iniciarSesionButton.setOnClickListener {
-            val navController = NavHostFragment.findNavController(this)
-            if (navController.currentDestination?.id == R.id.loginFragment)
-                navController.navigate(R.id.action_loginFragment_to_principalFragment)
+            val intento = Intent(requireActivity(), AccionesActivity::class.java)
+            startActivity(intento)
         }
 
         return view
