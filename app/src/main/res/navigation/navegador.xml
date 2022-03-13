@@ -7,5 +7,39 @@
     <fragment
         android:id="@+id/principalFragment"
         android:name="com.xarxa.proyecto_xarxa_mobile.PrincipalFragment"
-        android:label="PrincipalFragment" />
+        android:label="PrincipalFragment" >
+        <action
+            android:id="@+id/action_principalFragment_to_busquedaLibrosFragment"
+            app:destination="@id/busquedaLibrosFragment" />
+        <action
+            android:id="@+id/action_principalFragment_to_entregaFragment"
+            app:destination="@id/entregaFragment" />
+        <action
+            android:id="@+id/action_principalFragment_to_devolucionFragment"
+            app:destination="@id/devolucionFragment" />
+        <action
+            android:id="@+id/action_principalFragment_to_localizacionFragment"
+            app:destination="@id/localizacionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/busquedaLibrosFragment"
+        android:name="com.xarxa.proyecto_xarxa_mobile.BusquedaLibrosFragment"
+        android:label="BusquedaLibrosFragment" />
+    <fragment
+        android:id="@+id/entregaFragment"
+        android:name="com.xarxa.proyecto_xarxa_mobile.EntregaFragment"
+        android:label="EntregaFragment" />
+    <fragment
+        android:id="@+id/devolucionFragment"
+        android:name="com.xarxa.proyecto_xarxa_mobile.DevolucionFragment"
+        android:label="DevolucionFragment" />
+    <fragment
+        android:id="@+id/localizacionFragment"
+        android:name="com.xarxa.proyecto_xarxa_mobile.LocalizacionFragment"
+        android:label="LocalizacionFragment" />
+    <action
+        android:id="@+id/action_global_principalFragment"
+        app:destination="@id/principalFragment"
+        app:popUpTo="@id/principalFragment"
+        app:popUpToInclusive="true" />
 </navigation>
