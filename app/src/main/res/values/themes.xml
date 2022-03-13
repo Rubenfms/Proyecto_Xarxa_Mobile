@@ -11,35 +11,45 @@
         <item name="colorOnSecondary">@color/secondaryTextColor</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <item name="textAppearanceHeadline6">@style/TextAppearance.App.Headline6</item>
-        <item name="textAppearanceSubtitle2">@style/TextAppearance.App.Subtitle2</item>
-        <item name="textAppearanceBody2">@style/TextAppearance.App.Body2</item>
+        <!-- Customize your theme here. -->
+        <item name="materialCardViewStyle">@style/Widget.MyApp.MaterialCardView</item>
+        <item name="materialButtonStyle">@style/Widget.MyApp.Button</item>
+        <item name="android:fontFamily">@font/work_sans</item>
         <item name="navigationViewStyle">@style/Widget.App.NavigationView</item>
 
-        <!-- Customize your theme here. -->
     </style>
 
-    <style name="TextAppearance.App.Headline6" parent="TextAppearance.MaterialComponents.Subtitle1">
-        <item name="fontFamily">@font/work_sans</item>
-        <item name="android:fontFamily">@font/work_sans</item>
+    <style name="Widget.MyApp.MaterialCardView" parent="Widget.MaterialComponents.CardView">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MyApp.MaterialCardView
+        </item>
+        <item name="cardElevation">3dp</item>
+        <item name="android:backgroundTint">@color/secondaryColor</item>
     </style>
 
-    <style name="TextAppearance.App.Subtitle2" parent="TextAppearance.MaterialComponents.Subtitle1">
-        <item name="fontFamily">@font/work_sans</item>
-        <item name="android:fontFamily">@font/work_sans</item>
+    <style name="Widget.MyApp.Button" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textColor">@color/primaryDarkColor</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Headline6</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
     </style>
 
-    <style name="TextAppearance.App.Body2" parent="TextAppearance.MaterialComponents.Subtitle1">
-        <item name="fontFamily">@font/work_sans</item>
-        <item name="android:fontFamily">@font/work_sans</item>
+    <style name="ShapeAppearanceOverlay.MyApp.MaterialCardView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">12dp</item>
     </style>
 
     <style name="Widget.App.NavigationView" parent="Widget.MaterialComponents.NavigationView">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.NavigationView</item>
         <item name="itemIconTint">@color/navigation_item_color</item>
         <item name="itemTextColor">@color/navigation_item_color</item>
-        <item name="itemShapeFillColor">@color/navigation_item_background_color</item>
+        <item name="itemTextAppearance">@style/TextAppearance.MaterialComponents.Subtitle1</item>
     </style>
 
-
+    <style name="ThemeOverlay.App.NavigationView" parent="">
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorSurface">@color/primaryColor</item>
+        <item name="colorOnSurface">@color/secondaryColor</item>
+    </style>
 
 </resources>

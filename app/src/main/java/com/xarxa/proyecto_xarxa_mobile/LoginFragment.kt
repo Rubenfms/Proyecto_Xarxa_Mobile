@@ -27,7 +27,6 @@ class LoginFragment : Fragment() {
             val intento = Intent(requireActivity(), AccionesActivity::class.java)
             startActivity(intento)
         }
-
         return view
     }
 }
