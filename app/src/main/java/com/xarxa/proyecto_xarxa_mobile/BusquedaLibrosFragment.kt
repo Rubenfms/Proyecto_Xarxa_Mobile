@@ -72,5 +72,5 @@ class BusquedaLibrosFragment : Fragment() {
     private fun escanear() {
         val cameraIntent = Intent(requireActivity(), CodigoBarrasScanner::class.java)
         resultadoCamara.launch(cameraIntent)
-        }
+    }
 }
