@@ -2,18 +2,14 @@ package com.xarxa.proyecto_xarxa_mobile
 
 import android.graphics.Color
 import android.os.Bundle
-import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.FrameLayout
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.blue
 import androidx.core.graphics.green
 import androidx.core.graphics.red
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.bottomappbar.BottomAppBar
@@ -44,8 +40,10 @@ class AccionesActivity : AppCompatActivity() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragmentContainer) as NavHostFragment
         navController = navHostFragment.navController
+        logicaNavigation()
+    }
 
-
+    private fun logicaNavigation() {
         val bottomSheetBehavior = BottomSheetBehavior.from(navigationView)
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
 
@@ -75,10 +73,8 @@ class AccionesActivity : AppCompatActivity() {
             BottomSheetBehavior.BottomSheetCallback() {
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
                 val baseColor = Color.BLACK
-                // 60% opacity
                 val baseAlpha =
                     ResourcesCompat.getFloat(resources, R.dimen.material_emphasis_medium)
-                // Map slideOffset from [-1.0, 1.0] to [0.0, 1.0]
                 val offset = (slideOffset - (-1f)) / (1f - (-1f)) * (1f - 0f) + 0f
                 val alpha = MathUtils.lerp(0f, 255f, offset * baseAlpha).toInt()
                 val color = Color.argb(alpha, baseColor.red, baseColor.green, baseColor.blue)
