@@ -14,21 +14,23 @@
         <!-- Customize your theme here. -->
         <item name="materialCardViewStyle">@style/Widget.MyApp.MaterialCardView</item>
         <item name="materialButtonStyle">@style/Widget.MyApp.Button</item>
+        <item name="android:textColor">@color/primaryDarkColor</item>
         <item name="android:fontFamily">@font/work_sans</item>
         <item name="navigationViewStyle">@style/Widget.App.NavigationView</item>
+        <item name="checkboxStyle">@style/Widget.App.CheckBox</item>
 
     </style>
 
     <style name="Widget.MyApp.MaterialCardView" parent="Widget.MaterialComponents.CardView">
         <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MyApp.MaterialCardView
         </item>
-        <item name="cardElevation">3dp</item>
+        <item name="cardElevation">5dp</item>
         <item name="android:backgroundTint">@color/secondaryColor</item>
     </style>
 
     <style name="Widget.MyApp.Button" parent="Widget.MaterialComponents.Button.TextButton">
-        <item name="android:textColor">@color/primaryDarkColor</item>
         <item name="android:layout_gravity">center</item>
+        <item name="android:textColor">@color/primaryDarkColor</item>
         <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Headline6</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
@@ -50,6 +52,10 @@
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorSurface">@color/primaryColor</item>
         <item name="colorOnSurface">@color/secondaryColor</item>
+    </style>
+
+    <style name="Widget.App.CheckBox" parent="Widget.MaterialComponents.CompoundButton.CheckBox">
+        <item name="buttonTint">@color/primaryDarkColor</item>
     </style>
 
 </resources>

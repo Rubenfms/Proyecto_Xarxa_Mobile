@@ -7,10 +7,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class CursosRecyclerAdapter(datos: ArrayList<String>) :
-    RecyclerView.Adapter<CursosRecyclerAdapter.CursosRecyclerHolder>() {
+    RecyclerView.Adapter<CursosRecyclerAdapter.CursosRecyclerHolder>(), View.OnClickListener {
 
     private lateinit var view: View
     private var datos: ArrayList<String> = datos
+    private lateinit var clickListenerCursos : View.OnClickListener
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -18,6 +19,7 @@ class CursosRecyclerAdapter(datos: ArrayList<String>) :
     ): CursosRecyclerHolder {
         view =
             LayoutInflater.from(parent.context).inflate(R.layout.layout_row_entrega, parent, false)
+        view.setOnClickListener(this)
 
         return CursosRecyclerHolder(view)
     }
@@ -37,6 +39,14 @@ class CursosRecyclerAdapter(datos: ArrayList<String>) :
         fun bind(cadena: String) {
             curso.text = cadena
         }
+    }
+
+    fun onClickListenerCursos(clickListener: View.OnClickListener) {
+        clickListenerCursos = clickListener
+    }
+
+    override fun onClick(p0: View?) {
+        clickListenerCursos.onClick(p0)
     }
 
 

@@ -15,4 +15,9 @@
     <string name="navigation_close">Cerrar</string>
     <string name="inicio">Inicio</string>
     <string name="curso">CURSO</string>
+    <string name="nombre_apellido1">Nombre Apellido1</string>
+    <string name="lote_entregado">Lote entregado</string>
+    <string name="devuelto">Devuelto</string>
+    <string name="completo">Completo</string>
+    <string name="alumnos">Alumnos</string>
 </resources>
