@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.navigation.NavigationView
@@ -17,6 +19,7 @@ class EntregaFragment : Fragment() {
     private var datos: ArrayList<String> = ArrayList()
     private lateinit var adaptador: CursosRecyclerAdapter
     private lateinit var recyclerView: RecyclerView
+    private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,10 +33,15 @@ class EntregaFragment : Fragment() {
         requireActivity().findViewById<NavigationView>(R.id.navigationView).menu.findItem(R.id.entregaOption).isChecked =
             true
 
+        navController = NavHostFragment.findNavController(this)
         recyclerView = binding.recyclerCursosEntrega
         datos = rellenarDatos()
         cargarRecyclerCursos()
 
+        adaptador.onClickListenerCursos {
+            if (navController.currentDestination?.id == R.id.entregaFragment)
+                navController.navigate(R.id.action_entregaFragment_to_listadoAlumnosEntregaFragment)
+        }
         return view
     }
 

@@ -28,11 +28,19 @@
     <fragment
         android:id="@+id/entregaFragment"
         android:name="com.xarxa.proyecto_xarxa_mobile.EntregaFragment"
-        android:label="EntregaFragment" />
+        android:label="EntregaFragment" >
+        <action
+            android:id="@+id/action_entregaFragment_to_listadoAlumnosEntregaFragment"
+            app:destination="@id/listadoAlumnosEntregaFragment" />
+    </fragment>
     <fragment
         android:id="@+id/devolucionFragment"
         android:name="com.xarxa.proyecto_xarxa_mobile.DevolucionFragment"
-        android:label="DevolucionFragment" />
+        android:label="DevolucionFragment" >
+        <action
+            android:id="@+id/action_devolucionFragment_to_listadoAlumnosDevolucionFragment"
+            app:destination="@id/listadoAlumnosDevolucionFragment" />
+    </fragment>
     <fragment
         android:id="@+id/localizacionFragment"
         android:name="com.xarxa.proyecto_xarxa_mobile.LocalizacionFragment"
@@ -42,4 +50,12 @@
         app:destination="@id/principalFragment"
         app:popUpTo="@id/principalFragment"
         app:popUpToInclusive="true" />
+    <fragment
+        android:id="@+id/listadoAlumnosEntregaFragment"
+        android:name="com.xarxa.proyecto_xarxa_mobile.ListadoAlumnosEntregaFragment"
+        android:label="ListadoAlumnosEntregaFragment" />
+    <fragment
+        android:id="@+id/listadoAlumnosDevolucionFragment"
+        android:name="com.xarxa.proyecto_xarxa_mobile.ListadoAlumnosDevolucionFragment"
+        android:label="ListadoAlumnosDevolucionFragment" />
 </navigation>
