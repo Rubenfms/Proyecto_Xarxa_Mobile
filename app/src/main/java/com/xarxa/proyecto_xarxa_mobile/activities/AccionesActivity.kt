@@ -1,4 +1,4 @@
-package com.xarxa.proyecto_xarxa_mobile
+package com.xarxa.proyecto_xarxa_mobile.activities
 
 import android.graphics.Color
 import android.os.Bundle
@@ -16,6 +16,7 @@ import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.math.MathUtils
 import com.google.android.material.navigation.NavigationView
+import com.xarxa.proyecto_xarxa_mobile.R
 import com.xarxa.proyecto_xarxa_mobile.databinding.ActivityAccionesBinding
 
 class AccionesActivity : AppCompatActivity() {

@@ -1,12 +1,13 @@
-package com.xarxa.proyecto_xarxa_mobile
+package com.xarxa.proyecto_xarxa_mobile.recyclers
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.xarxa.proyecto_xarxa_mobile.R
 
-class ListadoDevolucionRecyclerAdapter(datos: ArrayList<String>) :
-    RecyclerView.Adapter<ListadoDevolucionRecyclerHolder>() {
+class ListadoEntregaRecyclerAdapter(datos: ArrayList<String>) :
+    RecyclerView.Adapter<ListadoEntregaRecyclerHolder>() {
 
     private lateinit var view: View
     private var datos: ArrayList<String> = datos
@@ -14,15 +15,15 @@ class ListadoDevolucionRecyclerAdapter(datos: ArrayList<String>) :
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ListadoDevolucionRecyclerHolder {
+    ): ListadoEntregaRecyclerHolder {
         view =
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.layout_row_lista_alu_devolucion, parent, false)
+                .inflate(R.layout.layout_row_lista_alu_entrega, parent, false)
 
-        return ListadoDevolucionRecyclerHolder(view)
+        return ListadoEntregaRecyclerHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ListadoDevolucionRecyclerHolder, position: Int) {
+    override fun onBindViewHolder(holder: ListadoEntregaRecyclerHolder, position: Int) {
         holder.bind(datos[position])
     }
 

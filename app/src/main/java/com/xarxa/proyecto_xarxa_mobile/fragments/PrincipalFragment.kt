@@ -1,4 +1,4 @@
-package com.xarxa.proyecto_xarxa_mobile
+package com.xarxa.proyecto_xarxa_mobile.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.navigation.NavigationView
+import com.xarxa.proyecto_xarxa_mobile.R
 import com.xarxa.proyecto_xarxa_mobile.databinding.LayoutPrincipalBinding
 
 class PrincipalFragment : Fragment() {

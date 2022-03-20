@@ -21,7 +21,7 @@
         tools:replace="android:usesCleartextTraffic"
         tools:targetApi="m">
         <activity
-            android:name="com.xarxa.proyecto_xarxa_mobile.MainActivity"
+            android:name="com.xarxa.proyecto_xarxa_mobile.activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,8 +29,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.xarxa.proyecto_xarxa_mobile.AccionesActivity" />
-        <activity android:name="com.xarxa.proyecto_xarxa_mobile.CodigoBarrasScanner" />
+        <activity android:name="com.xarxa.proyecto_xarxa_mobile.activities.AccionesActivity" />
+        <activity android:name="com.xarxa.proyecto_xarxa_mobile.services.CodigoBarrasScanner" />
 
     </application>
 </manifest>

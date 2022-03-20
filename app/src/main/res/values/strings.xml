@@ -20,4 +20,18 @@
     <string name="devuelto">Devuelto</string>
     <string name="completo">Completo</string>
     <string name="alumnos">Alumnos</string>
+    <string name="search">Search</string>
+    <string name="escanear">Escanear</string>
+    <string name="informacion_alumno">Información del alumno</string>
+    <string name="nombre">Nombre</string>
+    <string name="apellidos">Apellidos</string>
+    <string name="nia">NIA</string>
+    <string name="fecha_nacimiento">Fecha de nacimiento</string>
+    <string name="estado_matriculacion">Estado de matriculación</string>
+    <string name="curso_minusculas">Curso</string>
+    <string name="grupo">Grupo</string>
+    <string name="pertenece_xarxa">Miembro de la xarxa</string>
+    <string name="incidencias">Incidencias</string>
+    <string name="entrega_lote">Entrega de lotes</string>
+    <string name="devolucion_lote">Devolución de lotes</string>
 </resources>

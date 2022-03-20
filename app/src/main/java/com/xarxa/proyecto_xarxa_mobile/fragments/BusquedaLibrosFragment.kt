@@ -1,4 +1,4 @@
-package com.xarxa.proyecto_xarxa_mobile
+package com.xarxa.proyecto_xarxa_mobile.fragments
 
 import android.Manifest
 import android.app.Activity
@@ -13,6 +13,8 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
+import com.xarxa.proyecto_xarxa_mobile.services.CodigoBarrasScanner
+import com.xarxa.proyecto_xarxa_mobile.R
 import com.xarxa.proyecto_xarxa_mobile.databinding.LayoutBusquedaLibrosBinding
 
 class BusquedaLibrosFragment : Fragment() {
@@ -53,7 +55,7 @@ class BusquedaLibrosFragment : Fragment() {
                 else {
                     Toast.makeText(
                         requireActivity(),
-                        "No puedes escanear si no das permiso",
+                        "No puedes usar el escáner si no concedes los permisos de cámara",
                         Toast.LENGTH_SHORT
                     ).show()
                 }

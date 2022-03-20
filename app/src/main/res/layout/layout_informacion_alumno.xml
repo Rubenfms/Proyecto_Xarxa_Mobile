@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nestedScrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/informacionAlumno">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/informacionAlumno"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:text="@string/informacion_alumno"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/alumnoImageView"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="40dp"
+            android:src="@drawable/ic_person_black_24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/informacionAlumno"
+            app:tint="@color/primaryDarkColor" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/niaAlumnoInformacion"
+            style="@style/Widget.MyApp.MaterialInputLayout"
+            android:hint="@string/nia"
+            app:layout_constraintBottom_toBottomOf="@id/alumnoImageView"
+            app:layout_constraintStart_toEndOf="@id/alumnoImageView"
+            app:layout_constraintTop_toTopOf="@id/alumnoImageView">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/niaAlumnoEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:singleLine="true"
+                android:text="@string/nia" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/nombreAlumnoInformacion"
+            style="@style/Widget.MyApp.MaterialInputLayout"
+            android:layout_marginTop="5dp"
+            android:hint="@string/nombre"
+            app:layout_constraintStart_toStartOf="@id/niaAlumnoInformacion"
+            app:layout_constraintTop_toBottomOf="@id/niaAlumnoInformacion">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/nombreAlumnoEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:singleLine="true"
+                android:text="@string/nombre" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/apellidosAlumnoInformacion"
+            style="@style/Widget.MyApp.MaterialInputLayout"
+            android:layout_marginTop="5dp"
+            android:hint="@string/apellidos"
+            app:layout_constraintStart_toStartOf="@id/nombreAlumnoInformacion"
+            app:layout_constraintTop_toBottomOf="@id/nombreAlumnoInformacion">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/apellidosAlumnoEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:singleLine="true"
+                android:text="@string/apellidos" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/fechaNacAlumnoInformacion"
+            style="@style/Widget.MyApp.MaterialInputLayout"
+            android:layout_marginTop="5dp"
+            android:hint="@string/fecha_nacimiento"
+            app:layout_constraintStart_toStartOf="@id/apellidosAlumnoInformacion"
+            app:layout_constraintTop_toBottomOf="@id/apellidosAlumnoInformacion">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/fechaNacAlumnoEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:singleLine="true"
+                android:text="@string/fecha_nacimiento" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/classImageView"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="15dp"
+            android:src="@drawable/ic_school_black_24dp"
+            app:layout_constraintBottom_toBottomOf="@id/estadoMatAlumnoInformacion"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/estadoMatAlumnoInformacion"
+            app:tint="@color/primaryDarkColor" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/estadoMatAlumnoInformacion"
+            style="@style/Widget.MyApp.MaterialInputLayout"
+            android:layout_marginTop="5dp"
+            android:hint="@string/estado_matriculacion"
+            app:layout_constraintStart_toStartOf="@id/fechaNacAlumnoInformacion"
+            app:layout_constraintTop_toBottomOf="@id/fechaNacAlumnoInformacion">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/estadoMatAlumnoEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:singleLine="true"
+                android:text="@string/estado_matriculacion" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/cursoAlumnoInformacion"
+            style="@style/Widget.MyApp.MaterialInputLayout"
+            android:layout_marginTop="5dp"
+            android:hint="@string/curso_minusculas"
+            app:layout_constraintStart_toStartOf="@id/estadoMatAlumnoInformacion"
+            app:layout_constraintTop_toBottomOf="@id/estadoMatAlumnoInformacion">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/cursoAlumnoEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:singleLine="true"
+                android:text="@string/curso_minusculas" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/grupoAlumnoInformacion"
+            style="@style/Widget.MyApp.MaterialInputLayout"
+            android:layout_marginTop="5dp"
+            android:hint="@string/grupo"
+            app:layout_constraintStart_toStartOf="@id/cursoAlumnoInformacion"
+            app:layout_constraintTop_toBottomOf="@id/cursoAlumnoInformacion">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/grupoAlumnoEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:singleLine="true"
+                android:text="@string/grupo" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/perteneceXarxaCheckBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="5dp"
+            android:clickable="false"
+            android:text="@string/pertenece_xarxa"
+            app:layout_constraintStart_toStartOf="@id/grupoAlumnoInformacion"
+            app:layout_constraintTop_toBottomOf="@id/grupoAlumnoInformacion" />
+
+        <ImageView
+            android:id="@+id/pencilImageView"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_edit_black_24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/incidenciasAlumnoInformacion"
+            app:tint="@color/primaryDarkColor" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/incidenciasAlumnoInformacion"
+            style="@style/Widget.MyApp.MaterialInputLayout"
+            android:layout_marginTop="5dp"
+            android:hint="@string/incidencias"
+            app:layout_constraintStart_toStartOf="@id/perteneceXarxaCheckBox"
+            app:layout_constraintTop_toBottomOf="@id/perteneceXarxaCheckBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/incidenciasAlumnoEditText"
+                android:layout_width="match_parent"
+                android:text="@string/incidencias"
+                android:gravity="top"
+                android:layout_height="150dp"
+                android:enabled="false" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>
+

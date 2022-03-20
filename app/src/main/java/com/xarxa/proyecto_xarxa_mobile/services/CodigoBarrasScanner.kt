@@ -1,4 +1,4 @@
-package com.xarxa.proyecto_xarxa_mobile
+package com.xarxa.proyecto_xarxa_mobile.services
 
 import android.app.Activity
 import android.content.Intent
