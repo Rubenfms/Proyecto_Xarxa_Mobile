@@ -3,11 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".activities.MainActivity">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_login"
-        android:name="com.xarxa.proyecto_xarxa_mobile.LoginFragment"
+        android:name="com.xarxa.proyecto_xarxa_mobile.fragments.LoginFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

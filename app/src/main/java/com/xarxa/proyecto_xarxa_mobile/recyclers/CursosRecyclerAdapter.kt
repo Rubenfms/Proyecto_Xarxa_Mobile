@@ -1,10 +1,11 @@
-package com.xarxa.proyecto_xarxa_mobile
+package com.xarxa.proyecto_xarxa_mobile.recyclers
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.xarxa.proyecto_xarxa_mobile.R
 
 class CursosRecyclerAdapter(datos: ArrayList<String>) :
     RecyclerView.Adapter<CursosRecyclerAdapter.CursosRecyclerHolder>(), View.OnClickListener {
@@ -18,7 +19,7 @@ class CursosRecyclerAdapter(datos: ArrayList<String>) :
         viewType: Int
     ): CursosRecyclerHolder {
         view =
-            LayoutInflater.from(parent.context).inflate(R.layout.layout_row_entrega, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.layout_row_cursos, parent, false)
         view.setOnClickListener(this)
 
         return CursosRecyclerHolder(view)

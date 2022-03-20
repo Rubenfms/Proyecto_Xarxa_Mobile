@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/principalFragment"
-        android:name="com.xarxa.proyecto_xarxa_mobile.PrincipalFragment"
+        android:name="com.xarxa.proyecto_xarxa_mobile.fragments.PrincipalFragment"
         android:label="PrincipalFragment" >
         <action
             android:id="@+id/action_principalFragment_to_busquedaLibrosFragment"
@@ -23,11 +23,11 @@
     </fragment>
     <fragment
         android:id="@+id/busquedaLibrosFragment"
-        android:name="com.xarxa.proyecto_xarxa_mobile.BusquedaLibrosFragment"
+        android:name="com.xarxa.proyecto_xarxa_mobile.fragments.BusquedaLibrosFragment"
         android:label="BusquedaLibrosFragment" />
     <fragment
         android:id="@+id/entregaFragment"
-        android:name="com.xarxa.proyecto_xarxa_mobile.EntregaFragment"
+        android:name="com.xarxa.proyecto_xarxa_mobile.fragments.EntregaFragment"
         android:label="EntregaFragment" >
         <action
             android:id="@+id/action_entregaFragment_to_listadoAlumnosEntregaFragment"
@@ -35,7 +35,7 @@
     </fragment>
     <fragment
         android:id="@+id/devolucionFragment"
-        android:name="com.xarxa.proyecto_xarxa_mobile.DevolucionFragment"
+        android:name="com.xarxa.proyecto_xarxa_mobile.fragments.DevolucionFragment"
         android:label="DevolucionFragment" >
         <action
             android:id="@+id/action_devolucionFragment_to_listadoAlumnosDevolucionFragment"
@@ -43,8 +43,12 @@
     </fragment>
     <fragment
         android:id="@+id/localizacionFragment"
-        android:name="com.xarxa.proyecto_xarxa_mobile.LocalizacionFragment"
-        android:label="LocalizacionFragment" />
+        android:name="com.xarxa.proyecto_xarxa_mobile.fragments.LocalizacionFragment"
+        android:label="LocalizacionFragment" >
+        <action
+            android:id="@+id/action_localizacionFragment_to_informacionAlumnoFragment"
+            app:destination="@id/informacionAlumnoFragment" />
+    </fragment>
     <action
         android:id="@+id/action_global_principalFragment"
         app:destination="@id/principalFragment"
@@ -52,10 +56,14 @@
         app:popUpToInclusive="true" />
     <fragment
         android:id="@+id/listadoAlumnosEntregaFragment"
-        android:name="com.xarxa.proyecto_xarxa_mobile.ListadoAlumnosEntregaFragment"
+        android:name="com.xarxa.proyecto_xarxa_mobile.fragments.ListadoAlumnosEntregaFragment"
         android:label="ListadoAlumnosEntregaFragment" />
     <fragment
         android:id="@+id/listadoAlumnosDevolucionFragment"
-        android:name="com.xarxa.proyecto_xarxa_mobile.ListadoAlumnosDevolucionFragment"
+        android:name="com.xarxa.proyecto_xarxa_mobile.fragments.ListadoAlumnosDevolucionFragment"
         android:label="ListadoAlumnosDevolucionFragment" />
+    <fragment
+        android:id="@+id/informacionAlumnoFragment"
+        android:name="com.xarxa.proyecto_xarxa_mobile.fragments.InformacionAlumnoFragment"
+        android:label="InformacionAlumnoFragment" />
 </navigation>

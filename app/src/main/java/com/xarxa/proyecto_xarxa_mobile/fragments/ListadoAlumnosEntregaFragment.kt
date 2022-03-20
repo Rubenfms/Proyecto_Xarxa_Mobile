@@ -1,4 +1,4 @@
-package com.xarxa.proyecto_xarxa_mobile
+package com.xarxa.proyecto_xarxa_mobile.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,14 +7,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.xarxa.proyecto_xarxa_mobile.databinding.LayoutListaAlumnosDevolucionBinding
+import com.xarxa.proyecto_xarxa_mobile.recyclers.ListadoEntregaRecyclerAdapter
+import com.xarxa.proyecto_xarxa_mobile.databinding.LayoutListaAlumnosEntregaBinding
 
-class ListadoAlumnosDevolucionFragment : Fragment() {
+class ListadoAlumnosEntregaFragment : Fragment() {
 
-    private lateinit var _binding: LayoutListaAlumnosDevolucionBinding
+    private lateinit var _binding: LayoutListaAlumnosEntregaBinding
     private val binding get() = _binding
     private var datos: ArrayList<String> = ArrayList()
-    private lateinit var adaptador: ListadoDevolucionRecyclerAdapter
+    private lateinit var adaptador: ListadoEntregaRecyclerAdapter
     private lateinit var recyclerView: RecyclerView
 
     override fun onCreateView(
@@ -24,10 +25,10 @@ class ListadoAlumnosDevolucionFragment : Fragment() {
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
 
-        _binding = LayoutListaAlumnosDevolucionBinding.inflate(inflater, container, false)
+        _binding = LayoutListaAlumnosEntregaBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        recyclerView = binding.recyclerAlumnosDevolucion
+        recyclerView = binding.recyclerAlumnosEntrega
         datos = rellenarDatos()
         cargarRecyclerCursos()
 
@@ -35,7 +36,7 @@ class ListadoAlumnosDevolucionFragment : Fragment() {
     }
 
     private fun cargarRecyclerCursos() {
-        adaptador = ListadoDevolucionRecyclerAdapter(datos)
+        adaptador = ListadoEntregaRecyclerAdapter(datos)
         recyclerView.adapter = adaptador
         recyclerView.layoutManager =
             LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
@@ -43,7 +44,7 @@ class ListadoAlumnosDevolucionFragment : Fragment() {
 
     private fun rellenarDatos(): ArrayList<String> {
         var datos: ArrayList<String> = ArrayList()
-        datos.add("Juandi Cabrera Soler")
+        datos.add("Juandi Cabrera")
         datos.add("Rubén Sánchez")
         datos.add("Joaquín Cutillas")
         return datos
