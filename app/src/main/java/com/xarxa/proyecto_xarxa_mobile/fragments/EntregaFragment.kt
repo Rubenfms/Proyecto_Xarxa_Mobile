@@ -38,7 +38,7 @@ class EntregaFragment : Fragment() {
         navController = NavHostFragment.findNavController(this)
         recyclerView = binding.recyclerCursosEntrega
         datos = rellenarDatos()
-        cargarRecyclerCursos()
+        cargarRecycler()
 
         adaptador.onClickListenerCursos {
             if (navController.currentDestination?.id == R.id.entregaFragment)
@@ -47,7 +47,7 @@ class EntregaFragment : Fragment() {
         return view
     }
 
-    private fun cargarRecyclerCursos() {
+    private fun cargarRecycler() {
         adaptador = CursosRecyclerAdapter(datos)
         recyclerView.adapter = adaptador
         recyclerView.layoutManager = GridLayoutManager(requireActivity(), 3)

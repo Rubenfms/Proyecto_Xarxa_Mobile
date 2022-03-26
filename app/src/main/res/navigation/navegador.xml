@@ -61,9 +61,21 @@
     <fragment
         android:id="@+id/listadoAlumnosDevolucionFragment"
         android:name="com.xarxa.proyecto_xarxa_mobile.fragments.ListadoAlumnosDevolucionFragment"
-        android:label="ListadoAlumnosDevolucionFragment" />
+        android:label="ListadoAlumnosDevolucionFragment" >
+        <action
+            android:id="@+id/action_listadoAlumnosDevolucionFragment_to_checkeoLibrosDevolucionFragment"
+            app:destination="@id/checkeoLibrosDevolucionFragment" />
+    </fragment>
     <fragment
         android:id="@+id/informacionAlumnoFragment"
         android:name="com.xarxa.proyecto_xarxa_mobile.fragments.InformacionAlumnoFragment"
         android:label="InformacionAlumnoFragment" />
+    <fragment
+        android:id="@+id/checkeoLibrosDevolucionFragment"
+        android:name="com.xarxa.proyecto_xarxa_mobile.fragments.CheckeoLibrosDevolucionFragment"
+        android:label="CheckeoLibrosDevolucionFragment" />
+    <action
+        android:id="@+id/action_global_listadoAlumnosDevolucionFragment"
+        app:destination="@id/listadoAlumnosDevolucionFragment"
+        app:popUpTo="@id/listadoAlumnosDevolucionFragment" />
 </navigation>

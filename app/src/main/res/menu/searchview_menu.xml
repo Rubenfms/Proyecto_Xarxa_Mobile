@@ -2,11 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
-    <item android:id="@+id/escanearOption"
-        android:title="@string/escanear"
+    <item
+        android:id="@+id/escanearOption"
         android:icon="@drawable/ic_document_scanner_white_24dp"
-        app:showAsAction="ifRoom|collapseActionView"/>
+        android:title="@string/escanear"
+        app:showAsAction="ifRoom|collapseActionView" />
 
     <item
         android:id="@+id/actionSearch"

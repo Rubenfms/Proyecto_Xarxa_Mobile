@@ -1,12 +1,17 @@
 package com.xarxa.proyecto_xarxa_mobile.fragments
 
+import android.Manifest
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.xarxa.proyecto_xarxa_mobile.R
 import com.xarxa.proyecto_xarxa_mobile.recyclers.ListadoEntregaRecyclerAdapter
 import com.xarxa.proyecto_xarxa_mobile.databinding.LayoutListaAlumnosEntregaBinding
 
@@ -30,12 +35,18 @@ class ListadoAlumnosEntregaFragment : Fragment() {
 
         recyclerView = binding.recyclerAlumnosEntrega
         datos = rellenarDatos()
-        cargarRecyclerCursos()
+        cargarRecycler()
+
+        adaptador.longClick {
+            val posicion = recyclerView.getChildAdapterPosition(it)
+            showPopup(recyclerView[posicion].findViewById(R.id.loteEntregadoCheckBox), posicion)
+            true
+        }
 
         return view
     }
 
-    private fun cargarRecyclerCursos() {
+    private fun cargarRecycler() {
         adaptador = ListadoEntregaRecyclerAdapter(datos)
         recyclerView.adapter = adaptador
         recyclerView.layoutManager =
@@ -49,4 +60,39 @@ class ListadoAlumnosEntregaFragment : Fragment() {
         datos.add("Joaquín Cutillas")
         return datos
     }
+
+    private fun showPopup(view: View, posicion: Int) {
+        val menuEmergente = PopupMenu(requireActivity(), view)
+        menuEmergente.inflate(R.menu.entrega_lote_menu)
+        menuEmergente.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.verLoteOption -> {
+                    mostrarDialogoPersonalizado(posicion)
+                }
+                R.id.añadirLoteOption -> {
+
+                }
+                R.id.modificarLoteOption -> {
+
+                }
+                R.id.cancelarOption -> menuEmergente.dismiss()
+            }
+            true
+        }
+        menuEmergente.show()
+    }
+
+    private fun mostrarDialogoPersonalizado(
+        posicion: Int
+    ) {
+        val builder: AlertDialog.Builder = AlertDialog.Builder(activity)
+        val lote = "LOTE X"
+        builder.setMessage(
+            "El lote de ${datos[posicion]} es $lote"
+        )
+            .setPositiveButton("Aceptar") { _, _ ->
+
+            }.show()
+    }
+
 }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:id="@+id/opcionesLoteNuevo">
+        <item
+            android:id="@+id/verLoteOption"
+            android:title="@string/ver_lote" />
+        <item
+            android:id="@+id/añadirLoteOption"
+            android:title="@string/añadir_lote" />
+    </group>
+
+    <group android:id="@+id/opcionesLoteExistente">
+        <item
+            android:id="@+id/modificarLoteOption"
+            android:title="@string/modificar_lote" />
+    </group>
+    <item
+        android:id="@+id/cancelarOption"
+        android:title="@string/cancelar" />
+</menu>

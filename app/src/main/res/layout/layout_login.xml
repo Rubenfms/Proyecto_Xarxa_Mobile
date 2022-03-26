@@ -70,6 +70,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
+        android:textStyle="bold"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:text="@string/iniciar_sesion"
         app:icon="@drawable/ic_login_black_24dp"
         app:layout_constraintEnd_toEndOf="@id/contrasenyaInputLayout"

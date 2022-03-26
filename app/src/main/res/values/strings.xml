@@ -34,4 +34,15 @@
     <string name="incidencias">Incidencias</string>
     <string name="entrega_lote">Entrega de lotes</string>
     <string name="devolucion_lote">Devolución de lotes</string>
+    <string name="devolucion_libros">Devolución de libros</string>
+    <string name="observaciones">Observaciones</string>
+    <string name="aceptar">Aceptar</string>
+    <string name="libro">Libro</string>
+    <string name="yes">Yes</string>
+    <string name="chequea_los_libros_a_devolver">Chequea los libros a devolver</string>
+    <string name="ver_lote">Ver lote</string>
+    <string name="añadir_lote">Añadir lote</string>
+    <string name="modificar_lote">Modificar lote</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="libros_lote">Libros de ALUMNOX</string>
 </resources>

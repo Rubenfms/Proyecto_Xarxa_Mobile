@@ -8,19 +8,22 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.navigation.NavigationView
 import com.xarxa.proyecto_xarxa_mobile.R
-import com.xarxa.proyecto_xarxa_mobile.recyclers.ListadoDevolucionRecyclerAdapter
-import com.xarxa.proyecto_xarxa_mobile.databinding.LayoutListaAlumnosDevolucionBinding
-import com.xarxa.proyecto_xarxa_mobile.services.PasarPosicionInterface
+import com.xarxa.proyecto_xarxa_mobile.databinding.LayoutCheckeoIncidenciasDevolucionBinding
+import com.xarxa.proyecto_xarxa_mobile.databinding.LayoutDevolucionBinding
+import com.xarxa.proyecto_xarxa_mobile.recyclers.CursosRecyclerAdapter
+import com.xarxa.proyecto_xarxa_mobile.recyclers.LibrosDevolucionRecyclerAdapter
 
-class ListadoAlumnosDevolucionFragment : Fragment() {
+class CheckeoLibrosDevolucionFragment : Fragment() {
 
-    private lateinit var _binding: LayoutListaAlumnosDevolucionBinding
+    private lateinit var _binding: LayoutCheckeoIncidenciasDevolucionBinding
     private val binding get() = _binding
     private var datos: ArrayList<String> = ArrayList()
-    private lateinit var adaptador: ListadoDevolucionRecyclerAdapter
+    private lateinit var adaptador: LibrosDevolucionRecyclerAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var navController: NavController
 
@@ -28,28 +31,26 @@ class ListadoAlumnosDevolucionFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
 
-        _binding = LayoutListaAlumnosDevolucionBinding.inflate(inflater, container, false)
+        _binding = LayoutCheckeoIncidenciasDevolucionBinding.inflate(inflater, container, false)
         val view = binding.root
 
         navController = NavHostFragment.findNavController(this)
-        recyclerView = binding.recyclerAlumnosDevolucion
+        recyclerView = binding.recyclerLibrosDevolucion
         datos = rellenarDatos()
-        cargarRecycler()
+        cargarRecyclerCursos()
 
-        adaptador.longClick {
-            val posicion = recyclerView.getChildAdapterPosition(it)
-            mostrarDialogoPersonalizado(posicion)
-            true
+        binding.aceptarButton.setOnClickListener {
+            mostrarDialogoPersonalizado()
         }
 
         return view
     }
 
-    private fun cargarRecycler() {
-        adaptador = ListadoDevolucionRecyclerAdapter(datos)
+    private fun cargarRecyclerCursos() {
+        adaptador = LibrosDevolucionRecyclerAdapter(datos)
         recyclerView.adapter = adaptador
         recyclerView.layoutManager =
             LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
@@ -57,23 +58,27 @@ class ListadoAlumnosDevolucionFragment : Fragment() {
 
     private fun rellenarDatos(): ArrayList<String> {
         var datos: ArrayList<String> = ArrayList()
-        datos.add("Juandi Cabrera Soler")
-        datos.add("Rubén Sánchez")
-        datos.add("Joaquín Cutillas")
+        datos.add("Matemáticas")
+        datos.add("Matemáticas")
+        datos.add("Matemáticas")
+        datos.add("Matemáticas")
+        datos.add("Matemáticas")
+        datos.add("Matemáticas")
+        datos.add("Matemáticas")
+        datos.add("Matemáticas")
         return datos
     }
 
     private fun mostrarDialogoPersonalizado(
-        posicion: Int
     ) {
         val builder: AlertDialog.Builder = AlertDialog.Builder(activity)
 
         builder.setMessage(
-            "Vas a devolver el lote de ${datos[posicion]} ¿Estás segur@?"
+            "¿Datos correctos?"
         )
             .setPositiveButton("Aceptar") { _, _ ->
-                if (navController.currentDestination?.id == R.id.listadoAlumnosDevolucionFragment)
-                    navController.navigate(R.id.action_listadoAlumnosDevolucionFragment_to_checkeoLibrosDevolucionFragment)
+                if (navController.currentDestination?.id == R.id.checkeoLibrosDevolucionFragment)
+                    navController.navigate(R.id.action_global_listadoAlumnosDevolucionFragment)
             }
             .setNegativeButton("CANCELAR")
             { _, _ -> }
