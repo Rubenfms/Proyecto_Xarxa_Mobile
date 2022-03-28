@@ -10,12 +10,10 @@ import com.xarxa.proyecto_xarxa_mobile.services.PasarPosicionInterface
 class ListadoDevolucionRecyclerHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     private var nombreAlumno: TextView = itemView.findViewById(R.id.nombreAlumnoListaDevolucion)
-    private var loteDevuelto: CheckBox = itemView.findViewById(R.id.devueltoCheckBox)
+    private var loteDevuelto: TextView = itemView.findViewById(R.id.devueltoTextView)
     private var loteCompleto: TextView = itemView.findViewById(R.id.completoTextView)
 
     fun bind(cadena: String) {
         nombreAlumno.text = cadena
-        loteDevuelto.isChecked = false
-        loteCompleto.text = "" // HAY QUE CAMBIARLO
     }
 }

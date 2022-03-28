@@ -43,7 +43,6 @@
     <style name="Widget.MyApp.Button" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="android:layout_gravity">center</item>
         <item name="android:textColor">@color/primaryDarkColor</item>
-        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Headline6</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
     </style>

@@ -65,16 +65,17 @@
             android:singleLine="true" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/iniciarSesionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:textStyle="bold"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:padding="10dp"
+        android:backgroundTint="@color/secondaryColor"
         android:text="@string/iniciar_sesion"
         app:icon="@drawable/ic_login_black_24dp"
         app:layout_constraintEnd_toEndOf="@id/contrasenyaInputLayout"
         app:layout_constraintTop_toBottomOf="@id/contrasenyaInputLayout" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

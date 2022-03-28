@@ -9,11 +9,11 @@ import com.xarxa.proyecto_xarxa_mobile.R
 class ListadoEntregaRecyclerHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     private var nombreAlumno: TextView = itemView.findViewById(R.id.nombreAlumnoListaEntrega)
-    private var loteEntregado: CheckBox = itemView.findViewById(R.id.loteEntregadoCheckBox)
+    private var loteEntregado: TextView = itemView.findViewById(R.id.loteEntregadoTextView)
 
     fun bind(cadena: String) {
         nombreAlumno.text = cadena
-        loteEntregado.isChecked = false // HAY QUE CAMBIARLO
+        loteEntregado.text = "Sí"
     }
 
 }

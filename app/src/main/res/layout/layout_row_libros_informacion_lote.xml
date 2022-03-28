@@ -3,9 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="5dp"
-    android:layout_marginTop="2dp"
-    android:layout_marginEnd="5dp"
+    android:layout_marginTop="3dp"
     app:cardCornerRadius="5dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,20 +16,38 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:src="@drawable/ic_book_white_24dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/primaryDarkColor" />
 
         <TextView
             android:id="@+id/nombreLibroTextView"
-            android:layout_width="200dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_marginStart="5dp"
             android:text="@string/libro"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/iconoImageView"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@id/iconoImageView" />
+
+        <TextView
+            android:id="@+id/cursoLibroTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="@string/curso_minusculas"
+            app:layout_constraintStart_toStartOf="@id/nombreLibroTextView"
+            app:layout_constraintTop_toBottomOf="@id/nombreLibroTextView" />
+
+        <TextView
+            android:id="@+id/editorialLibroTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="@string/editorial"
+            app:layout_constraintStart_toStartOf="@id/cursoLibroTextView"
+            app:layout_constraintTop_toBottomOf="@id/cursoLibroTextView" />
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

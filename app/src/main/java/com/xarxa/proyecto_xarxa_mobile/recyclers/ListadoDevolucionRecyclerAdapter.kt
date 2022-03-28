@@ -8,11 +8,11 @@ import com.xarxa.proyecto_xarxa_mobile.R
 import com.xarxa.proyecto_xarxa_mobile.services.PasarPosicionInterface
 
 class ListadoDevolucionRecyclerAdapter(datos: ArrayList<String>) :
-    RecyclerView.Adapter<ListadoDevolucionRecyclerHolder>(), View.OnLongClickListener {
+    RecyclerView.Adapter<ListadoDevolucionRecyclerHolder>(), View.OnClickListener {
 
     private lateinit var view: View
     private var datos: ArrayList<String> = datos
-    private lateinit var longClickListener: View.OnLongClickListener
+    private lateinit var clickListener: View.OnClickListener
 
 
     override fun onCreateViewHolder(
@@ -24,7 +24,7 @@ class ListadoDevolucionRecyclerAdapter(datos: ArrayList<String>) :
                 .inflate(R.layout.layout_row_lista_alu_devolucion, parent, false)
 
         val holder = ListadoDevolucionRecyclerHolder(view)
-        view.setOnLongClickListener(this)
+        view.setOnClickListener(this)
 
         return holder
     }
@@ -37,12 +37,11 @@ class ListadoDevolucionRecyclerAdapter(datos: ArrayList<String>) :
         return datos.size
     }
 
-    fun longClick(listener: View.OnLongClickListener) {
-        longClickListener = listener
+    fun clickListener(listener: View.OnClickListener) {
+        clickListener = listener
     }
 
-    override fun onLongClick(p0: View?): Boolean {
-        longClickListener.onLongClick(p0)
-        return false
+    override fun onClick(p0: View?) {
+        clickListener.onClick(p0)
     }
 }

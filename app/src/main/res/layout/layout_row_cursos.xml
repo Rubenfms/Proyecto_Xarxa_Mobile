@@ -11,8 +11,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="10dp"
-        android:text="@string/curso"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-        android:textStyle="bold" />
+        android:text="@string/curso"/>
 
 </com.google.android.material.card.MaterialCardView>

@@ -17,6 +17,9 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             android:ellipsize="end"
             android:maxLines="1"
             android:text="@string/nombre_apellido1"
@@ -24,12 +27,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <CheckBox
-            android:id="@+id/loteEntregadoCheckBox"
+        <TextView
+            android:id="@+id/loteEntregadoTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="15dp"
-            android:clickable="false"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:text="@string/si"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

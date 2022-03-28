@@ -11,8 +11,6 @@
     <string name="localizacion">Localización</string>
     <string name="busqueda_libros">Búsqueda de libros</string>
     <string name="icono_camara">Icono cámara</string>
-    <string name="navigation_open">Abrir</string>
-    <string name="navigation_close">Cerrar</string>
     <string name="inicio">Inicio</string>
     <string name="curso">CURSO</string>
     <string name="nombre_apellido1">Nombre Apellido1</string>
@@ -39,10 +37,15 @@
     <string name="aceptar">Aceptar</string>
     <string name="libro">Libro</string>
     <string name="yes">Yes</string>
-    <string name="chequea_los_libros_a_devolver">Chequea los libros a devolver</string>
-    <string name="ver_lote">Ver lote</string>
+    <string name="chequea_los_libros_a_devolver">CHEQUEA LOS LIBROS A DEVOLVER</string>
     <string name="añadir_lote">Añadir lote</string>
     <string name="modificar_lote">Modificar lote</string>
     <string name="cancelar">Cancelar</string>
-    <string name="libros_lote">Libros de ALUMNOX</string>
+    <string name="libros_lote">Libros del lote X</string>
+    <string name="editorial">Editorial</string>
+    <string name="si">Sí</string>
+    <string name="guion">-</string>
+    <string name="detalles">Detalles</string>
+    <string name="ver_lote">Ver lote</string>
+    <string name="elige_un_lote">ELIGE UN LOTE</string>
 </resources>

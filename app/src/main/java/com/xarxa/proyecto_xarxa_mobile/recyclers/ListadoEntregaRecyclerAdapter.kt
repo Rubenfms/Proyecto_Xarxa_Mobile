@@ -7,11 +7,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.xarxa.proyecto_xarxa_mobile.R
 
 class ListadoEntregaRecyclerAdapter(datos: ArrayList<String>) :
-    RecyclerView.Adapter<ListadoEntregaRecyclerHolder>(), View.OnLongClickListener {
+    RecyclerView.Adapter<ListadoEntregaRecyclerHolder>(), View.OnClickListener {
 
     private lateinit var view: View
     private var datos: ArrayList<String> = datos
-    private lateinit var longClickListener: View.OnLongClickListener
+    private lateinit var clickListener: View.OnClickListener
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -21,7 +21,7 @@ class ListadoEntregaRecyclerAdapter(datos: ArrayList<String>) :
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.layout_row_lista_alu_entrega, parent, false)
 
-        view.setOnLongClickListener(this)
+        view.setOnClickListener(this)
 
         return ListadoEntregaRecyclerHolder(view)
     }
@@ -34,12 +34,11 @@ class ListadoEntregaRecyclerAdapter(datos: ArrayList<String>) :
         return datos.size
     }
 
-    fun longClick(listener: View.OnLongClickListener) {
-        longClickListener = listener
+    fun clickListener(listener: View.OnClickListener) {
+        clickListener = listener
     }
 
-    override fun onLongClick(p0: View?): Boolean {
-        longClickListener.onLongClick(p0)
-        return false
+    override fun onClick(p0: View?) {
+        clickListener.onClick(p0)
     }
 }

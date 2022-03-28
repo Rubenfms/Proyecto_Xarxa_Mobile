@@ -39,7 +39,7 @@ class ListadoAlumnosDevolucionFragment : Fragment() {
         datos = rellenarDatos()
         cargarRecycler()
 
-        adaptador.longClick {
+        adaptador.clickListener {
             val posicion = recyclerView.getChildAdapterPosition(it)
             mostrarDialogoPersonalizado(posicion)
             true

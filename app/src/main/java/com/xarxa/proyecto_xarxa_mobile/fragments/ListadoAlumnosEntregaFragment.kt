@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.xarxa.proyecto_xarxa_mobile.R
@@ -22,6 +24,9 @@ class ListadoAlumnosEntregaFragment : Fragment() {
     private var datos: ArrayList<String> = ArrayList()
     private lateinit var adaptador: ListadoEntregaRecyclerAdapter
     private lateinit var recyclerView: RecyclerView
+    private lateinit var navController: NavController
+    private lateinit var añadirModificarDialog : AñadirModificarLoteDialogFragment
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,14 +38,15 @@ class ListadoAlumnosEntregaFragment : Fragment() {
         _binding = LayoutListaAlumnosEntregaBinding.inflate(inflater, container, false)
         val view = binding.root
 
+        navController = NavHostFragment.findNavController(this)
         recyclerView = binding.recyclerAlumnosEntrega
+        añadirModificarDialog = AñadirModificarLoteDialogFragment()
         datos = rellenarDatos()
         cargarRecycler()
 
-        adaptador.longClick {
+        adaptador.clickListener {
             val posicion = recyclerView.getChildAdapterPosition(it)
-            showPopup(recyclerView[posicion].findViewById(R.id.loteEntregadoCheckBox), posicion)
-            true
+            showPopup(recyclerView[posicion].findViewById(R.id.loteEntregadoTextView), posicion)
         }
 
         return view
@@ -70,10 +76,10 @@ class ListadoAlumnosEntregaFragment : Fragment() {
                     mostrarDialogoPersonalizado(posicion)
                 }
                 R.id.añadirLoteOption -> {
-
+                    añadirModificarDialog.show(requireActivity().supportFragmentManager, "Añadir/Modificar Lotes Diálogo")
                 }
                 R.id.modificarLoteOption -> {
-
+                    añadirModificarDialog.show(requireActivity().supportFragmentManager, "Añadir/Modificar Lotes Diálogo")
                 }
                 R.id.cancelarOption -> menuEmergente.dismiss()
             }
@@ -86,12 +92,15 @@ class ListadoAlumnosEntregaFragment : Fragment() {
         posicion: Int
     ) {
         val builder: AlertDialog.Builder = AlertDialog.Builder(activity)
-        val lote = "LOTE X"
+        val lote = "000"
         builder.setMessage(
-            "El lote de ${datos[posicion]} es $lote"
+            "El número de lote de ${datos[posicion]} es $lote ¿Deseas verlo con más detalle?"
         )
-            .setPositiveButton("Aceptar") { _, _ ->
-
+            .setPositiveButton("Ver") { _, _ ->
+                if (navController.currentDestination?.id == R.id.listadoAlumnosEntregaFragment)
+                    navController.navigate(R.id.action_listadoAlumnosEntregaFragment_to_informacionLoteFragment)
+            }
+            .setNegativeButton("Cerrar") { _, _ ->
             }.show()
     }
 
