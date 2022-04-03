@@ -6,13 +6,14 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.xarxa.proyecto_xarxa_mobile.R
+import com.xarxa.proyecto_xarxa_mobile.modelos.Alumno
 
-class ListadoLocalizacionRecyclerAdapter(datos: ArrayList<String>) :
+class ListadoLocalizacionRecyclerAdapter(datos: ArrayList<Alumno>) :
     RecyclerView.Adapter<ListadoLocalizacionRecyclerAdapter.AlumnosLocalizacionRecyclerHolder>(),
     View.OnClickListener {
 
     private lateinit var view: View
-    private var datos: ArrayList<String> = datos
+    private var listaAlumnos: ArrayList<Alumno> = datos
     private lateinit var clickListenerAlumnos: View.OnClickListener
 
     override fun onCreateViewHolder(
@@ -28,11 +29,11 @@ class ListadoLocalizacionRecyclerAdapter(datos: ArrayList<String>) :
     }
 
     override fun onBindViewHolder(holder: AlumnosLocalizacionRecyclerHolder, position: Int) {
-        holder.bind(datos[position])
+        holder.bind(listaAlumnos[position])
     }
 
     override fun getItemCount(): Int {
-        return datos.size
+        return listaAlumnos.size
     }
 
     fun onClickListenerAlumnos(clickListener: View.OnClickListener) {
@@ -46,10 +47,14 @@ class ListadoLocalizacionRecyclerAdapter(datos: ArrayList<String>) :
     inner class AlumnosLocalizacionRecyclerHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
 
-        private var alumno: TextView = itemView.findViewById(R.id.nombreAlumnoListaLocalizacion)
+        private var nombreApellidos: TextView =
+            itemView.findViewById(R.id.nombreAlumnoListaLocalizacion)
+        private var grupo: TextView = itemView.findViewById(R.id.cursoAlumnoListaLocalizacion)
 
-        fun bind(cadena: String) {
-            alumno.text = cadena
+
+        fun bind(alumno: Alumno) {
+            nombreApellidos.text = "${alumno.nombre} ${alumno.apellido1}"
+            grupo.text = alumno.grupo
         }
     }
 }

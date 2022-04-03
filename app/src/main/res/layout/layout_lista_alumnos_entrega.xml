@@ -5,32 +5,54 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/entregaLotesCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/primaryColor"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="15dp">
+
+        <TextView
+            android:id="@+id/entregaLotesTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:text="@string/entrega_lote"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+            android:textColor="@color/primaryTextColor"/>
+    </com.google.android.material.card.MaterialCardView>
+
     <TextView
         android:id="@+id/alumnosTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="23dp"
         android:text="@string/alumnos"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/entregaLotesCardView" />
 
     <TextView
         android:id="@+id/loteEntregadoTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="23dp"
         android:text="@string/lote_entregado"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/entregaLotesCardView" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerAlumnosEntrega"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/alumnosTextView" />

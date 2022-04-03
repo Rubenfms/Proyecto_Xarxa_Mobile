@@ -4,16 +4,17 @@ import java.util.*
 
 class Alumno() {
 
-    private var nia: Int
-    private var nombre: String
-    private var apellido1: String
-    private var apellido2: String
-    private var fechaNacimiento: Date
-    private var estadoMatriculacion: String
-    private var curso: String
-    private var grupo: String
-    private var incidencias: String
-    private var perteneceXarxa: Boolean
+    var nia: Int
+    var nombre: String
+    var apellido1: String
+    var apellido2: String
+    var fechaNacimiento: Date
+    var estadoMatriculacion: String
+    var curso: String
+    var grupo: String
+    var incidencias: String
+    var perteneceXarxa: Boolean
+    var loteCollection : ArrayList<Lote>
 
     constructor(
         nia: Int,
@@ -25,7 +26,8 @@ class Alumno() {
         curso: String,
         grupo: String,
         incidencias: String,
-        perteneceXarxa: Boolean
+        perteneceXarxa: Boolean,
+        loteCollection : ArrayList<Lote>
     ) : this() {
         this.nia = nia
         this.nombre = nombre
@@ -37,6 +39,7 @@ class Alumno() {
         this.grupo = grupo
         this.incidencias = incidencias
         this.perteneceXarxa = perteneceXarxa
+        this.loteCollection = loteCollection
     }
 
     init {
@@ -50,12 +53,10 @@ class Alumno() {
         grupo = ""
         incidencias = ""
         perteneceXarxa = false
+        loteCollection = arrayListOf()
     }
-
 
     override fun toString(): String {
         return "Alumno(nia=$nia, nombre='$nombre', apellido1='$apellido1', apellido2='$apellido2', fechaNacimiento=$fechaNacimiento, estadoMatriculacion='$estadoMatriculacion', curso='$curso', grupo='$grupo', incidencias='$incidencias', perteneceXarxa=$perteneceXarxa)"
     }
-
-
 }

@@ -5,23 +5,34 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.navigation.NavigationView
 import com.xarxa.proyecto_xarxa_mobile.R
 import com.xarxa.proyecto_xarxa_mobile.databinding.LayoutEntregaBinding
+import com.xarxa.proyecto_xarxa_mobile.modelos.Alumno
 import com.xarxa.proyecto_xarxa_mobile.recyclers.CursosRecyclerAdapter
+import com.xarxa.proyecto_xarxa_mobile.services.APIRestAdapter
+import com.xarxa.proyecto_xarxa_mobile.services.XarxaViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class EntregaFragment : Fragment() {
 
     private lateinit var _binding: LayoutEntregaBinding
     private val binding get() = _binding
-    private var datos: ArrayList<String> = ArrayList()
+    private var listaCursos: ArrayList<String> = ArrayList()
+    private var listaAlumnos: ArrayList<Alumno> = ArrayList()
     private lateinit var adaptador: CursosRecyclerAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var navController: NavController
+    private lateinit var adaptadorAPIRest: APIRestAdapter
+    private val xarxaViewModel: XarxaViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,30 +48,39 @@ class EntregaFragment : Fragment() {
 
         navController = NavHostFragment.findNavController(this)
         recyclerView = binding.recyclerCursosEntrega
-        datos = rellenarDatos()
-        cargarRecycler()
+        adaptadorAPIRest = APIRestAdapter()
+        getAlumnos()
 
-        adaptador.onClickListenerCursos {
-            if (navController.currentDestination?.id == R.id.entregaFragment)
-                navController.navigate(R.id.action_entregaFragment_to_listadoAlumnosEntregaFragment)
-        }
         return view
     }
 
-    private fun cargarRecycler() {
-        adaptador = CursosRecyclerAdapter(datos)
-        recyclerView.adapter = adaptador
-        recyclerView.layoutManager = GridLayoutManager(requireActivity(), 3)
+    private fun getAlumnos() {
+        CoroutineScope(Dispatchers.Main).launch {
+            listaAlumnos = adaptadorAPIRest.getAlumnosAsync().await()
+            logicaCursos()
+        }
     }
 
-    private fun rellenarDatos(): ArrayList<String> {
-        var datos: ArrayList<String> = ArrayList()
-        datos.add("1ªESO A")
-        datos.add("1ºESO B")
-        datos.add("1ºESO C")
-        datos.add("2ºESO A")
-        datos.add("3ºESO A")
-        datos.add("4ºESO A")
-        return datos
+    private fun cargarRecyclerCursos() {
+        adaptador = CursosRecyclerAdapter(listaCursos)
+        recyclerView.adapter = adaptador
+        recyclerView.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
+
+        adaptador.onClickListenerCursos {
+            val posicion = recyclerView.getChildAdapterPosition(it)
+            xarxaViewModel.setCurso(listaCursos[posicion])
+            if (navController.currentDestination?.id == R.id.entregaFragment)
+                navController.navigate(R.id.action_entregaFragment_to_listadoAlumnosEntregaFragment)
+        }
+    }
+
+    private fun logicaCursos() {
+        for (i in 0 until listaAlumnos.size) {
+            if (!listaCursos.contains(listaAlumnos[i].grupo)) {
+                listaCursos.add(listaAlumnos[i].grupo)
+            }
+        }
+        listaCursos.sort()
+        cargarRecyclerCursos()
     }
 }

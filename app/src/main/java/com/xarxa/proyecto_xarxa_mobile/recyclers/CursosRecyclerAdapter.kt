@@ -12,7 +12,7 @@ class CursosRecyclerAdapter(datos: ArrayList<String>) :
 
     private lateinit var view: View
     private var datos: ArrayList<String> = datos
-    private lateinit var clickListenerCursos : View.OnClickListener
+    private lateinit var clickListenerCursos: View.OnClickListener
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -26,7 +26,14 @@ class CursosRecyclerAdapter(datos: ArrayList<String>) :
     }
 
     override fun onBindViewHolder(holder: CursosRecyclerHolder, position: Int) {
-        holder.bind(datos[position])
+        var visibilidadLinea = false
+        if (position + 1 != datos.size) {
+            if (datos[position][0] != datos[position + 1][0]) {
+                visibilidadLinea = true
+            }
+        }
+        holder.bind(datos[position], visibilidadLinea)
+
     }
 
     override fun getItemCount(): Int {
@@ -36,9 +43,12 @@ class CursosRecyclerAdapter(datos: ArrayList<String>) :
     inner class CursosRecyclerHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private var curso: TextView = itemView.findViewById(R.id.cursosTextView)
+        private var linea: View = itemView.findViewById(R.id.linea)
 
-        fun bind(cadena: String) {
+        fun bind(cadena: String, visibilidadLinea: Boolean) {
             curso.text = cadena
+            if (visibilidadLinea)
+                linea.visibility = View.VISIBLE
         }
     }
 

@@ -5,12 +5,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.xarxa.proyecto_xarxa_mobile.R
+import com.xarxa.proyecto_xarxa_mobile.modelos.Alumno
 
-class ListadoEntregaRecyclerAdapter(datos: ArrayList<String>) :
+class ListadoEntregaRecyclerAdapter(datos: ArrayList<Alumno>) :
     RecyclerView.Adapter<ListadoEntregaRecyclerHolder>(), View.OnClickListener {
 
     private lateinit var view: View
-    private var datos: ArrayList<String> = datos
+    private var datos: ArrayList<Alumno> = datos
     private lateinit var clickListener: View.OnClickListener
 
     override fun onCreateViewHolder(

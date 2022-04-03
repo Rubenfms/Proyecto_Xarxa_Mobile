@@ -13,6 +13,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,19 +22,27 @@ import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.xarxa.proyecto_xarxa_mobile.R
 import com.xarxa.proyecto_xarxa_mobile.databinding.LayoutLocalizacionBinding
+import com.xarxa.proyecto_xarxa_mobile.modelos.Alumno
 import com.xarxa.proyecto_xarxa_mobile.recyclers.ListadoLocalizacionRecyclerAdapter
+import com.xarxa.proyecto_xarxa_mobile.services.APIRestAdapter
 import com.xarxa.proyecto_xarxa_mobile.services.CodigoBarrasScanner
+import com.xarxa.proyecto_xarxa_mobile.services.XarxaViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class LocalizacionFragment : Fragment(), SearchView.OnQueryTextListener {
 
     private lateinit var _binding: LayoutLocalizacionBinding
     private val binding get() = _binding
-    private var datos: ArrayList<String> = ArrayList()
+    private var listaAlumnos: ArrayList<Alumno> = ArrayList()
     private lateinit var adaptador: ListadoLocalizacionRecyclerAdapter
     private lateinit var registerPermisosCamera: ActivityResultLauncher<String>
     private lateinit var resultadoCamara: ActivityResultLauncher<Intent>
     private lateinit var recyclerView: RecyclerView
     private lateinit var navController: NavController
+    private lateinit var adaptadorAPIRest: APIRestAdapter
+    private val xarxaViewModel: XarxaViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,32 +58,34 @@ class LocalizacionFragment : Fragment(), SearchView.OnQueryTextListener {
         setHasOptionsMenu(true)
         navController = NavHostFragment.findNavController(this)
         recyclerView = binding.recyclerAlumnosLocalizacion
-        datos = rellenarDatos()
-        cargarRecyclerAlumnos()
+        adaptadorAPIRest = APIRestAdapter()
+        getAlumnos()
+
         creaContrato()
         crearContratoPermisosYAbreCamara()
-
-        adaptador.onClickListenerAlumnos {
-            if (navController.currentDestination?.id == R.id.localizacionFragment)
-                navController.navigate(R.id.action_localizacionFragment_to_informacionAlumnoFragment)
-        }
 
         return view
     }
 
+    private fun getAlumnos() {
+        CoroutineScope(Dispatchers.Main).launch {
+            listaAlumnos = adaptadorAPIRest.getAlumnosAsync().await()
+            cargarRecyclerAlumnos()
+        }
+    }
+
     private fun cargarRecyclerAlumnos() {
-        adaptador = ListadoLocalizacionRecyclerAdapter(datos)
+        adaptador = ListadoLocalizacionRecyclerAdapter(listaAlumnos)
         recyclerView.adapter = adaptador
         recyclerView.layoutManager =
             LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
-    }
 
-    private fun rellenarDatos(): ArrayList<String> {
-        val datos: ArrayList<String> = ArrayList()
-        datos.add("Juandi Cabrera")
-        datos.add("Rubén Sánchez")
-        datos.add("Joaquín Cutillas")
-        return datos
+        adaptador.onClickListenerAlumnos {
+            val posicion = recyclerView.getChildAdapterPosition(it)
+            xarxaViewModel.setNia(listaAlumnos[posicion].nia)
+            if (navController.currentDestination?.id == R.id.localizacionFragment)
+                navController.navigate(R.id.action_localizacionFragment_to_informacionAlumnoFragment)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -128,7 +139,11 @@ class LocalizacionFragment : Fragment(), SearchView.OnQueryTextListener {
                 if (result.resultCode == Activity.RESULT_OK) {
                     // AQUÍ SE SALTARÁ AL FRAGMENT INFORMACIÓN ALUMNMO
                     val resultado = result.data!!.getStringExtra("codigo").toString()
-                    Snackbar.make(requireActivity().findViewById(R.id.fragmentContainer), "Has filtrado un alumno por el código de un libro ($resultado)", Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(
+                        requireActivity().findViewById(R.id.fragmentContainer),
+                        "Has filtrado un alumno por el código de un libro ($resultado)",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
                 }
             }
     }
@@ -142,12 +157,12 @@ class LocalizacionFragment : Fragment(), SearchView.OnQueryTextListener {
     // HAY QUE CAMBIAR EL MÉTODO DE FILTRADO PARA QUE SEA POR NIA, LOTE Y NOMBRE
     private fun filtrar(textoAFiltrar: String) {
         if (TextUtils.isEmpty(textoAFiltrar)) {
-            adaptador = ListadoLocalizacionRecyclerAdapter(datos)
+            adaptador = ListadoLocalizacionRecyclerAdapter(listaAlumnos)
             recyclerView.adapter = adaptador
         } else {
-            val listaFiltrada = ArrayList<String>()
-            for (x in datos) {
-                val text = x.lowercase()
+            val listaFiltrada = ArrayList<Alumno>()
+            for (x in listaAlumnos) {
+                val text = x.nombre.lowercase()
                 if (text.contains(textoAFiltrar.lowercase())) listaFiltrada.add(x)
                 else if (text.indexOf(textoAFiltrar.lowercase()) == 0) listaFiltrada.add(x)
                 adaptador = ListadoLocalizacionRecyclerAdapter(listaFiltrada)

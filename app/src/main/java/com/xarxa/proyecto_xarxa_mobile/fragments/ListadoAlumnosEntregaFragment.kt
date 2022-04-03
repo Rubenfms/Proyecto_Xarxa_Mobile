@@ -1,6 +1,5 @@
 package com.xarxa.proyecto_xarxa_mobile.fragments
 
-import android.Manifest
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,17 +17,25 @@ import androidx.recyclerview.widget.RecyclerView
 import com.xarxa.proyecto_xarxa_mobile.R
 import com.xarxa.proyecto_xarxa_mobile.recyclers.ListadoEntregaRecyclerAdapter
 import com.xarxa.proyecto_xarxa_mobile.databinding.LayoutListaAlumnosEntregaBinding
+import com.xarxa.proyecto_xarxa_mobile.modelos.Alumno
+import com.xarxa.proyecto_xarxa_mobile.services.APIRestAdapter
+import com.xarxa.proyecto_xarxa_mobile.services.XarxaViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class ListadoAlumnosEntregaFragment : Fragment() {
 
     private lateinit var _binding: LayoutListaAlumnosEntregaBinding
     private val binding get() = _binding
-    private var datos: ArrayList<String> = ArrayList()
+    private var listaAlumnos: ArrayList<Alumno> = ArrayList()
     private lateinit var adaptador: ListadoEntregaRecyclerAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var navController: NavController
-    private lateinit var añadirModificarDialog : AñadirModificarLoteDialogFragment
-
+    private lateinit var añadirModificarDialog: AñadirModificarLoteFragment
+    private lateinit var grupo: String
+    private lateinit var adaptadorAPIRest: APIRestAdapter
+    private val xarxaViewModel: XarxaViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,46 +49,57 @@ class ListadoAlumnosEntregaFragment : Fragment() {
 
         navController = NavHostFragment.findNavController(this)
         recyclerView = binding.recyclerAlumnosEntrega
-        añadirModificarDialog = AñadirModificarLoteDialogFragment()
-        datos = rellenarDatos()
-        cargarRecycler()
+        adaptadorAPIRest = APIRestAdapter()
+        añadirModificarDialog = AñadirModificarLoteFragment()
+        recibirCurso()
+        getAlumnos()
+
+        return view
+    }
+
+    private fun getAlumnos() {
+        CoroutineScope(Dispatchers.Main).launch {
+            listaAlumnos = adaptadorAPIRest.getAlumnosByGrupoAsync(grupo).await()
+            cargarRecyclerAlumnos()
+        }
+    }
+
+    private fun cargarRecyclerAlumnos() {
+        adaptador = ListadoEntregaRecyclerAdapter(listaAlumnos)
+        recyclerView.adapter = adaptador
+        recyclerView.layoutManager =
+            LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
 
         adaptador.clickListener {
             val posicion = recyclerView.getChildAdapterPosition(it)
             showPopup(recyclerView[posicion].findViewById(R.id.loteEntregadoTextView), posicion)
         }
-
-        return view
-    }
-
-    private fun cargarRecycler() {
-        adaptador = ListadoEntregaRecyclerAdapter(datos)
-        recyclerView.adapter = adaptador
-        recyclerView.layoutManager =
-            LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
-    }
-
-    private fun rellenarDatos(): ArrayList<String> {
-        var datos: ArrayList<String> = ArrayList()
-        datos.add("Juandi Cabrera")
-        datos.add("Rubén Sánchez")
-        datos.add("Joaquín Cutillas")
-        return datos
     }
 
     private fun showPopup(view: View, posicion: Int) {
         val menuEmergente = PopupMenu(requireActivity(), view)
         menuEmergente.inflate(R.menu.entrega_lote_menu)
+        menuEmergente.menu.setGroupVisible(
+            R.id.opcionesLoteExistente,
+            listaAlumnos[posicion].loteCollection.isNotEmpty()
+        )
+        menuEmergente.menu.setGroupVisible(
+            R.id.opcionesLoteNuevo,
+            listaAlumnos[posicion].loteCollection.isEmpty()
+        )
+
         menuEmergente.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.verLoteOption -> {
                     mostrarDialogoPersonalizado(posicion)
                 }
                 R.id.añadirLoteOption -> {
-                    añadirModificarDialog.show(requireActivity().supportFragmentManager, "Añadir/Modificar Lotes Diálogo")
+                    if (navController.currentDestination?.id == R.id.listadoAlumnosEntregaFragment)
+                        navController.navigate(R.id.action_listadoAlumnosEntregaFragment_to_añadirModificarLoteFragment)
                 }
                 R.id.modificarLoteOption -> {
-                    añadirModificarDialog.show(requireActivity().supportFragmentManager, "Añadir/Modificar Lotes Diálogo")
+                    if (navController.currentDestination?.id == R.id.listadoAlumnosEntregaFragment)
+                        navController.navigate(R.id.action_listadoAlumnosEntregaFragment_to_añadirModificarLoteFragment)
                 }
                 R.id.cancelarOption -> menuEmergente.dismiss()
             }
@@ -94,7 +114,7 @@ class ListadoAlumnosEntregaFragment : Fragment() {
         val builder: AlertDialog.Builder = AlertDialog.Builder(activity)
         val lote = "000"
         builder.setMessage(
-            "El número de lote de ${datos[posicion]} es $lote ¿Deseas verlo con más detalle?"
+            "El número de lote de ${listaAlumnos[posicion]} es $lote ¿Deseas verlo con más detalle?"
         )
             .setPositiveButton("Ver") { _, _ ->
                 if (navController.currentDestination?.id == R.id.listadoAlumnosEntregaFragment)
@@ -102,6 +122,11 @@ class ListadoAlumnosEntregaFragment : Fragment() {
             }
             .setNegativeButton("Cerrar") { _, _ ->
             }.show()
+    }
+
+    private fun recibirCurso() {
+        val grupoObserver = Observer<String> { i -> grupo = i }
+        xarxaViewModel.getCurso().observe(requireActivity(), grupoObserver)
     }
 
 }

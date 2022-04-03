@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <item
-        android:id="@+id/escanearOption"
-        android:icon="@drawable/ic_document_scanner_white_24dp"
-        android:title="@string/escanear"
-        app:showAsAction="ifRoom|collapseActionView" />
+    <group android:id="@+id/escanerGroup">
+        <item
+            android:id="@+id/escanearOption"
+            android:icon="@drawable/ic_document_scanner_white_24dp"
+            android:title="@string/escanear"
+            app:showAsAction="ifRoom|collapseActionView" />
+    </group>
 
     <item
         android:id="@+id/actionSearch"

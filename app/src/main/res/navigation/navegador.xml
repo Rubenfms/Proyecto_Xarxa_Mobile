@@ -61,6 +61,9 @@
         <action
             android:id="@+id/action_listadoAlumnosEntregaFragment_to_informacionLoteFragment"
             app:destination="@id/informacionLoteFragment" />
+        <action
+            android:id="@+id/action_listadoAlumnosEntregaFragment_to_añadirModificarLoteFragment"
+            app:destination="@id/añadirModificarLoteFragment" />
     </fragment>
     <fragment
         android:id="@+id/listadoAlumnosDevolucionFragment"
@@ -86,4 +89,8 @@
         android:id="@+id/informacionLoteFragment"
         android:name="com.xarxa.proyecto_xarxa_mobile.fragments.InformacionLoteFragment"
         android:label="InformacionLoteFragment" />
+    <fragment
+        android:id="@+id/añadirModificarLoteFragment"
+        android:name="com.xarxa.proyecto_xarxa_mobile.fragments.AñadirModificarLoteFragment"
+        android:label="AñadirModificarLoteFragment" />
 </navigation>
