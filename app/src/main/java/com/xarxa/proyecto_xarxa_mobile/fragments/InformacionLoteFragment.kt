@@ -5,21 +5,33 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.xarxa.proyecto_xarxa_mobile.databinding.LayoutInformacionLoteBinding
+import com.xarxa.proyecto_xarxa_mobile.modelos.Alumno
+import com.xarxa.proyecto_xarxa_mobile.modelos.Lote
 import com.xarxa.proyecto_xarxa_mobile.recyclers.LibrosInformacionLoteRecyclerAdapter
+import com.xarxa.proyecto_xarxa_mobile.services.APIRestAdapter
+import com.xarxa.proyecto_xarxa_mobile.services.XarxaViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class InformacionLoteFragment : Fragment() {
 
     private lateinit var _binding: LayoutInformacionLoteBinding
     private val binding get() = _binding
-    private var datos: ArrayList<String> = ArrayList()
     private lateinit var adaptador: LibrosInformacionLoteRecyclerAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var navController: NavController
+    private var idLote: Int = 0
+    private var lote = Lote()
+    private lateinit var adaptadorAPIRest: APIRestAdapter
+    private val xarxaViewModel: XarxaViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,26 +45,31 @@ class InformacionLoteFragment : Fragment() {
 
         navController = NavHostFragment.findNavController(this)
         recyclerView = binding.recyclerLibrosLote
-        datos = rellenarDatos()
-        cargarRecycler()
+        adaptadorAPIRest = APIRestAdapter()
+        recibirIDLote()
+        getLote()
 
         return view
     }
 
+    private fun getLote() {
+        CoroutineScope(Dispatchers.Main).launch {
+            lote = adaptadorAPIRest.getLoteByIdAsync(idLote).await()
+            cargarRecycler()
+        }
+    }
+
     private fun cargarRecycler() {
-        adaptador = LibrosInformacionLoteRecyclerAdapter(datos)
+        adaptador = LibrosInformacionLoteRecyclerAdapter(lote.xarxaCollection)
         recyclerView.adapter = adaptador
         recyclerView.layoutManager =
             LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
     }
 
-    private fun rellenarDatos(): ArrayList<String> {
-        var datos: ArrayList<String> = ArrayList()
-        datos.add("Matemáticas")
-        datos.add("Matemáticas")
-        datos.add("Matemáticas")
-        datos.add("Matemáticas")
-        return datos
+    private fun recibirIDLote() {
+        val idObserver = Observer<Int> { i -> idLote = i }
+        xarxaViewModel.getIdLote().observe(requireActivity(), idObserver)
+        binding.librosLoteTextView.text = "Lote con ID $idLote"
     }
 
 }

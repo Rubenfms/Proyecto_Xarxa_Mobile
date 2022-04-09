@@ -76,6 +76,4 @@
         app:layout_constraintEnd_toEndOf="@id/contrasenyaInputLayout"
         app:layout_constraintTop_toBottomOf="@id/contrasenyaInputLayout" />
 
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

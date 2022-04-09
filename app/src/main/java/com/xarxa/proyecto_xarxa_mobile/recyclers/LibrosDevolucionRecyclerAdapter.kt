@@ -4,15 +4,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.xarxa.proyecto_xarxa_mobile.R
+import com.xarxa.proyecto_xarxa_mobile.modelos.Xarxa
 
-class LibrosDevolucionRecyclerAdapter(datos: ArrayList<String>) :
+class LibrosDevolucionRecyclerAdapter(datos: ArrayList<Xarxa>) :
     RecyclerView.Adapter<LibrosDevolucionRecyclerAdapter.LibrosRecyclerHolder>() {
 
     private lateinit var view: View
-    private var datos: ArrayList<String> = datos
+    private var datos: ArrayList<Xarxa> = datos
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -37,8 +37,8 @@ class LibrosDevolucionRecyclerAdapter(datos: ArrayList<String>) :
 
         private var libro: CheckBox = itemView.findViewById(R.id.nombreLibroTextView)
 
-        fun bind(cadena: String) {
-            libro.text = cadena
+        fun bind(xarxa: Xarxa) {
+            libro.text = xarxa.isbn.titulo
         }
     }
 

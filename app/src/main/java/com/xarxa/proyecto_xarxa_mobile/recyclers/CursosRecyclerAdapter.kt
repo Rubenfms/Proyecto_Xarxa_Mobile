@@ -28,7 +28,7 @@ class CursosRecyclerAdapter(datos: ArrayList<String>) :
     override fun onBindViewHolder(holder: CursosRecyclerHolder, position: Int) {
         var visibilidadLinea = false
         if (position + 1 != datos.size) {
-            if (datos[position][0] != datos[position + 1][0]) {
+            if (datos[position].substring(0, datos[position].length - 1) != datos[position + 1].substring(0, datos[position].length - 1)) {
                 visibilidadLinea = true
             }
         }

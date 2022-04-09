@@ -6,26 +6,33 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.navigation.NavigationView
 import com.xarxa.proyecto_xarxa_mobile.R
 import com.xarxa.proyecto_xarxa_mobile.databinding.LayoutCheckeoIncidenciasDevolucionBinding
-import com.xarxa.proyecto_xarxa_mobile.databinding.LayoutDevolucionBinding
-import com.xarxa.proyecto_xarxa_mobile.recyclers.CursosRecyclerAdapter
+import com.xarxa.proyecto_xarxa_mobile.modelos.Alumno
 import com.xarxa.proyecto_xarxa_mobile.recyclers.LibrosDevolucionRecyclerAdapter
+import com.xarxa.proyecto_xarxa_mobile.services.APIRestAdapter
+import com.xarxa.proyecto_xarxa_mobile.services.XarxaViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class CheckeoLibrosDevolucionFragment : Fragment() {
 
     private lateinit var _binding: LayoutCheckeoIncidenciasDevolucionBinding
     private val binding get() = _binding
-    private var datos: ArrayList<String> = ArrayList()
     private lateinit var adaptador: LibrosDevolucionRecyclerAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var navController: NavController
+    private lateinit var adaptadorAPIRest: APIRestAdapter
+    private val xarxaViewModel: XarxaViewModel by activityViewModels()
+    private var alumno = Alumno()
+    private var nia: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,34 +46,28 @@ class CheckeoLibrosDevolucionFragment : Fragment() {
 
         navController = NavHostFragment.findNavController(this)
         recyclerView = binding.recyclerLibrosDevolucion
-        datos = rellenarDatos()
-        cargarRecyclerCursos()
+        adaptadorAPIRest = APIRestAdapter()
+        recibirNIA()
+        getAlumno()
 
         binding.aceptarButton.setOnClickListener {
             mostrarDialogoPersonalizado()
         }
-
         return view
     }
 
+    private fun getAlumno() {
+        CoroutineScope(Dispatchers.Main).launch {
+            alumno = adaptadorAPIRest.getAlumnoByNiaAsync(nia).await()
+            cargarRecyclerCursos()
+        }
+    }
+
     private fun cargarRecyclerCursos() {
-        adaptador = LibrosDevolucionRecyclerAdapter(datos)
+        adaptador = LibrosDevolucionRecyclerAdapter(alumno.loteCollection[0].xarxaCollection)
         recyclerView.adapter = adaptador
         recyclerView.layoutManager =
             LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
-    }
-
-    private fun rellenarDatos(): ArrayList<String> {
-        var datos: ArrayList<String> = ArrayList()
-        datos.add("Matemáticas")
-        datos.add("Matemáticas")
-        datos.add("Matemáticas")
-        datos.add("Matemáticas")
-        datos.add("Matemáticas")
-        datos.add("Matemáticas")
-        datos.add("Matemáticas")
-        datos.add("Matemáticas")
-        return datos
     }
 
     private fun mostrarDialogoPersonalizado(
@@ -83,5 +84,10 @@ class CheckeoLibrosDevolucionFragment : Fragment() {
             .setNegativeButton("CANCELAR")
             { _, _ -> }
             .show()
+    }
+
+    private fun recibirNIA() {
+        val niaObserver = Observer<Int> { i -> nia = i }
+        xarxaViewModel.getNia().observe(requireActivity(), niaObserver)
     }
 }

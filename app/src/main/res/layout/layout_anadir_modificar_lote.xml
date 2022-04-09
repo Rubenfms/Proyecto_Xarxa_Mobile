@@ -25,18 +25,27 @@
             android:textColor="@color/primaryTextColor" />
     </com.google.android.material.card.MaterialCardView>
 
+    <TextView
+        android:id="@+id/nombreModalidadTextView"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/nombre_modalidad"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/eligeLoteCardView" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerLotesEntrega"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="7dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
         android:layout_marginBottom="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/eligeLoteCardView"/>
-
+        app:layout_constraintTop_toBottomOf="@id/nombreModalidadTextView" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

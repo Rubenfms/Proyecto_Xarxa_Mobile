@@ -14,7 +14,8 @@ class Alumno() {
     var grupo: String
     var incidencias: String
     var perteneceXarxa: Boolean
-    var loteCollection : ArrayList<Lote>
+    var loteCollection: ArrayList<Lote>
+    var estadoLote: String
 
     constructor(
         nia: Int,
@@ -27,7 +28,8 @@ class Alumno() {
         grupo: String,
         incidencias: String,
         perteneceXarxa: Boolean,
-        loteCollection : ArrayList<Lote>
+        loteCollection: ArrayList<Lote>,
+        loteDevuelto : String
     ) : this() {
         this.nia = nia
         this.nombre = nombre
@@ -40,6 +42,7 @@ class Alumno() {
         this.incidencias = incidencias
         this.perteneceXarxa = perteneceXarxa
         this.loteCollection = loteCollection
+        this.estadoLote = estadoLote
     }
 
     init {
@@ -52,6 +55,7 @@ class Alumno() {
         curso = ""
         grupo = ""
         incidencias = ""
+        estadoLote = ""
         perteneceXarxa = false
         loteCollection = arrayListOf()
     }

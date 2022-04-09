@@ -3,7 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/ProyectosAndroid/ProyectoTFG/Proyecto_Xarxa_Mobile/app/src/main/res/drawable/ic_baseline_keyboard_arrow_left_24.xml" value="0.207" />
         <entry key="..\:/ProyectosAndroid/ProyectoTFG/Proyecto_Xarxa_Mobile/app/src/main/res/drawable/ic_book_black_24dp.xml" value="0.3155" />
+        <entry key="..\:/ProyectosAndroid/ProyectoTFG/Proyecto_Xarxa_Mobile/app/src/main/res/drawable/ic_book_white_24dp.xml" value="0.207" />
         <entry key="..\:/ProyectosAndroid/ProyectoTFG/Proyecto_Xarxa_Mobile/app/src/main/res/layout/activity_acciones.xml" value="0.5" />
         <entry key="..\:/ProyectosAndroid/ProyectoTFG/Proyecto_Xarxa_Mobile/app/src/main/res/layout/activity_main.xml" value="0.2674772036474164" />
         <entry key="..\:/ProyectosAndroid/ProyectoTFG/Proyecto_Xarxa_Mobile/app/src/main/res/layout/drawer_header.xml" value="0.67" />
@@ -14,12 +16,12 @@
         <entry key="..\:/ProyectosAndroid/ProyectoTFG/Proyecto_Xarxa_Mobile/app/src/main/res/layout/layout_creacion_modificacion_lote.xml" value="0.3140625" />
         <entry key="..\:/ProyectosAndroid/ProyectoTFG/Proyecto_Xarxa_Mobile/app/src/main/res/layout/layout_devolucion.xml" value="0.30833333333333335" />
         <entry key="..\:/ProyectosAndroid/ProyectoTFG/Proyecto_Xarxa_Mobile/app/src/main/res/layout/layout_entrega.xml" value="0.25" />
-        <entry key="..\:/ProyectosAndroid/ProyectoTFG/Proyecto_Xarxa_Mobile/app/src/main/res/layout/layout_informacion_alumno.xml" value="0.33" />
+        <entry key="..\:/ProyectosAndroid/ProyectoTFG/Proyecto_Xarxa_Mobile/app/src/main/res/layout/layout_informacion_alumno.xml" value="0.4779220779220779" />
         <entry key="..\:/ProyectosAndroid/ProyectoTFG/Proyecto_Xarxa_Mobile/app/src/main/res/layout/layout_informacion_lote.xml" value="0.5" />
         <entry key="..\:/ProyectosAndroid/ProyectoTFG/Proyecto_Xarxa_Mobile/app/src/main/res/layout/layout_lista_alumnos_devolucion.xml" value="0.33" />
         <entry key="..\:/ProyectosAndroid/ProyectoTFG/Proyecto_Xarxa_Mobile/app/src/main/res/layout/layout_lista_alumnos_entrega.xml" value="0.33" />
         <entry key="..\:/ProyectosAndroid/ProyectoTFG/Proyecto_Xarxa_Mobile/app/src/main/res/layout/layout_localizacion.xml" value="0.30833333333333335" />
-        <entry key="..\:/ProyectosAndroid/ProyectoTFG/Proyecto_Xarxa_Mobile/app/src/main/res/layout/layout_login.xml" value="0.5526041666666667" />
+        <entry key="..\:/ProyectosAndroid/ProyectoTFG/Proyecto_Xarxa_Mobile/app/src/main/res/layout/layout_login.xml" value="0.33" />
         <entry key="..\:/ProyectosAndroid/ProyectoTFG/Proyecto_Xarxa_Mobile/app/src/main/res/layout/layout_principal.xml" value="0.33" />
         <entry key="..\:/ProyectosAndroid/ProyectoTFG/Proyecto_Xarxa_Mobile/app/src/main/res/layout/layout_row_cursos.xml" value="0.5" />
         <entry key="..\:/ProyectosAndroid/ProyectoTFG/Proyecto_Xarxa_Mobile/app/src/main/res/layout/layout_row_entrega.xml" value="0.5" />

@@ -1,5 +1,6 @@
 package com.xarxa.proyecto_xarxa_mobile.fragments
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import com.xarxa.proyecto_xarxa_mobile.R
 import com.xarxa.proyecto_xarxa_mobile.databinding.LayoutInformacionAlumnoBinding
 import com.xarxa.proyecto_xarxa_mobile.modelos.Alumno
 import com.xarxa.proyecto_xarxa_mobile.services.APIRestAdapter
@@ -21,6 +25,7 @@ class InformacionAlumnoFragment : Fragment() {
     private val binding get() = _binding
     private val xarxaViewModel: XarxaViewModel by activityViewModels()
     private lateinit var adaptadorAPIRest: APIRestAdapter
+    private lateinit var navController: NavController
     private var alumno = Alumno()
     private var nia: Int = 0
 
@@ -35,6 +40,7 @@ class InformacionAlumnoFragment : Fragment() {
         val view = binding.root
 
         adaptadorAPIRest = APIRestAdapter()
+        navController = NavHostFragment.findNavController(this)
         recibirNIA()
         getAlumno()
 
@@ -57,6 +63,27 @@ class InformacionAlumnoFragment : Fragment() {
         binding.cursoAlumnoEditText.setText(alumno.curso)
         binding.grupoAlumnoEditText.setText(alumno.grupo)
         binding.perteneceXarxaCheckBox.isChecked = alumno.perteneceXarxa
+        if (alumno.loteCollection.isNotEmpty()) {
+            binding.loteAlumnoEditText.setText(alumno.loteCollection[0].idLote.toString())
+            binding.verLoteButton.visibility = View.VISIBLE
+            binding.verLoteButton.setOnClickListener {
+                mostrarDialogoPersonalizado()
+            }
+        }
+    }
+
+    private fun mostrarDialogoPersonalizado(
+    ) {
+        val builder: AlertDialog.Builder = AlertDialog.Builder(activity)
+        builder.setMessage("¿Ver lote?")
+            .setPositiveButton("Aceptar") { _, _ ->
+                xarxaViewModel.setIdLote(alumno.loteCollection[0].idLote)
+                if (navController.currentDestination?.id == R.id.informacionAlumnoFragment)
+                    navController.navigate(R.id.action_informacionAlumnoFragment_to_informacionLoteFragment)
+            }
+            .setNegativeButton("CANCELAR")
+            { _, _ -> }
+            .show()
     }
 
     private fun recibirNIA() {

@@ -6,12 +6,14 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.xarxa.proyecto_xarxa_mobile.R
+import com.xarxa.proyecto_xarxa_mobile.modelos.Lote
 
-class LotesEntregaRecyclerAdapter(datos: ArrayList<String>) :
-    RecyclerView.Adapter<LotesEntregaRecyclerAdapter.LotesRecyclerHolder>() {
+class LotesEntregaRecyclerAdapter(datos: ArrayList<Lote>) :
+    RecyclerView.Adapter<LotesEntregaRecyclerAdapter.LotesRecyclerHolder>(), View.OnClickListener {
 
     private lateinit var view: View
-    private var datos: ArrayList<String> = datos
+    private var datos: ArrayList<Lote> = datos
+    private lateinit var clickListener: View.OnClickListener
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -20,7 +22,7 @@ class LotesEntregaRecyclerAdapter(datos: ArrayList<String>) :
         view =
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.layout_row_lotes_entrega, parent, false)
-
+        view.setOnClickListener(this)
         return LotesRecyclerHolder(view)
     }
 
@@ -32,12 +34,22 @@ class LotesEntregaRecyclerAdapter(datos: ArrayList<String>) :
         return datos.size
     }
 
+    fun clickListener(listener: View.OnClickListener) {
+        clickListener = listener
+    }
+
+    override fun onClick(p0: View?) {
+        clickListener.onClick(p0)
+    }
+
     inner class LotesRecyclerHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private var lote: TextView = itemView.findViewById(R.id.nombreLoteTextView)
 
-        fun bind(cadena: String) {
-            lote.text = cadena
+        fun bind(l: Lote) {
+            lote.text = l.nombreModalidad
         }
     }
+
+
 }

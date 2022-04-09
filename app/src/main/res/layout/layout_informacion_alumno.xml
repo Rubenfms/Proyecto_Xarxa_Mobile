@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -98,6 +97,47 @@
                     android:text="@string/apellidos" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/loteAlumnoInformacion"
+                style="@style/Widget.MyApp.MaterialInputLayout"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="200dp"
+                android:hint="@string/lote"
+                app:layout_constraintStart_toStartOf="@id/apellidosAlumnoInformacion"
+                app:layout_constraintTop_toBottomOf="@id/apellidosAlumnoInformacion">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/loteAlumnoEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:singleLine="true"
+                    android:text="@string/lote" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/verLoteButton"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="160dp"
+                app:icon="@drawable/ic_baseline_remove_red_eye_24"
+                app:layout_constraintBottom_toBottomOf="@id/loteAlumnoInformacion"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/loteAlumnoInformacion" />
+
+            <ImageView
+                android:id="@+id/bookImageView"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="15dp"
+                android:src="@drawable/ic_baseline_library_books_24"
+                app:layout_constraintBottom_toBottomOf="@id/loteAlumnoInformacion"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/loteAlumnoInformacion"
+                app:tint="@color/primaryDarkColor" />
+
             <ImageView
                 android:id="@+id/classImageView"
                 android:layout_width="30dp"
@@ -114,8 +154,8 @@
                 style="@style/Widget.MyApp.MaterialInputLayout"
                 android:layout_marginTop="5dp"
                 android:hint="@string/estado_matriculacion"
-                app:layout_constraintStart_toStartOf="@id/apellidosAlumnoInformacion"
-                app:layout_constraintTop_toBottomOf="@id/apellidosAlumnoInformacion">
+                app:layout_constraintStart_toStartOf="@id/loteAlumnoInformacion"
+                app:layout_constraintTop_toBottomOf="@id/loteAlumnoInformacion">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/estadoMatAlumnoEditText"

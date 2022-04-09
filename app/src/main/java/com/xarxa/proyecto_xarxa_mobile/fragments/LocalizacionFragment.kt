@@ -70,6 +70,7 @@ class LocalizacionFragment : Fragment(), SearchView.OnQueryTextListener {
     private fun getAlumnos() {
         CoroutineScope(Dispatchers.Main).launch {
             listaAlumnos = adaptadorAPIRest.getAlumnosAsync().await()
+            listaAlumnos.sortBy { it.grupo }
             cargarRecyclerAlumnos()
         }
     }
@@ -153,12 +154,10 @@ class LocalizacionFragment : Fragment(), SearchView.OnQueryTextListener {
         resultadoCamara.launch(cameraIntent)
     }
 
-
     // HAY QUE CAMBIAR EL MÉTODO DE FILTRADO PARA QUE SEA POR NIA, LOTE Y NOMBRE
     private fun filtrar(textoAFiltrar: String) {
         if (TextUtils.isEmpty(textoAFiltrar)) {
-            adaptador = ListadoLocalizacionRecyclerAdapter(listaAlumnos)
-            recyclerView.adapter = adaptador
+            cargarRecyclerAlumnos()
         } else {
             val listaFiltrada = ArrayList<Alumno>()
             for (x in listaAlumnos) {

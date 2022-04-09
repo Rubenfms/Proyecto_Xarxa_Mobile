@@ -14,7 +14,7 @@
 
         <TextView
             android:id="@+id/nombreAlumnoListaLocalizacion"
-            android:layout_width="200dp"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_marginStart="6dp"
@@ -30,8 +30,7 @@
             android:id="@+id/guionTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
             android:text="@string/guion"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -41,7 +40,7 @@
 
         <TextView
             android:id="@+id/cursoAlumnoListaLocalizacion"
-            android:layout_width="50dp"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_marginStart="6dp"

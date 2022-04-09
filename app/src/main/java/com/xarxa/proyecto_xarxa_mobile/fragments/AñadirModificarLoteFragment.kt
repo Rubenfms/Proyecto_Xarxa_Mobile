@@ -1,5 +1,6 @@
 package com.xarxa.proyecto_xarxa_mobile.fragments
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.*
@@ -7,22 +8,34 @@ import android.widget.*
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.xarxa.proyecto_xarxa_mobile.R
 import com.xarxa.proyecto_xarxa_mobile.databinding.LayoutAnadirModificarLoteBinding
+import com.xarxa.proyecto_xarxa_mobile.modelos.Lote
+import com.xarxa.proyecto_xarxa_mobile.modelos.Modalidad
 import com.xarxa.proyecto_xarxa_mobile.recyclers.LotesEntregaRecyclerAdapter
+import com.xarxa.proyecto_xarxa_mobile.services.APIRestAdapter
+import com.xarxa.proyecto_xarxa_mobile.services.XarxaViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class AñadirModificarLoteFragment : Fragment(), SearchView.OnQueryTextListener {
 
-    private var datos: ArrayList<String> = ArrayList()
+    private var listaLotes: ArrayList<Lote> = ArrayList()
     private lateinit var _binding: LayoutAnadirModificarLoteBinding
     private val binding get() = _binding
+    private var nia: Int = 0
     private lateinit var adaptador: LotesEntregaRecyclerAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var navController: NavController
+    private lateinit var adaptadorAPIRest: APIRestAdapter
+    private val xarxaViewModel: XarxaViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,27 +50,35 @@ class AñadirModificarLoteFragment : Fragment(), SearchView.OnQueryTextListener 
         setHasOptionsMenu(true)
         navController = NavHostFragment.findNavController(this)
         recyclerView = binding.recyclerLotesEntrega
-        datos = rellenarDatos()
-        cargarRecyclerLotes()
+        adaptadorAPIRest = APIRestAdapter()
+        recibirNIA()
+        getLotes()
 
         return view
     }
 
+    private fun getLotes() {
+        CoroutineScope(Dispatchers.Main).launch {
+            listaLotes = adaptadorAPIRest.getLotesByNiaAsync(0).await()
+            for (lote in listaLotes) {
+                val modalidad: Modalidad =
+                    adaptadorAPIRest.getModalidadByIdAsync(lote.idModalidad).await()
+                lote.nombreModalidad = modalidad.nombre
+            }
+            cargarRecyclerLotes()
+        }
+    }
+
     private fun cargarRecyclerLotes() {
-        adaptador = LotesEntregaRecyclerAdapter(datos)
+        adaptador = LotesEntregaRecyclerAdapter(listaLotes)
         recyclerView.adapter = adaptador
         recyclerView.layoutManager =
             LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
-    }
 
-    private fun rellenarDatos(): ArrayList<String> {
-        var datos: ArrayList<String> = ArrayList()
-        datos.add("Lote 0")
-        datos.add("Lote 1")
-        datos.add("Lote 2")
-        datos.add("Lote 3")
-        datos.add("Lote 4")
-        return datos
+        adaptador.clickListener {
+            val posicion = recyclerView.getChildAdapterPosition(it)
+            mostrarDialogoPersonalizado(posicion)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -87,17 +108,44 @@ class AñadirModificarLoteFragment : Fragment(), SearchView.OnQueryTextListener 
 
     private fun filtrar(textoAFiltrar: String) {
         if (TextUtils.isEmpty(textoAFiltrar)) {
-            adaptador = LotesEntregaRecyclerAdapter(datos)
-            recyclerView.adapter = adaptador
+            cargarRecyclerLotes()
         } else {
-            val listaFiltrada = ArrayList<String>()
-            for (x in datos) {
-                val text = x.lowercase()
-                if (text.contains(textoAFiltrar.lowercase())) listaFiltrada.add(x)
-                else if (text.indexOf(textoAFiltrar.lowercase()) == 0) listaFiltrada.add(x)
+            val listaFiltrada = ArrayList<Lote>()
+            for (x in listaLotes) {
+                val text = x.idLote
+                if (text == textoAFiltrar.toInt()) listaFiltrada.add(x)
+                else if (text.toString().indexOf(textoAFiltrar.lowercase()) == 0) listaFiltrada.add(
+                    x
+                )
                 adaptador = LotesEntregaRecyclerAdapter(listaFiltrada)
                 recyclerView.adapter = adaptador
             }
         }
     }
+
+    private fun mostrarDialogoPersonalizado(
+        posicion: Int
+    ) {
+        val nombreModalidad = listaLotes[posicion].nombreModalidad
+        val builder: AlertDialog.Builder = AlertDialog.Builder(activity)
+        builder.setMessage(
+            "¿Deseas ver con más detalle el lote del curso $nombreModalidad?"
+        )
+            .setPositiveButton("Ver") { _, _ ->
+                xarxaViewModel.setIdLote(listaLotes[posicion].idLote)
+                if (navController.currentDestination?.id == R.id.añadirModificarLoteFragment)
+                    navController.navigate(R.id.action_añadirModificarLoteFragment_to_informacionLoteFragment)
+            }
+            .setNegativeButton("Cerrar") { _, _ ->
+            }.show()
+    }
+
+    private fun recibirNIA() {
+        val niaObserver = Observer<Int> { i -> nia = i }
+        xarxaViewModel.getNia().observe(requireActivity(), niaObserver)
+
+        if (nia == 0) binding.eligeLoteTextView.text =
+            "Añadir lote" else binding.eligeLoteTextView.text = "Modificar lote"
+    }
+
 }

@@ -2,6 +2,8 @@ package com.xarxa.proyecto_xarxa_mobile.services
 
 import android.util.Log
 import com.xarxa.proyecto_xarxa_mobile.modelos.Alumno
+import com.xarxa.proyecto_xarxa_mobile.modelos.Lote
+import com.xarxa.proyecto_xarxa_mobile.modelos.Modalidad
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
@@ -13,7 +15,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 class APIRestAdapter {
 
     private fun inicializarRetrofit(): ProveedorServicios {
+
         val url = "http://192.168.0.162:8081/apixarxa/xarxa/"
+        //val url = "http://10.0.2.2:8081/apixarxa/xarxa/"
         val retrofit = Retrofit.Builder()
             .baseUrl(url)
             .addConverterFactory(GsonConverterFactory.create())
@@ -55,7 +59,7 @@ class APIRestAdapter {
         }
     }
 
-    fun getAlumnosByGrupoAsync(grupo : String): Deferred<ArrayList<Alumno>> {
+    fun getAlumnosByGrupoAsync(grupo: String): Deferred<ArrayList<Alumno>> {
         val proveedorServicios: ProveedorServicios = inicializarRetrofit()
         var respuesta = ArrayList<Alumno>()
         return CoroutineScope(Dispatchers.Main).async {
@@ -71,4 +75,74 @@ class APIRestAdapter {
             respuesta
         }
     }
+
+    fun getLotesAsync(): Deferred<ArrayList<Lote>> {
+        val proveedorServicios: ProveedorServicios = inicializarRetrofit()
+        var respuesta = ArrayList<Lote>()
+        return CoroutineScope(Dispatchers.Main).async {
+            val response: Response<ArrayList<Lote>> = proveedorServicios.getLotes()
+            if (response.isSuccessful) {
+                val lotesResponse = response.body()
+                if (lotesResponse != null) {
+                    respuesta = lotesResponse
+                }
+            } else {
+                Log.e("Error", response.errorBody().toString())
+            }
+            respuesta
+        }
+    }
+
+    fun getLotesByNiaAsync(nia: Int): Deferred<ArrayList<Lote>> {
+        val proveedorServicios: ProveedorServicios = inicializarRetrofit()
+        var respuesta = ArrayList<Lote>()
+        return CoroutineScope(Dispatchers.Main).async {
+            val response: Response<ArrayList<Lote>> = proveedorServicios.getLotesByNia(nia)
+            if (response.isSuccessful) {
+                val lotesResponse = response.body()
+                if (lotesResponse != null) {
+                    respuesta = lotesResponse
+                }
+            } else {
+                Log.e("Error", response.errorBody().toString())
+            }
+            respuesta
+        }
+    }
+
+    fun getLoteByIdAsync(id: Int): Deferred<Lote> {
+        val proveedorServicios: ProveedorServicios = inicializarRetrofit()
+        var respuesta = Lote()
+        return CoroutineScope(Dispatchers.Main).async {
+            val response: Response<Lote> = proveedorServicios.getLote(id)
+            if (response.isSuccessful) {
+                val loteResponse = response.body()
+                if (loteResponse != null) {
+                    respuesta = loteResponse
+                }
+            } else {
+                Log.e("Error", response.errorBody().toString())
+            }
+            respuesta
+        }
+    }
+
+    fun getModalidadByIdAsync(id: Int): Deferred<Modalidad> {
+        val proveedorServicios: ProveedorServicios = inicializarRetrofit()
+        var respuesta = Modalidad()
+        return CoroutineScope(Dispatchers.Main).async {
+            val response: Response<Modalidad> = proveedorServicios.getModalidad(id)
+            if (response.isSuccessful) {
+                val modalidadResponse = response.body()
+                if (modalidadResponse != null) {
+                    respuesta = modalidadResponse
+                }
+            } else {
+                Log.e("Error", response.errorBody().toString())
+            }
+            respuesta
+        }
+    }
+
+
 }

@@ -94,10 +94,12 @@ class ListadoAlumnosEntregaFragment : Fragment() {
                     mostrarDialogoPersonalizado(posicion)
                 }
                 R.id.añadirLoteOption -> {
+                    xarxaViewModel.setNia(0)
                     if (navController.currentDestination?.id == R.id.listadoAlumnosEntregaFragment)
                         navController.navigate(R.id.action_listadoAlumnosEntregaFragment_to_añadirModificarLoteFragment)
                 }
                 R.id.modificarLoteOption -> {
+                    xarxaViewModel.setNia(listaAlumnos[posicion].nia)
                     if (navController.currentDestination?.id == R.id.listadoAlumnosEntregaFragment)
                         navController.navigate(R.id.action_listadoAlumnosEntregaFragment_to_añadirModificarLoteFragment)
                 }
@@ -112,11 +114,13 @@ class ListadoAlumnosEntregaFragment : Fragment() {
         posicion: Int
     ) {
         val builder: AlertDialog.Builder = AlertDialog.Builder(activity)
-        val lote = "000"
+        val idLote = listaAlumnos[posicion].loteCollection[0].idLote
         builder.setMessage(
-            "El número de lote de ${listaAlumnos[posicion]} es $lote ¿Deseas verlo con más detalle?"
+            "El número de lote de ${listaAlumnos[posicion].nombre} ${listaAlumnos[posicion].nombre} es el Nº" +
+                    " $idLote ¿Deseas verlo con más detalle?"
         )
             .setPositiveButton("Ver") { _, _ ->
+                xarxaViewModel.setIdLote(idLote)
                 if (navController.currentDestination?.id == R.id.listadoAlumnosEntregaFragment)
                     navController.navigate(R.id.action_listadoAlumnosEntregaFragment_to_informacionLoteFragment)
             }
