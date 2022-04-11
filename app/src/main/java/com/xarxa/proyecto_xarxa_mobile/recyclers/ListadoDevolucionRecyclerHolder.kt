@@ -19,8 +19,8 @@ class ListadoDevolucionRecyclerHolder(itemView: View) : RecyclerView.ViewHolder(
         if (alumno.loteCollection.isNotEmpty()) loteDevuelto.text = "No"
         else if (alumno.estadoLote.lowercase().contains("devuelto")) {
             loteDevuelto.text = "Sí"
-            if (alumno.estadoLote.lowercase().contains("incidencias")) loteCompleto.text = "No"
-            else loteCompleto.text = "Sí"
+            if (alumno.estadoLote.lowercase().contains("completo")) loteCompleto.text = "Sí"
+            else loteCompleto.text = "No"
         }
     }
 }

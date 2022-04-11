@@ -3,10 +3,13 @@ package com.xarxa.proyecto_xarxa_mobile.fragments
 import android.app.AlertDialog
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.*
 import android.widget.*
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
+import androidx.core.text.HtmlCompat
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -14,6 +17,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.xarxa.proyecto_xarxa_mobile.R
 import com.xarxa.proyecto_xarxa_mobile.databinding.LayoutAnadirModificarLoteBinding
 import com.xarxa.proyecto_xarxa_mobile.modelos.Lote
@@ -24,6 +28,8 @@ import com.xarxa.proyecto_xarxa_mobile.services.XarxaViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import retrofit2.Response
+import java.time.Duration
 
 class AñadirModificarLoteFragment : Fragment(), SearchView.OnQueryTextListener {
 
@@ -31,6 +37,8 @@ class AñadirModificarLoteFragment : Fragment(), SearchView.OnQueryTextListener 
     private lateinit var _binding: LayoutAnadirModificarLoteBinding
     private val binding get() = _binding
     private var nia: Int = 0
+    private var alumnoConLote: Boolean = false
+    private var lotesAlumno: ArrayList<Lote> = ArrayList()
     private lateinit var adaptador: LotesEntregaRecyclerAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var navController: NavController
@@ -41,7 +49,7 @@ class AñadirModificarLoteFragment : Fragment(), SearchView.OnQueryTextListener 
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         super.onCreateView(inflater, container, savedInstanceState)
 
         _binding = LayoutAnadirModificarLoteBinding.inflate(requireActivity().layoutInflater)
@@ -52,12 +60,21 @@ class AñadirModificarLoteFragment : Fragment(), SearchView.OnQueryTextListener 
         recyclerView = binding.recyclerLotesEntrega
         adaptadorAPIRest = APIRestAdapter()
         recibirNIA()
-        getLotes()
+        getLotesAlumno()
+        getLotesOwnerless()
 
         return view
     }
 
-    private fun getLotes() {
+    private fun getLotesAlumno() {
+        CoroutineScope(Dispatchers.Main).launch {
+            lotesAlumno =
+                adaptadorAPIRest.getLotesByNiaAsync(nia).await()
+            alumnoConLote = lotesAlumno.isNotEmpty()
+        }
+    }
+
+    private fun getLotesOwnerless() {
         CoroutineScope(Dispatchers.Main).launch {
             listaLotes = adaptadorAPIRest.getLotesByNiaAsync(0).await()
             for (lote in listaLotes) {
@@ -77,7 +94,45 @@ class AñadirModificarLoteFragment : Fragment(), SearchView.OnQueryTextListener 
 
         adaptador.clickListener {
             val posicion = recyclerView.getChildAdapterPosition(it)
-            mostrarDialogoPersonalizado(posicion)
+            showPopup(recyclerView[posicion].findViewById(R.id.nombreLoteTextView), posicion)
+        }
+    }
+
+    private fun respuestaPeticion(
+        mensajeInfo: String,
+        mensajeError: String,
+        response: Response<Void>
+    ) {
+        if (response.isSuccessful) {
+            Snackbar.make(
+                requireActivity().findViewById(R.id.fragmentContainer),
+                mensajeInfo,
+                Snackbar.LENGTH_LONG
+            ).show()
+        } else {
+            Snackbar.make(
+                requireActivity().findViewById(R.id.fragmentContainer),
+                mensajeError,
+                Snackbar.LENGTH_LONG
+            ).show()
+            Log.e("Error", response.errorBody()!!.string())
+        }
+    }
+
+    private fun updateLote(posicion: Int) {
+        CoroutineScope(Dispatchers.Main).launch {
+            if (alumnoConLote) {
+                lotesAlumno[0].niaAlumno = null
+                adaptadorAPIRest.updateLoteAsync(lotesAlumno[0]).await()
+            }
+            listaLotes[posicion].niaAlumno = nia
+            val response = adaptadorAPIRest.updateLoteAsync(listaLotes[posicion]).await()
+            respuestaPeticion(
+                "Lote asignado correctamente",
+                "Ha ocurrido un error asignando el lote",
+                response
+            )
+            navController.popBackStack()
         }
     }
 
@@ -112,9 +167,9 @@ class AñadirModificarLoteFragment : Fragment(), SearchView.OnQueryTextListener 
         } else {
             val listaFiltrada = ArrayList<Lote>()
             for (x in listaLotes) {
-                val text = x.idLote
-                if (text == textoAFiltrar.toInt()) listaFiltrada.add(x)
-                else if (text.toString().indexOf(textoAFiltrar.lowercase()) == 0) listaFiltrada.add(
+                val text = x.nombreModalidad
+                if (text == textoAFiltrar) listaFiltrada.add(x)
+                else if (text.indexOf(textoAFiltrar.lowercase()) == 0) listaFiltrada.add(
                     x
                 )
                 adaptador = LotesEntregaRecyclerAdapter(listaFiltrada)
@@ -123,18 +178,41 @@ class AñadirModificarLoteFragment : Fragment(), SearchView.OnQueryTextListener 
         }
     }
 
+    private fun showPopup(view: View, posicion: Int) {
+        val menuEmergente = PopupMenu(requireActivity(), view)
+        menuEmergente.inflate(R.menu.seleccion_lote_menu)
+        menuEmergente.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.verLoteOption -> {
+                    xarxaViewModel.setIdLote(listaLotes[posicion].idLote)
+                    if (navController.currentDestination?.id == R.id.añadirModificarLoteFragment)
+                        navController.navigate(R.id.action_añadirModificarLoteFragment_to_informacionLoteFragment)
+                }
+                R.id.seleccionarLoteOption -> {
+                    mostrarDialogoPersonalizado(posicion)
+                }
+                R.id.cancelarOption -> menuEmergente.dismiss()
+            }
+            true
+        }
+        menuEmergente.show()
+    }
+
     private fun mostrarDialogoPersonalizado(
         posicion: Int
     ) {
         val nombreModalidad = listaLotes[posicion].nombreModalidad
         val builder: AlertDialog.Builder = AlertDialog.Builder(activity)
+        val mensaje =
+            if (alumnoConLote) "El alumno con NIA <b>$nia</b> ya tiene un lote asignado, si asignas un lote nuevo, se desasignará el anterior." +
+                    " ¿Deseas asignar el nuevo lote <b>$nombreModalidad</b>?"
+            else "¿Deseas asignar al alumno con NIA <b>$nia</b> el lote <b>$nombreModalidad</b>?"
+        val mensajeHTML = HtmlCompat.fromHtml(mensaje, HtmlCompat.FROM_HTML_MODE_LEGACY)
         builder.setMessage(
-            "¿Deseas ver con más detalle el lote del curso $nombreModalidad?"
+            mensajeHTML
         )
-            .setPositiveButton("Ver") { _, _ ->
-                xarxaViewModel.setIdLote(listaLotes[posicion].idLote)
-                if (navController.currentDestination?.id == R.id.añadirModificarLoteFragment)
-                    navController.navigate(R.id.action_añadirModificarLoteFragment_to_informacionLoteFragment)
+            .setPositiveButton("Asignar") { _, _ ->
+                updateLote(posicion)
             }
             .setNegativeButton("Cerrar") { _, _ ->
             }.show()
@@ -143,9 +221,5 @@ class AñadirModificarLoteFragment : Fragment(), SearchView.OnQueryTextListener 
     private fun recibirNIA() {
         val niaObserver = Observer<Int> { i -> nia = i }
         xarxaViewModel.getNia().observe(requireActivity(), niaObserver)
-
-        if (nia == 0) binding.eligeLoteTextView.text =
-            "Añadir lote" else binding.eligeLoteTextView.text = "Modificar lote"
     }
-
 }

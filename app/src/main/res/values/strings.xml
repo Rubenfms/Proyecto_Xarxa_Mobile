@@ -51,4 +51,7 @@
     <string name="lote">Lote</string>
     <string name="nombre_modalidad">Nombre modalidad</string>
     <string name="ver">Ver</string>
+    <string name="seleccionar_lote">Seleccionar lote</string>
+    <string name="entrega_de_lotes">Entrega de lotes</string>
+    <string name="devoluci_n_de_lotes">Devolución de lotes</string>
 </resources>

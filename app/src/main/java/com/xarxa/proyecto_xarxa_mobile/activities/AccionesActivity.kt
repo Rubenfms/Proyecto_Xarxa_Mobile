@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.FrameLayout
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.blue
@@ -26,6 +27,7 @@ class AccionesActivity : AppCompatActivity() {
     private lateinit var screen: FrameLayout
     private lateinit var binding: ActivityAccionesBinding
     private lateinit var navController: NavController
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +47,7 @@ class AccionesActivity : AppCompatActivity() {
     }
 
     private fun logicaNavigation() {
-        val bottomSheetBehavior = BottomSheetBehavior.from(navigationView)
+        bottomSheetBehavior = BottomSheetBehavior.from(navigationView)
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
 
         bottomAppBar.setNavigationOnClickListener {
@@ -105,6 +107,13 @@ class AccionesActivity : AppCompatActivity() {
                 navController.navigate(R.id.busquedaLibrosFragment)
             }
         }
+    }
 
+    override fun onBackPressed() {
+        if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_SETTLING || bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+        } else {
+            super.onBackPressed()
+        }
     }
 }

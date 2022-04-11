@@ -94,20 +94,22 @@ class ListadoAlumnosEntregaFragment : Fragment() {
                     mostrarDialogoPersonalizado(posicion)
                 }
                 R.id.añadirLoteOption -> {
-                    xarxaViewModel.setNia(0)
-                    if (navController.currentDestination?.id == R.id.listadoAlumnosEntregaFragment)
-                        navController.navigate(R.id.action_listadoAlumnosEntregaFragment_to_añadirModificarLoteFragment)
+                    navegarAñadirModificarFramgent(posicion)
                 }
                 R.id.modificarLoteOption -> {
-                    xarxaViewModel.setNia(listaAlumnos[posicion].nia)
-                    if (navController.currentDestination?.id == R.id.listadoAlumnosEntregaFragment)
-                        navController.navigate(R.id.action_listadoAlumnosEntregaFragment_to_añadirModificarLoteFragment)
+                    navegarAñadirModificarFramgent(posicion)
                 }
                 R.id.cancelarOption -> menuEmergente.dismiss()
             }
             true
         }
         menuEmergente.show()
+    }
+
+    private fun navegarAñadirModificarFramgent(posicion : Int) {
+        xarxaViewModel.setNia(listaAlumnos[posicion].nia)
+        if (navController.currentDestination?.id == R.id.listadoAlumnosEntregaFragment)
+            navController.navigate(R.id.action_listadoAlumnosEntregaFragment_to_añadirModificarLoteFragment)
     }
 
     private fun mostrarDialogoPersonalizado(

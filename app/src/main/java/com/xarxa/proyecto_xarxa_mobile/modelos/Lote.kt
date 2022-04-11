@@ -6,7 +6,7 @@ class Lote() {
 
     var idLote: Int
     var idModalidad: Int
-    var niaAlumno: Int
+    var niaAlumno: Int?
     var xarxaCollection: ArrayList<Xarxa>
     var nombreModalidad : String
 
@@ -25,7 +25,7 @@ class Lote() {
     }
 
     init {
-        niaAlumno = 0
+        niaAlumno = null
         idLote = 0
         idModalidad = 0
         nombreModalidad = ""

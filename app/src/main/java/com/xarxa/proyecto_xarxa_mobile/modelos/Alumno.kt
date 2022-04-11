@@ -29,7 +29,7 @@ class Alumno() {
         incidencias: String,
         perteneceXarxa: Boolean,
         loteCollection: ArrayList<Lote>,
-        loteDevuelto : String
+        estadoLote : String
     ) : this() {
         this.nia = nia
         this.nombre = nombre

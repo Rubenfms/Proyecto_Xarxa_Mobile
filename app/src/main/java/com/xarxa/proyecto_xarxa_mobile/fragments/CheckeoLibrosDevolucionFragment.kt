@@ -2,6 +2,7 @@ package com.xarxa.proyecto_xarxa_mobile.fragments
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.xarxa.proyecto_xarxa_mobile.R
 import com.xarxa.proyecto_xarxa_mobile.databinding.LayoutCheckeoIncidenciasDevolucionBinding
 import com.xarxa.proyecto_xarxa_mobile.modelos.Alumno
@@ -21,6 +23,7 @@ import com.xarxa.proyecto_xarxa_mobile.services.XarxaViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import retrofit2.Response
 
 class CheckeoLibrosDevolucionFragment : Fragment() {
 
@@ -63,6 +66,40 @@ class CheckeoLibrosDevolucionFragment : Fragment() {
         }
     }
 
+    private fun updateLote() {
+        CoroutineScope(Dispatchers.Main).launch {
+            alumno.loteCollection[0].niaAlumno = null
+            val response = adaptadorAPIRest.updateLoteAsync(alumno.loteCollection[0]).await()
+            respuestaPeticion(
+                "Lote devuelto correctamente",
+                "Ha ocurrido un error devolviendo el lote",
+                response
+            )
+            navController.popBackStack()
+        }
+    }
+
+    private fun respuestaPeticion(
+        mensajeInfo: String,
+        mensajeError: String,
+        response: Response<Void>
+    ) {
+        if (response.isSuccessful) {
+            Snackbar.make(
+                requireActivity().findViewById(R.id.fragmentContainer),
+                mensajeInfo,
+                Snackbar.LENGTH_LONG
+            ).show()
+        } else {
+            Snackbar.make(
+                requireActivity().findViewById(R.id.fragmentContainer),
+                mensajeError,
+                Snackbar.LENGTH_LONG
+            ).show()
+            Log.e("Error", response.errorBody()!!.string())
+        }
+    }
+
     private fun cargarRecyclerCursos() {
         adaptador = LibrosDevolucionRecyclerAdapter(alumno.loteCollection[0].xarxaCollection)
         recyclerView.adapter = adaptador
@@ -78,8 +115,7 @@ class CheckeoLibrosDevolucionFragment : Fragment() {
             "¿Datos correctos?"
         )
             .setPositiveButton("Aceptar") { _, _ ->
-                if (navController.currentDestination?.id == R.id.checkeoLibrosDevolucionFragment)
-                    navController.navigate(R.id.action_global_listadoAlumnosDevolucionFragment)
+                updateLote()
             }
             .setNegativeButton("CANCELAR")
             { _, _ -> }

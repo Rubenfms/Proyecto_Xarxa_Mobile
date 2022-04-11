@@ -38,16 +38,6 @@ class PrincipalFragment : Fragment() {
             if (navController.currentDestination?.id == R.id.principalFragment)
                 navController.navigate(R.id.action_principalFragment_to_devolucionFragment)
         }
-
-        binding.localizacionButton.setOnClickListener {
-            if (navController.currentDestination?.id == R.id.principalFragment)
-                navController.navigate(R.id.action_principalFragment_to_localizacionFragment)
-        }
-
-        binding.busquedaLibrosButton.setOnClickListener {
-            if (navController.currentDestination?.id == R.id.principalFragment)
-                navController.navigate(R.id.action_principalFragment_to_busquedaLibrosFragment)
-        }
         return view
     }
 }

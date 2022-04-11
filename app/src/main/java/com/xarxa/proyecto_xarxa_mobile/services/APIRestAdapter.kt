@@ -4,6 +4,7 @@ import android.util.Log
 import com.xarxa.proyecto_xarxa_mobile.modelos.Alumno
 import com.xarxa.proyecto_xarxa_mobile.modelos.Lote
 import com.xarxa.proyecto_xarxa_mobile.modelos.Modalidad
+import com.xarxa.proyecto_xarxa_mobile.modelos.Usuario
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
@@ -127,6 +128,13 @@ class APIRestAdapter {
         }
     }
 
+    fun updateLoteAsync(lote: Lote): Deferred<Response<Void>> {
+        val proveedorServicios: ProveedorServicios = inicializarRetrofit()
+        return CoroutineScope(Dispatchers.IO).async {
+            proveedorServicios.updateLote(lote)
+        }
+    }
+
     fun getModalidadByIdAsync(id: Int): Deferred<Modalidad> {
         val proveedorServicios: ProveedorServicios = inicializarRetrofit()
         var respuesta = Modalidad()
@@ -136,6 +144,23 @@ class APIRestAdapter {
                 val modalidadResponse = response.body()
                 if (modalidadResponse != null) {
                     respuesta = modalidadResponse
+                }
+            } else {
+                Log.e("Error", response.errorBody().toString())
+            }
+            respuesta
+        }
+    }
+
+    fun getUsuarioByNombreAsync(nombre: String): Deferred<Usuario> {
+        val proveedorServicios: ProveedorServicios = inicializarRetrofit()
+        var respuesta = Usuario()
+        return CoroutineScope(Dispatchers.Main).async {
+            val response: Response<Usuario> = proveedorServicios.getUsuario(nombre)
+            if (response.isSuccessful) {
+                val usuarioResponse = response.body()
+                if (usuarioResponse != null) {
+                    respuesta = usuarioResponse
                 }
             } else {
                 Log.e("Error", response.errorBody().toString())
