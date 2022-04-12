@@ -17,7 +17,6 @@ import com.xarxa.proyecto_xarxa_mobile.recyclers.ListadoDevolucionRecyclerAdapte
 import com.xarxa.proyecto_xarxa_mobile.databinding.LayoutListaAlumnosDevolucionBinding
 import com.xarxa.proyecto_xarxa_mobile.modelos.Alumno
 import com.xarxa.proyecto_xarxa_mobile.services.APIRestAdapter
-import com.xarxa.proyecto_xarxa_mobile.services.PasarPosicionInterface
 import com.xarxa.proyecto_xarxa_mobile.services.XarxaViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

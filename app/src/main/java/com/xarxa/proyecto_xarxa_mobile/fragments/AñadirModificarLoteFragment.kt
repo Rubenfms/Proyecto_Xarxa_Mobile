@@ -29,7 +29,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
-import java.time.Duration
 
 class AñadirModificarLoteFragment : Fragment(), SearchView.OnQueryTextListener {
 
@@ -82,12 +81,12 @@ class AñadirModificarLoteFragment : Fragment(), SearchView.OnQueryTextListener 
                     adaptadorAPIRest.getModalidadByIdAsync(lote.idModalidad).await()
                 lote.nombreModalidad = modalidad.nombre
             }
-            cargarRecyclerLotes()
+            cargarRecyclerLotes(listaLotes)
         }
     }
 
-    private fun cargarRecyclerLotes() {
-        adaptador = LotesEntregaRecyclerAdapter(listaLotes)
+    private fun cargarRecyclerLotes(lista: ArrayList<Lote>) {
+        adaptador = LotesEntregaRecyclerAdapter(lista)
         recyclerView.adapter = adaptador
         recyclerView.layoutManager =
             LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
@@ -163,17 +162,16 @@ class AñadirModificarLoteFragment : Fragment(), SearchView.OnQueryTextListener 
 
     private fun filtrar(textoAFiltrar: String) {
         if (TextUtils.isEmpty(textoAFiltrar)) {
-            cargarRecyclerLotes()
+            cargarRecyclerLotes(listaLotes)
         } else {
             val listaFiltrada = ArrayList<Lote>()
             for (x in listaLotes) {
-                val text = x.nombreModalidad
-                if (text == textoAFiltrar) listaFiltrada.add(x)
+                val text = x.nombreModalidad.lowercase()
+                if (text.contains(textoAFiltrar.lowercase())) listaFiltrada.add(x)
                 else if (text.indexOf(textoAFiltrar.lowercase()) == 0) listaFiltrada.add(
                     x
                 )
-                adaptador = LotesEntregaRecyclerAdapter(listaFiltrada)
-                recyclerView.adapter = adaptador
+                cargarRecyclerLotes(listaFiltrada)
             }
         }
     }

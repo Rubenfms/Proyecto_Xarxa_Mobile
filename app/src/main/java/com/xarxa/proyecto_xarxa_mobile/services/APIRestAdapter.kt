@@ -77,6 +77,13 @@ class APIRestAdapter {
         }
     }
 
+    fun updateAlumnoAsync(alumno : Alumno): Deferred<Response<Void>> {
+        val proveedorServicios: ProveedorServicios = inicializarRetrofit()
+        return CoroutineScope(Dispatchers.IO).async {
+            proveedorServicios.updateAlumno(alumno)
+        }
+    }
+
     fun getLotesAsync(): Deferred<ArrayList<Lote>> {
         val proveedorServicios: ProveedorServicios = inicializarRetrofit()
         var respuesta = ArrayList<Lote>()

@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.xarxa.proyecto_xarxa_mobile.R
 import com.xarxa.proyecto_xarxa_mobile.modelos.Alumno
-import com.xarxa.proyecto_xarxa_mobile.services.PasarPosicionInterface
 
 class ListadoDevolucionRecyclerAdapter(datos: ArrayList<Alumno>) :
     RecyclerView.Adapter<ListadoDevolucionRecyclerHolder>(), View.OnClickListener {

@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -17,8 +18,10 @@ import com.google.android.material.snackbar.Snackbar
 import com.xarxa.proyecto_xarxa_mobile.R
 import com.xarxa.proyecto_xarxa_mobile.databinding.LayoutCheckeoIncidenciasDevolucionBinding
 import com.xarxa.proyecto_xarxa_mobile.modelos.Alumno
+import com.xarxa.proyecto_xarxa_mobile.modelos.Xarxa
 import com.xarxa.proyecto_xarxa_mobile.recyclers.LibrosDevolucionRecyclerAdapter
 import com.xarxa.proyecto_xarxa_mobile.services.APIRestAdapter
+import com.xarxa.proyecto_xarxa_mobile.services.PasarDatosInterface
 import com.xarxa.proyecto_xarxa_mobile.services.XarxaViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -33,6 +36,7 @@ class CheckeoLibrosDevolucionFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var navController: NavController
     private lateinit var adaptadorAPIRest: APIRestAdapter
+    private var listaCheckeoLibros: ArrayList<Xarxa> = ArrayList()
     private val xarxaViewModel: XarxaViewModel by activityViewModels()
     private var alumno = Alumno()
     private var nia: Int = 0
@@ -68,12 +72,21 @@ class CheckeoLibrosDevolucionFragment : Fragment() {
 
     private fun updateLote() {
         CoroutineScope(Dispatchers.Main).launch {
+            val loteCompleto = listaCheckeoLibros.map { it.codigoXarxa }
+                .sorted() == alumno.loteCollection[0].xarxaCollection.map { it.codigoXarxa }
+                .sorted()
             alumno.loteCollection[0].niaAlumno = null
-            val response = adaptadorAPIRest.updateLoteAsync(alumno.loteCollection[0]).await()
+            alumno.estadoLote = "Devuelto${if (loteCompleto) " completo" else ""}"
+            val incidenciasObservaciones = binding.observacionesDevolucionLibrosEditText.text
+            if (incidenciasObservaciones!!.length >= 5) {
+                alumno.incidencias = incidenciasObservaciones.toString()
+            }
+            val response1 = adaptadorAPIRest.updateLoteAsync(alumno.loteCollection[0]).await()
+            val response2 = adaptadorAPIRest.updateAlumnoAsync(alumno).await()
             respuestaPeticion(
                 "Lote devuelto correctamente",
                 "Ha ocurrido un error devolviendo el lote",
-                response
+                response2
             )
             navController.popBackStack()
         }
@@ -96,21 +109,31 @@ class CheckeoLibrosDevolucionFragment : Fragment() {
                 mensajeError,
                 Snackbar.LENGTH_LONG
             ).show()
-            Log.e("Error", response.errorBody()!!.string())
+            Log.e("Error", response.toString())
         }
     }
 
     private fun cargarRecyclerCursos() {
-        adaptador = LibrosDevolucionRecyclerAdapter(alumno.loteCollection[0].xarxaCollection)
+        listaCheckeoLibros = ArrayList(alumno.loteCollection[0].xarxaCollection)
+        adaptador = LibrosDevolucionRecyclerAdapter(listaCheckeoLibros)
         recyclerView.adapter = adaptador
         recyclerView.layoutManager =
             LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
+
+        adaptador.pasarLibro(object : PasarDatosInterface {
+            override fun pasarLibro(libro: Xarxa, checkeado: Boolean) {
+                if (checkeado) {
+                    listaCheckeoLibros.add(libro)
+                } else {
+                    listaCheckeoLibros.remove(libro)
+                }
+            }
+        })
     }
 
     private fun mostrarDialogoPersonalizado(
     ) {
         val builder: AlertDialog.Builder = AlertDialog.Builder(activity)
-
         builder.setMessage(
             "¿Datos correctos?"
         )

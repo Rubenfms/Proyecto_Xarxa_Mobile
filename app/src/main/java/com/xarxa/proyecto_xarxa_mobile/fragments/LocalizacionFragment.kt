@@ -71,11 +71,11 @@ class LocalizacionFragment : Fragment(), SearchView.OnQueryTextListener {
         CoroutineScope(Dispatchers.Main).launch {
             listaAlumnos = adaptadorAPIRest.getAlumnosAsync().await()
             listaAlumnos.sortBy { it.grupo }
-            cargarRecyclerAlumnos()
+            cargarRecyclerAlumnos(listaAlumnos)
         }
     }
 
-    private fun cargarRecyclerAlumnos() {
+    private fun cargarRecyclerAlumnos(listaAlumnos: ArrayList<Alumno>) {
         adaptador = ListadoLocalizacionRecyclerAdapter(listaAlumnos)
         recyclerView.adapter = adaptador
         recyclerView.layoutManager =
@@ -154,20 +154,47 @@ class LocalizacionFragment : Fragment(), SearchView.OnQueryTextListener {
         resultadoCamara.launch(cameraIntent)
     }
 
-    // HAY QUE CAMBIAR EL MÉTODO DE FILTRADO PARA QUE SEA POR NIA, LOTE Y NOMBRE
+
     private fun filtrar(textoAFiltrar: String) {
+        var textoFiltrarMinus = textoAFiltrar.lowercase()
         if (TextUtils.isEmpty(textoAFiltrar)) {
-            cargarRecyclerAlumnos()
+            cargarRecyclerAlumnos(listaAlumnos)
         } else {
             val listaFiltrada = ArrayList<Alumno>()
             for (x in listaAlumnos) {
-                val text = x.nombre.lowercase()
-                if (text.contains(textoAFiltrar.lowercase())) listaFiltrada.add(x)
-                else if (text.indexOf(textoAFiltrar.lowercase()) == 0) listaFiltrada.add(x)
-                adaptador = ListadoLocalizacionRecyclerAdapter(listaFiltrada)
-                recyclerView.adapter = adaptador
+                val nombreAlumno = x.nombre.lowercase()
+                val niaAlumno = x.nia.toString().lowercase()
+                if (x.loteCollection.isNotEmpty()) {
+                    val lote = x.loteCollection[0].idLote.toString().lowercase()
+                    if (nombreAlumno.contains(textoFiltrarMinus) || niaAlumno.contains(
+                            textoFiltrarMinus
+                        ) || lote.contains(
+                            textoFiltrarMinus
+                        )
+                    ) {
+                        listaFiltrada.add(x)
+                    } else if (nombreAlumno.indexOf(textoFiltrarMinus) == 0 || niaAlumno.indexOf(
+                            textoFiltrarMinus
+                        ) == 0 || lote.indexOf(textoFiltrarMinus) == 0
+                    ) {
+                        listaFiltrada.add(x)
+                    }
+                } else {
+                    if (nombreAlumno.contains(textoFiltrarMinus) || niaAlumno.contains(
+                            textoFiltrarMinus
+                        )
+                    ) {
+                        listaFiltrada.add(x)
+                    } else if (nombreAlumno.indexOf(textoFiltrarMinus) == 0 || niaAlumno.indexOf(
+                            textoFiltrarMinus
+                        ) == 0
+                    ) {
+                        listaFiltrada.add(x)
+                    }
+                }
+
+                cargarRecyclerAlumnos(listaFiltrada)
             }
         }
     }
-
 }

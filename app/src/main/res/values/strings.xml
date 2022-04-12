@@ -54,4 +54,7 @@
     <string name="seleccionar_lote">Seleccionar lote</string>
     <string name="entrega_de_lotes">Entrega de lotes</string>
     <string name="devoluci_n_de_lotes">Devolución de lotes</string>
+    <string name="observaciones_e_incidencias">Observaciones e incidencias</string>
+    <string name="informacion_incidencias">Escribe aquí abajo las incidencias/observaciones, mínimo 5 letras</string>
+    <string name="sin_lote">Sin lote</string>
 </resources>
