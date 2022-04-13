@@ -14,10 +14,12 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.chip.Chip
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.xarxa.proyecto_xarxa_mobile.R
@@ -42,6 +44,11 @@ class LocalizacionFragment : Fragment(), SearchView.OnQueryTextListener {
     private lateinit var recyclerView: RecyclerView
     private lateinit var navController: NavController
     private lateinit var adaptadorAPIRest: APIRestAdapter
+    private lateinit var grupo: String
+    private lateinit var chipNia: Chip
+    private lateinit var chipNombre: Chip
+    private lateinit var chipLote: Chip
+    private lateinit var editTextBusqueda: EditText
     private val xarxaViewModel: XarxaViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -59,20 +66,48 @@ class LocalizacionFragment : Fragment(), SearchView.OnQueryTextListener {
         navController = NavHostFragment.findNavController(this)
         recyclerView = binding.recyclerAlumnosLocalizacion
         adaptadorAPIRest = APIRestAdapter()
+        chipNia = binding.chipNIA
+        chipNombre = binding.chipNombre
+        chipLote = binding.chipLote
+        recibirGrupo()
         getAlumnos()
 
         creaContrato()
         crearContratoPermisosYAbreCamara()
 
+        binding.chipGroup.setOnCheckedChangeListener { group, _ ->
+            when (group.checkedChipId) {
+                R.id.chipNIA -> {
+                    chipNia.isChecked = true
+                    filtrar(editTextBusqueda.text.toString())
+                }
+                R.id.chipNombre -> {
+                    chipNombre.isChecked = true
+                    filtrar(editTextBusqueda.text.toString())
+
+                }
+                R.id.chipLote -> {
+                    chipLote.isChecked = true
+                    filtrar(editTextBusqueda.text.toString())
+                }
+                else -> {
+                    chipNia.isChecked = true
+                }
+            }
+        }
         return view
     }
 
     private fun getAlumnos() {
         CoroutineScope(Dispatchers.Main).launch {
-            listaAlumnos = adaptadorAPIRest.getAlumnosAsync().await()
-            listaAlumnos.sortBy { it.grupo }
+            listaAlumnos = adaptadorAPIRest.getAlumnosByGrupoAsync(grupo).await()
             cargarRecyclerAlumnos(listaAlumnos)
         }
+    }
+
+    private fun recibirGrupo() {
+        val grupoObserver = Observer<String> { i -> grupo = i }
+        xarxaViewModel.getGrupo().observe(requireActivity(), grupoObserver)
     }
 
     private fun cargarRecyclerAlumnos(listaAlumnos: ArrayList<Alumno>) {
@@ -93,9 +128,14 @@ class LocalizacionFragment : Fragment(), SearchView.OnQueryTextListener {
         inflater.inflate(R.menu.searchview_menu, menu)
         val searchItem = menu.findItem(R.id.actionSearch).actionView as SearchView
         searchItem.setOnQueryTextListener(this)
-        val editText = searchItem.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
-        editText.setTextColor(ContextCompat.getColor(requireActivity(), R.color.primaryTextColor))
-        editText.setHintTextColor(
+        editTextBusqueda = searchItem.findViewById(androidx.appcompat.R.id.search_src_text)
+        editTextBusqueda.setTextColor(
+            ContextCompat.getColor(
+                requireActivity(),
+                R.color.primaryTextColor
+            )
+        )
+        editTextBusqueda.setHintTextColor(
             ContextCompat.getColor(
                 requireActivity(),
                 R.color.primaryTextColor
@@ -138,11 +178,12 @@ class LocalizacionFragment : Fragment(), SearchView.OnQueryTextListener {
         resultadoCamara =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 if (result.resultCode == Activity.RESULT_OK) {
-                    // AQUÍ SE SALTARÁ AL FRAGMENT INFORMACIÓN ALUMNMO
                     val resultado = result.data!!.getStringExtra("codigo").toString()
+                    chipLote.isChecked = true
+                    filtrar(resultado)
                     Snackbar.make(
                         requireActivity().findViewById(R.id.fragmentContainer),
-                        "Has filtrado un alumno por el código de un libro ($resultado)",
+                        "Filtrando alumno con número del lote: ($resultado)...",
                         Snackbar.LENGTH_SHORT
                     ).show()
                 }
@@ -154,7 +195,6 @@ class LocalizacionFragment : Fragment(), SearchView.OnQueryTextListener {
         resultadoCamara.launch(cameraIntent)
     }
 
-
     private fun filtrar(textoAFiltrar: String) {
         var textoFiltrarMinus = textoAFiltrar.lowercase()
         if (TextUtils.isEmpty(textoAFiltrar)) {
@@ -162,37 +202,34 @@ class LocalizacionFragment : Fragment(), SearchView.OnQueryTextListener {
         } else {
             val listaFiltrada = ArrayList<Alumno>()
             for (x in listaAlumnos) {
-                val nombreAlumno = x.nombre.lowercase()
-                val niaAlumno = x.nia.toString().lowercase()
-                if (x.loteCollection.isNotEmpty()) {
-                    val lote = x.loteCollection[0].idLote.toString().lowercase()
-                    if (nombreAlumno.contains(textoFiltrarMinus) || niaAlumno.contains(
-                            textoFiltrarMinus
-                        ) || lote.contains(
-                            textoFiltrarMinus
-                        )
-                    ) {
-                        listaFiltrada.add(x)
-                    } else if (nombreAlumno.indexOf(textoFiltrarMinus) == 0 || niaAlumno.indexOf(
-                            textoFiltrarMinus
-                        ) == 0 || lote.indexOf(textoFiltrarMinus) == 0
-                    ) {
-                        listaFiltrada.add(x)
+                when {
+                    chipNia.isChecked -> {
+                        val niaAlumno = x.nia.toString().lowercase()
+                        if (niaAlumno.contains(textoFiltrarMinus)) {
+                            listaFiltrada.add(x)
+                        } else if (niaAlumno.indexOf(textoFiltrarMinus) == 0) {
+                            listaFiltrada.add(x)
+                        }
                     }
-                } else {
-                    if (nombreAlumno.contains(textoFiltrarMinus) || niaAlumno.contains(
-                            textoFiltrarMinus
-                        )
-                    ) {
-                        listaFiltrada.add(x)
-                    } else if (nombreAlumno.indexOf(textoFiltrarMinus) == 0 || niaAlumno.indexOf(
-                            textoFiltrarMinus
-                        ) == 0
-                    ) {
-                        listaFiltrada.add(x)
+                    chipNombre.isChecked -> {
+                        val nombreAlumno = x.nombre.lowercase()
+                        if (nombreAlumno.contains(textoFiltrarMinus)) {
+                            listaFiltrada.add(x)
+                        } else if (nombreAlumno.indexOf(textoFiltrarMinus) == 0) {
+                            listaFiltrada.add(x)
+                        }
+                    }
+                    chipLote.isChecked -> {
+                        if (x.loteCollection.isNotEmpty()) {
+                            val lote = x.loteCollection[0].idLote.toString().lowercase()
+                            if (lote.contains(textoFiltrarMinus)) {
+                                listaFiltrada.add(x)
+                            } else if (lote.indexOf(textoFiltrarMinus) == 0) {
+                                listaFiltrada.add(x)
+                            }
+                        }
                     }
                 }
-
                 cargarRecyclerAlumnos(listaFiltrada)
             }
         }

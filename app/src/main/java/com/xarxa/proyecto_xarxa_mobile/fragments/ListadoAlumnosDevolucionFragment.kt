@@ -12,6 +12,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.navigation.NavigationView
 import com.xarxa.proyecto_xarxa_mobile.R
 import com.xarxa.proyecto_xarxa_mobile.recyclers.ListadoDevolucionRecyclerAdapter
 import com.xarxa.proyecto_xarxa_mobile.databinding.LayoutListaAlumnosDevolucionBinding
@@ -48,7 +49,7 @@ class ListadoAlumnosDevolucionFragment : Fragment() {
         navController = NavHostFragment.findNavController(this)
         recyclerView = binding.recyclerAlumnosDevolucion
         adaptadorAPIRest = APIRestAdapter()
-        recibirCurso()
+        recibirGrupo()
         getAlumnos()
 
         return view
@@ -74,9 +75,9 @@ class ListadoAlumnosDevolucionFragment : Fragment() {
         }
     }
 
-    private fun recibirCurso() {
+    private fun recibirGrupo() {
         val grupoObserver = Observer<String> { i -> grupo = i }
-        xarxaViewModel.getCurso().observe(requireActivity(), grupoObserver)
+        xarxaViewModel.getGrupo().observe(requireActivity(), grupoObserver)
     }
 
     private fun mostrarDialogoPersonalizado(

@@ -60,6 +60,23 @@ class APIRestAdapter {
         }
     }
 
+    fun getAlumnosByCursoAsync(curso: String): Deferred<ArrayList<Alumno>> {
+        val proveedorServicios: ProveedorServicios = inicializarRetrofit()
+        var respuesta = ArrayList<Alumno>()
+        return CoroutineScope(Dispatchers.Main).async {
+            val response: Response<ArrayList<Alumno>> = proveedorServicios.getAlumnosByCurso(curso)
+            if (response.isSuccessful) {
+                val alumnosResponse = response.body()
+                if (alumnosResponse != null) {
+                    respuesta = alumnosResponse
+                }
+            } else {
+                Log.e("Error", response.errorBody().toString())
+            }
+            respuesta
+        }
+    }
+
     fun getAlumnosByGrupoAsync(grupo: String): Deferred<ArrayList<Alumno>> {
         val proveedorServicios: ProveedorServicios = inicializarRetrofit()
         var respuesta = ArrayList<Alumno>()
@@ -77,7 +94,7 @@ class APIRestAdapter {
         }
     }
 
-    fun updateAlumnoAsync(alumno : Alumno): Deferred<Response<Void>> {
+    fun updateAlumnoAsync(alumno: Alumno): Deferred<Response<Void>> {
         val proveedorServicios: ProveedorServicios = inicializarRetrofit()
         return CoroutineScope(Dispatchers.IO).async {
             proveedorServicios.updateAlumno(alumno)

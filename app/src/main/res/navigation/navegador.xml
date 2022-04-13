@@ -9,37 +9,34 @@
         android:name="com.xarxa.proyecto_xarxa_mobile.fragments.PrincipalFragment"
         android:label="PrincipalFragment" >
         <action
-            android:id="@+id/action_principalFragment_to_busquedaLibrosFragment"
-            app:destination="@id/busquedaLibrosFragment" />
-        <action
-            android:id="@+id/action_principalFragment_to_entregaFragment"
-            app:destination="@id/entregaFragment" />
-        <action
-            android:id="@+id/action_principalFragment_to_devolucionFragment"
-            app:destination="@id/devolucionFragment" />
-        <action
-            android:id="@+id/action_principalFragment_to_localizacionFragment"
-            app:destination="@id/localizacionFragment" />
+            android:id="@+id/action_principalFragment_to_cursosFragment"
+            app:destination="@id/cursosFragment" />
     </fragment>
     <fragment
         android:id="@+id/busquedaLibrosFragment"
         android:name="com.xarxa.proyecto_xarxa_mobile.fragments.BusquedaLibrosFragment"
         android:label="BusquedaLibrosFragment" />
     <fragment
-        android:id="@+id/entregaFragment"
-        android:name="com.xarxa.proyecto_xarxa_mobile.fragments.EntregaFragment"
-        android:label="EntregaFragment" >
+        android:id="@+id/cursosFragment"
+        android:name="com.xarxa.proyecto_xarxa_mobile.fragments.CursosFragment"
+        android:label="CursosFragment">
         <action
-            android:id="@+id/action_entregaFragment_to_listadoAlumnosEntregaFragment"
-            app:destination="@id/listadoAlumnosEntregaFragment" />
+            android:id="@+id/action_cursosFragment_to_gruposFragment"
+            app:destination="@id/gruposFragment" />
     </fragment>
     <fragment
-        android:id="@+id/devolucionFragment"
-        android:name="com.xarxa.proyecto_xarxa_mobile.fragments.DevolucionFragment"
-        android:label="DevolucionFragment" >
+        android:id="@+id/gruposFragment"
+        android:name="com.xarxa.proyecto_xarxa_mobile.fragments.GruposFragment"
+        android:label="GruposFragment">
         <action
-            android:id="@+id/action_devolucionFragment_to_listadoAlumnosDevolucionFragment"
+            android:id="@+id/action_gruposFragment_to_listadoAlumnosEntregaFragment"
+            app:destination="@id/listadoAlumnosEntregaFragment" />
+        <action
+            android:id="@+id/action_gruposFragment_to_listadoAlumnosDevolucionFragment"
             app:destination="@id/listadoAlumnosDevolucionFragment" />
+        <action
+            android:id="@+id/action_gruposFragment_to_localizacionFragment"
+            app:destination="@id/localizacionFragment" />
     </fragment>
     <fragment
         android:id="@+id/localizacionFragment"

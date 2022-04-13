@@ -14,6 +14,10 @@ interface ProveedorServicios {
     @Headers("Accept: application/json", "Content-Type: application/json")
     suspend fun getAlumno(@Path("nia") nia: Int): Response<Alumno>
 
+    @GET("alumnos/curso/{curso}")
+    @Headers("Accept: application/json", "Content-Type: application/json")
+    suspend fun getAlumnosByCurso(@Path("curso") curso: String): Response<ArrayList<Alumno>>
+
     @GET("alumnos/grupo/{grupo}")
     @Headers("Accept: application/json", "Content-Type: application/json")
     suspend fun getAlumnosByGrupo(@Path("grupo") grupo: String): Response<ArrayList<Alumno>>

@@ -14,6 +14,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.navigation.NavigationView
 import com.xarxa.proyecto_xarxa_mobile.R
 import com.xarxa.proyecto_xarxa_mobile.recyclers.ListadoEntregaRecyclerAdapter
 import com.xarxa.proyecto_xarxa_mobile.databinding.LayoutListaAlumnosEntregaBinding
@@ -51,7 +52,7 @@ class ListadoAlumnosEntregaFragment : Fragment() {
         recyclerView = binding.recyclerAlumnosEntrega
         adaptadorAPIRest = APIRestAdapter()
         añadirModificarDialog = AñadirModificarLoteFragment()
-        recibirCurso()
+        recibirGrupo()
         getAlumnos()
 
         return view
@@ -106,7 +107,7 @@ class ListadoAlumnosEntregaFragment : Fragment() {
         menuEmergente.show()
     }
 
-    private fun navegarAñadirModificarFramgent(posicion : Int) {
+    private fun navegarAñadirModificarFramgent(posicion: Int) {
         xarxaViewModel.setNia(listaAlumnos[posicion].nia)
         if (navController.currentDestination?.id == R.id.listadoAlumnosEntregaFragment)
             navController.navigate(R.id.action_listadoAlumnosEntregaFragment_to_añadirModificarLoteFragment)
@@ -130,9 +131,9 @@ class ListadoAlumnosEntregaFragment : Fragment() {
             }.show()
     }
 
-    private fun recibirCurso() {
+    private fun recibirGrupo() {
         val grupoObserver = Observer<String> { i -> grupo = i }
-        xarxaViewModel.getCurso().observe(requireActivity(), grupoObserver)
+        xarxaViewModel.getGrupo().observe(requireActivity(), grupoObserver)
     }
 
 }

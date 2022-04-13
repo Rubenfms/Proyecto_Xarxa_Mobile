@@ -57,4 +57,7 @@
     <string name="observaciones_e_incidencias">Observaciones e incidencias</string>
     <string name="informacion_incidencias">Escribe aquí abajo las incidencias/observaciones, mínimo 5 letras</string>
     <string name="sin_lote">Sin lote</string>
+    <string name="selecciona_un_curso">Selecciona un curso</string>
+    <string name="selecciona_un_grupo">Selecciona un grupo</string>
+    <string name="numero_lote">Nº Lote</string>
 </resources>

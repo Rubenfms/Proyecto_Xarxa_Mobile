@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.FrameLayout
-import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.blue
@@ -19,6 +19,7 @@ import com.google.android.material.math.MathUtils
 import com.google.android.material.navigation.NavigationView
 import com.xarxa.proyecto_xarxa_mobile.R
 import com.xarxa.proyecto_xarxa_mobile.databinding.ActivityAccionesBinding
+import com.xarxa.proyecto_xarxa_mobile.services.XarxaViewModel
 
 class AccionesActivity : AppCompatActivity() {
 
@@ -28,6 +29,7 @@ class AccionesActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAccionesBinding
     private lateinit var navController: NavController
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
+    private val xarxaViewModel: XarxaViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -95,13 +97,16 @@ class AccionesActivity : AppCompatActivity() {
                 navController.navigate(R.id.action_global_principalFragment)
             }
             R.id.entregaOption -> {
-                navController.navigate(R.id.entregaFragment)
+                navController.navigate(R.id.cursosFragment)
+                xarxaViewModel.setAccionElegida(getString(R.string.entrega))
             }
             R.id.devolucionOption -> {
-                navController.navigate(R.id.devolucionFragment)
+                navController.navigate(R.id.cursosFragment)
+                xarxaViewModel.setAccionElegida(getString(R.string.devolucion))
             }
             R.id.localizacionOption -> {
-                navController.navigate(R.id.localizacionFragment)
+                navController.navigate(R.id.cursosFragment)
+                xarxaViewModel.setAccionElegida(getString(R.string.localizacion))
             }
             R.id.busquedaLibrosOption -> {
                 navController.navigate(R.id.busquedaLibrosFragment)

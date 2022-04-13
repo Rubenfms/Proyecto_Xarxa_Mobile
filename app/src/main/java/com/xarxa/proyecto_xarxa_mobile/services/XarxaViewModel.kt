@@ -8,22 +8,50 @@ class XarxaViewModel : ViewModel() {
 
     private val nia = MutableLiveData<Int>()
     private val curso = MutableLiveData<String>()
+    private val grupo = MutableLiveData<String>()
+    private val tipoUsuario = MutableLiveData<String>()
     private val idLote = MutableLiveData<Int>()
+    private val accionElegida = MutableLiveData<String>()
 
-    fun setIdLote(id : Int) {
+
+    fun setIdLote(id: Int) {
         idLote.value = id
     }
 
-    fun getIdLote() : LiveData<Int> {
+    fun getIdLote(): LiveData<Int> {
         return idLote
     }
 
-    fun setCurso(c : String) {
+    fun setTipoUsuario(usuario: String) {
+        tipoUsuario.value = usuario
+    }
+
+    fun getTipoUsuario(): LiveData<String> {
+        return tipoUsuario
+    }
+
+    fun setAccionElegida(accion: String) {
+        accionElegida.value = accion
+    }
+
+    fun getAccionElegida(): LiveData<String> {
+        return accionElegida
+    }
+
+    fun setCurso(c: String) {
         curso.value = c
     }
 
-    fun getCurso() : LiveData<String> {
+    fun getCurso(): LiveData<String> {
         return curso
+    }
+
+    fun setGrupo(group: String) {
+        grupo.value = group
+    }
+
+    fun getGrupo(): LiveData<String> {
+        return grupo
     }
 
     fun setNia(n: Int) {
