@@ -60,4 +60,5 @@
     <string name="selecciona_un_curso">Selecciona un curso</string>
     <string name="selecciona_un_grupo">Selecciona un grupo</string>
     <string name="numero_lote">Nº Lote</string>
+    <string name="contrase_a_o_usuario_incorrectos">Usuario o contraseña incorrectos</string>
 </resources>

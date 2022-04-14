@@ -65,6 +65,19 @@
             android:singleLine="true" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <TextView
+        android:id="@+id/loginErrorTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="2dp"
+        android:visibility="gone"
+        android:textColor="#D93025"
+        android:text="@string/contrase_a_o_usuario_incorrectos"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/contrasenyaInputLayout" />
+
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/iniciarSesionButton"
         android:layout_width="wrap_content"

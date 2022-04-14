@@ -13,44 +13,44 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/nombreAlumnoListaLocalizacion"
-            android:layout_width="180dp"
+            android:id="@+id/niaAlumnoRowTextView"
+            android:layout_width="123dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_marginStart="6dp"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="@string/nombre_apellido1"
+            android:text="@string/nia"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/guionTextView"
-            android:layout_width="wrap_content"
+            android:id="@+id/nombreRowTextView"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="6dp"
-            android:text="@string/guion"
+            android:layout_marginEnd="40dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/nombre"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/cursoAlumnoListaLocalizacion"
-            app:layout_constraintStart_toEndOf="@id/nombreAlumnoListaLocalizacion"
+            app:layout_constraintStart_toEndOf="@id/niaAlumnoRowTextView"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/cursoAlumnoListaLocalizacion"
-            android:layout_width="60dp"
+            android:id="@+id/loteRowTextView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_marginStart="6dp"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:text="@string/curso_minusculas"
+            android:layout_marginStart="5dp"
+            android:text="@string/guion"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/nombreRowTextView"
             app:layout_constraintTop_toTopOf="parent" />
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

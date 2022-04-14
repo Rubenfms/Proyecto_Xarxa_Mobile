@@ -1,5 +1,6 @@
 package com.xarxa.proyecto_xarxa_mobile.recyclers
 
+import android.text.TextUtils.substring
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,13 +49,17 @@ class ListadoLocalizacionRecyclerAdapter(datos: ArrayList<Alumno>) :
         RecyclerView.ViewHolder(itemView) {
 
         private var nombreApellidos: TextView =
-            itemView.findViewById(R.id.nombreAlumnoListaLocalizacion)
-        private var grupo: TextView = itemView.findViewById(R.id.cursoAlumnoListaLocalizacion)
+            itemView.findViewById(R.id.nombreRowTextView)
+        private var nia: TextView = itemView.findViewById(R.id.niaAlumnoRowTextView)
+        private var lote: TextView = itemView.findViewById(R.id.loteRowTextView)
 
 
         fun bind(alumno: Alumno) {
-            nombreApellidos.text = "${alumno.nombre} ${alumno.apellido1}"
-            grupo.text = alumno.grupo
+            nombreApellidos.text = "${alumno.nombre} ${alumno.apellido1.substring(0, 1)}"
+            nia.text = alumno.nia.toString()
+            if (alumno.loteCollection.isNotEmpty()) {
+                lote.text = alumno.loteCollection[0].idLote.toString()
+            }
         }
     }
 }

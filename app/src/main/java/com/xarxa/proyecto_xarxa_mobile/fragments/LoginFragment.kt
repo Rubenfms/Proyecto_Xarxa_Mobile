@@ -14,7 +14,6 @@ import com.xarxa.proyecto_xarxa_mobile.services.APIRestAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.math.BigInteger
 import java.security.MessageDigest
 
 class LoginFragment : Fragment() {
@@ -35,9 +34,6 @@ class LoginFragment : Fragment() {
         adaptadorAPIRest = APIRestAdapter()
 
         binding.iniciarSesionButton.setOnClickListener {
-            val intento = Intent(requireActivity(), AccionesActivity::class.java)
-            startActivity(intento)
-            /*
             if (!binding.nombreUsuarioEditText.text.isNullOrEmpty() && !binding.contrasenyaEditText.text.isNullOrEmpty()) {
                 getUsuario()
             } else {
@@ -47,8 +43,6 @@ class LoginFragment : Fragment() {
                     Toast.LENGTH_LONG
                 ).show()
             }
-
-             */
         }
         return view
     }
@@ -57,29 +51,24 @@ class LoginFragment : Fragment() {
         CoroutineScope(Dispatchers.Main).launch {
             val nombreUsuario = binding.nombreUsuarioEditText.text
             val password = binding.contrasenyaEditText.text
-            usuario = adaptadorAPIRest.getUsuarioByNombreAsync(nombreUsuario.toString()).await()
-            val contrasenyaCorrecta = usuario.contrasenya == SHA256Encrypt(password.toString())
+            usuario = adaptadorAPIRest.getUsuarioByNombreAsync(nombreUsuario.toString().lowercase())
+                .await()
+            val contrasenyaCorrecta = usuario.contrasenya == sha256Encrypt(password.toString())
             if (contrasenyaCorrecta) {
+                binding.loginErrorTextView.visibility = View.GONE
                 val intento = Intent(requireActivity(), AccionesActivity::class.java)
+                intento.putExtra("TIPO_USUARIO", usuario.tipoUsuario)
                 startActivity(intento)
             } else {
-                Toast.makeText(
-                    requireActivity(),
-                    "Usuario o contraseña incorrectos. Inténtalo de nuevo",
-                    Toast.LENGTH_LONG
-                ).show()
+                binding.loginErrorTextView.visibility = View.VISIBLE
             }
         }
     }
 
-    private fun SHA256Encrypt(password: String): String {
-        val md = MessageDigest.getInstance("SHA-256")
-        val messageDigest = md.digest(password.toByteArray())
-        val no = BigInteger(1, messageDigest)
-        var hashtext = no.toString(16)
-        while (hashtext.length < 32) {
-            hashtext = "0$hashtext"
-        }
-        return hashtext
+    private fun sha256Encrypt(password: String): String {
+        return MessageDigest
+            .getInstance("SHA-256")
+            .digest(password.toByteArray())
+            .fold("") { str, it -> str + "%02x".format(it) }
     }
 }

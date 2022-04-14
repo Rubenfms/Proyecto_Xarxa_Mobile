@@ -69,12 +69,30 @@ class LocalizacionFragment : Fragment(), SearchView.OnQueryTextListener {
         chipNia = binding.chipNIA
         chipNombre = binding.chipNombre
         chipLote = binding.chipLote
+
         recibirGrupo()
         getAlumnos()
-
         creaContrato()
         crearContratoPermisosYAbreCamara()
+        logicaChips()
 
+        return view
+    }
+
+    private fun getAlumnos() {
+        CoroutineScope(Dispatchers.Main).launch {
+            listaAlumnos = adaptadorAPIRest.getAlumnosByGrupoAsync(grupo).await()
+            cargarRecyclerAlumnos(listaAlumnos)
+        }
+    }
+
+    private fun recibirGrupo() {
+        val grupoObserver = Observer<String> { i -> grupo = i }
+        xarxaViewModel.getGrupo().observe(requireActivity(), grupoObserver)
+        binding.cursoActualTextView.text = grupo
+    }
+
+    private fun logicaChips() {
         binding.chipGroup.setOnCheckedChangeListener { group, _ ->
             when (group.checkedChipId) {
                 R.id.chipNIA -> {
@@ -95,19 +113,6 @@ class LocalizacionFragment : Fragment(), SearchView.OnQueryTextListener {
                 }
             }
         }
-        return view
-    }
-
-    private fun getAlumnos() {
-        CoroutineScope(Dispatchers.Main).launch {
-            listaAlumnos = adaptadorAPIRest.getAlumnosByGrupoAsync(grupo).await()
-            cargarRecyclerAlumnos(listaAlumnos)
-        }
-    }
-
-    private fun recibirGrupo() {
-        val grupoObserver = Observer<String> { i -> grupo = i }
-        xarxaViewModel.getGrupo().observe(requireActivity(), grupoObserver)
     }
 
     private fun cargarRecyclerAlumnos(listaAlumnos: ArrayList<Alumno>) {
@@ -196,7 +201,7 @@ class LocalizacionFragment : Fragment(), SearchView.OnQueryTextListener {
     }
 
     private fun filtrar(textoAFiltrar: String) {
-        var textoFiltrarMinus = textoAFiltrar.lowercase()
+        val textoFiltrarMinus = textoAFiltrar.lowercase()
         if (TextUtils.isEmpty(textoAFiltrar)) {
             cargarRecyclerAlumnos(listaAlumnos)
         } else {

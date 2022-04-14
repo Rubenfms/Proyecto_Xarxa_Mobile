@@ -1,16 +1,23 @@
 package com.xarxa.proyecto_xarxa_mobile.activities
 
+import android.app.AlertDialog
 import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
+import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.FrameLayout
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.blue
 import androidx.core.graphics.green
 import androidx.core.graphics.red
+import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.bottomappbar.BottomAppBar
@@ -20,6 +27,7 @@ import com.google.android.material.navigation.NavigationView
 import com.xarxa.proyecto_xarxa_mobile.R
 import com.xarxa.proyecto_xarxa_mobile.databinding.ActivityAccionesBinding
 import com.xarxa.proyecto_xarxa_mobile.services.XarxaViewModel
+import com.xarxa.proyecto_xarxa_mobile.utils.TipoUsuario
 
 class AccionesActivity : AppCompatActivity() {
 
@@ -28,6 +36,7 @@ class AccionesActivity : AppCompatActivity() {
     private lateinit var screen: FrameLayout
     private lateinit var binding: ActivityAccionesBinding
     private lateinit var navController: NavController
+    private lateinit var tipoUsuario: String
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
     private val xarxaViewModel: XarxaViewModel by viewModels()
 
@@ -45,6 +54,7 @@ class AccionesActivity : AppCompatActivity() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragmentContainer) as NavHostFragment
         navController = navHostFragment.navController
+        recibirTipoUsuario()
         logicaNavigation()
     }
 
@@ -105,11 +115,17 @@ class AccionesActivity : AppCompatActivity() {
                 xarxaViewModel.setAccionElegida(getString(R.string.devolucion))
             }
             R.id.localizacionOption -> {
-                navController.navigate(R.id.cursosFragment)
-                xarxaViewModel.setAccionElegida(getString(R.string.localizacion))
-            }
-            R.id.busquedaLibrosOption -> {
-                navController.navigate(R.id.busquedaLibrosFragment)
+                if (tipoUsuario == TipoUsuario.INVITADO.toString().lowercase()) {
+                    navigationView.menu.getItem(3).isCheckable = false
+                    Toast.makeText(
+                        this,
+                        "No tienes acceso a ésta función, debes ser administrador para ello.",
+                        Toast.LENGTH_LONG
+                    ).show()
+                } else {
+                    navController.navigate(R.id.cursosFragment)
+                    xarxaViewModel.setAccionElegida(getString(R.string.localizacion))
+                }
             }
         }
     }
@@ -118,7 +134,30 @@ class AccionesActivity : AppCompatActivity() {
         if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_SETTLING || bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
         } else {
-            super.onBackPressed()
+            if (navController.currentDestination?.id == R.id.principalFragment) {
+                mostrarDialogoPersonalizado()
+            } else {
+                super.onBackPressed()
+            }
         }
     }
+
+    private fun recibirTipoUsuario() {
+        var intento = intent
+        tipoUsuario = intento.getStringExtra("TIPO_USUARIO").toString()
+    }
+
+    private fun mostrarDialogoPersonalizado() {
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+        builder.setMessage(
+            "Estás cerrando la sesión. ¿Continuar?"
+        )
+            .setPositiveButton("ACEPTAR") { _, _ ->
+                super.onBackPressed()
+            }
+            .setNegativeButton("CANCELAR")
+            { _, _ -> }
+            .show()
+    }
+
 }

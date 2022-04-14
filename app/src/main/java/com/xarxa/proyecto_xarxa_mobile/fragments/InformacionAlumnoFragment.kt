@@ -70,6 +70,9 @@ class InformacionAlumnoFragment : Fragment() {
                 mostrarDialogoPersonalizado()
             }
         }
+        if(!alumno.incidencias.isNullOrEmpty()) {
+            binding.incidenciasAlumnoEditText.setText(alumno.incidencias)
+        }
     }
 
     private fun mostrarDialogoPersonalizado(

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <group
         android:id="@+id/opciones"
         android:checkableBehavior="single">
@@ -19,9 +20,5 @@
             android:id="@+id/localizacionOption"
             android:icon="@drawable/ic_baseline_person_search_24"
             android:title="@string/localizacion" />
-        <item
-            android:id="@+id/busquedaLibrosOption"
-            android:icon="@drawable/ic_baseline_library_books_24"
-            android:title="@string/busqueda_libros" />
     </group>
 </menu>
