@@ -117,18 +117,20 @@ class CheckeoLibrosDevolucionFragment : Fragment() {
         listaCheckeoLibros = ArrayList(alumno.loteCollection[0].xarxaCollection)
         adaptador = LibrosDevolucionRecyclerAdapter(listaCheckeoLibros)
         recyclerView.adapter = adaptador
-        recyclerView.layoutManager =
-            LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
+        if (activity != null) {
+            recyclerView.layoutManager =
+                LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
 
-        adaptador.pasarLibro(object : PasarDatosInterface {
-            override fun pasarLibro(libro: Xarxa, checkeado: Boolean) {
-                if (checkeado) {
-                    listaCheckeoLibros.add(libro)
-                } else {
-                    listaCheckeoLibros.remove(libro)
+            adaptador.pasarLibro(object : PasarDatosInterface {
+                override fun pasarLibro(libro: Xarxa, checkeado: Boolean) {
+                    if (checkeado) {
+                        listaCheckeoLibros.add(libro)
+                    } else {
+                        listaCheckeoLibros.remove(libro)
+                    }
                 }
-            }
-        })
+            })
+        }
     }
 
     private fun mostrarDialogoPersonalizado(

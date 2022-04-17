@@ -2,10 +2,11 @@ package com.xarxa.proyecto_xarxa_mobile.fragments
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.EditText
 import android.widget.PopupMenu
+import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -14,18 +15,18 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.navigation.NavigationView
 import com.xarxa.proyecto_xarxa_mobile.R
 import com.xarxa.proyecto_xarxa_mobile.recyclers.ListadoEntregaRecyclerAdapter
 import com.xarxa.proyecto_xarxa_mobile.databinding.LayoutListaAlumnosEntregaBinding
 import com.xarxa.proyecto_xarxa_mobile.modelos.Alumno
 import com.xarxa.proyecto_xarxa_mobile.services.APIRestAdapter
+import com.xarxa.proyecto_xarxa_mobile.services.FiltracionService
 import com.xarxa.proyecto_xarxa_mobile.services.XarxaViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ListadoAlumnosEntregaFragment : Fragment() {
+class ListadoAlumnosEntregaFragment : Fragment(), SearchView.OnQueryTextListener {
 
     private lateinit var _binding: LayoutListaAlumnosEntregaBinding
     private val binding get() = _binding
@@ -33,25 +34,29 @@ class ListadoAlumnosEntregaFragment : Fragment() {
     private lateinit var adaptador: ListadoEntregaRecyclerAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var navController: NavController
-    private lateinit var añadirModificarDialog: AñadirModificarLoteFragment
+    private lateinit var anyadirModificarDialog: AñadirModificarLoteFragment
     private lateinit var grupo: String
     private lateinit var adaptadorAPIRest: APIRestAdapter
+    private lateinit var editTextBusqueda: EditText
+    private lateinit var filtracionService: FiltracionService
     private val xarxaViewModel: XarxaViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         super.onCreateView(inflater, container, savedInstanceState)
 
         _binding = LayoutListaAlumnosEntregaBinding.inflate(inflater, container, false)
         val view = binding.root
 
+        setHasOptionsMenu(true)
+        filtracionService = FiltracionService()
         navController = NavHostFragment.findNavController(this)
         recyclerView = binding.recyclerAlumnosEntrega
         adaptadorAPIRest = APIRestAdapter()
-        añadirModificarDialog = AñadirModificarLoteFragment()
+        anyadirModificarDialog = AñadirModificarLoteFragment()
         recibirGrupo()
         getAlumnos()
 
@@ -61,19 +66,21 @@ class ListadoAlumnosEntregaFragment : Fragment() {
     private fun getAlumnos() {
         CoroutineScope(Dispatchers.Main).launch {
             listaAlumnos = adaptadorAPIRest.getAlumnosByGrupoAsync(grupo).await()
-            cargarRecyclerAlumnos()
+            cargarRecyclerAlumnos(listaAlumnos)
         }
     }
 
-    private fun cargarRecyclerAlumnos() {
+    private fun cargarRecyclerAlumnos(listaAlumnos: ArrayList<Alumno>) {
         adaptador = ListadoEntregaRecyclerAdapter(listaAlumnos)
         recyclerView.adapter = adaptador
-        recyclerView.layoutManager =
-            LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
+        if (activity != null) {
+            recyclerView.layoutManager =
+                LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
 
-        adaptador.clickListener {
-            val posicion = recyclerView.getChildAdapterPosition(it)
-            showPopup(recyclerView[posicion].findViewById(R.id.loteEntregadoTextView), posicion)
+            adaptador.clickListener {
+                val posicion = recyclerView.getChildAdapterPosition(it)
+                showPopup(recyclerView[posicion].findViewById(R.id.loteEntregadoTextView), posicion)
+            }
         }
     }
 
@@ -95,10 +102,10 @@ class ListadoAlumnosEntregaFragment : Fragment() {
                     mostrarDialogoPersonalizado(posicion)
                 }
                 R.id.añadirLoteOption -> {
-                    navegarAñadirModificarFramgent(posicion)
+                    navegarAnyadirModificarFramgent(posicion)
                 }
                 R.id.modificarLoteOption -> {
-                    navegarAñadirModificarFramgent(posicion)
+                    navegarAnyadirModificarFramgent(posicion)
                 }
                 R.id.cancelarOption -> menuEmergente.dismiss()
             }
@@ -107,7 +114,7 @@ class ListadoAlumnosEntregaFragment : Fragment() {
         menuEmergente.show()
     }
 
-    private fun navegarAñadirModificarFramgent(posicion: Int) {
+    private fun navegarAnyadirModificarFramgent(posicion: Int) {
         xarxaViewModel.setNia(listaAlumnos[posicion].nia)
         if (navController.currentDestination?.id == R.id.listadoAlumnosEntregaFragment)
             navController.navigate(R.id.action_listadoAlumnosEntregaFragment_to_añadirModificarLoteFragment)
@@ -134,6 +141,43 @@ class ListadoAlumnosEntregaFragment : Fragment() {
     private fun recibirGrupo() {
         val grupoObserver = Observer<String> { i -> grupo = i }
         xarxaViewModel.getGrupo().observe(requireActivity(), grupoObserver)
+        binding.grupoActualEntregaTextView.text = grupo
     }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.searchview_menu, menu)
+        menu.setGroupVisible(R.id.escanerGroup, false)
+        val searchItem = menu.findItem(R.id.actionSearch).actionView as SearchView
+        searchItem.setOnQueryTextListener(this)
+        editTextBusqueda = searchItem.findViewById(androidx.appcompat.R.id.search_src_text)
+        editTextBusqueda.setTextColor(
+            ContextCompat.getColor(
+                requireActivity(),
+                R.color.primaryTextColor
+            )
+        )
+        editTextBusqueda.setHintTextColor(
+            ContextCompat.getColor(
+                requireActivity(),
+                R.color.primaryTextColor
+            )
+        )
+    }
+
+    override fun onQueryTextSubmit(textoAFiltrar: String): Boolean {
+        filtrar(textoAFiltrar)
+        return false
+    }
+
+    override fun onQueryTextChange(textoAFiltrar: String): Boolean {
+        filtrar(textoAFiltrar)
+        return false
+    }
+
+    private fun filtrar(textoAFiltrar: String) {
+        val listaFiltrada = filtracionService.filtrarPorNia(textoAFiltrar, listaAlumnos)
+        cargarRecyclerAlumnos(listaFiltrada)
+    }
+
 
 }

@@ -70,6 +70,11 @@ class AñadirModificarLoteFragment : Fragment(), SearchView.OnQueryTextListener 
             lotesAlumno =
                 adaptadorAPIRest.getLotesByNiaAsync(nia).await()
             alumnoConLote = lotesAlumno.isNotEmpty()
+            if (alumnoConLote) {
+                binding.informacionAccionLoteTextView.text = "MODIFICAR"
+            } else {
+                binding.informacionAccionLoteTextView.text = "AÑADIR"
+            }
         }
     }
 
@@ -88,12 +93,14 @@ class AñadirModificarLoteFragment : Fragment(), SearchView.OnQueryTextListener 
     private fun cargarRecyclerLotes(lista: ArrayList<Lote>) {
         adaptador = LotesEntregaRecyclerAdapter(lista)
         recyclerView.adapter = adaptador
-        recyclerView.layoutManager =
-            LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
+        if (activity != null) {
+            recyclerView.layoutManager =
+                LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
 
-        adaptador.clickListener {
-            val posicion = recyclerView.getChildAdapterPosition(it)
-            showPopup(recyclerView[posicion].findViewById(R.id.nombreLoteTextView), posicion)
+            adaptador.clickListener {
+                val posicion = recyclerView.getChildAdapterPosition(it)
+                showPopup(recyclerView[posicion].findViewById(R.id.nombreLoteTextView), posicion)
+            }
         }
     }
 

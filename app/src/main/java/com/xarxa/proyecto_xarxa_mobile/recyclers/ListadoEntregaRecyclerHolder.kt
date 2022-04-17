@@ -9,11 +9,14 @@ import com.xarxa.proyecto_xarxa_mobile.modelos.Alumno
 
 class ListadoEntregaRecyclerHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    private var nombreAlumno: TextView = itemView.findViewById(R.id.nombreAlumnoListaEntrega)
+    private var nombreApellidos: TextView =
+        itemView.findViewById(R.id.nombreAlumnoListaEntrega)
+    private var nia: TextView = itemView.findViewById(R.id.niaAlumnoListaEntrega)
     private var loteEntregado: TextView = itemView.findViewById(R.id.loteEntregadoTextView)
 
     fun bind(alumno: Alumno) {
-        nombreAlumno.text = "${alumno.nombre} ${alumno.apellido1}"
+        nombreApellidos.text = "${alumno.nombre} ${alumno.apellido1.substring(0, 1)}"
+        nia.text = alumno.nia.toString()
         if (alumno.loteCollection.isEmpty()) loteEntregado.text = "No" else loteEntregado.text =
             "Sí"
     }

@@ -4,7 +4,6 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.*
 import android.widget.EditText
 import android.widget.Toast
@@ -28,6 +27,7 @@ import com.xarxa.proyecto_xarxa_mobile.modelos.Alumno
 import com.xarxa.proyecto_xarxa_mobile.recyclers.ListadoLocalizacionRecyclerAdapter
 import com.xarxa.proyecto_xarxa_mobile.services.APIRestAdapter
 import com.xarxa.proyecto_xarxa_mobile.services.CodigoBarrasScanner
+import com.xarxa.proyecto_xarxa_mobile.services.FiltracionService
 import com.xarxa.proyecto_xarxa_mobile.services.XarxaViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -49,6 +49,7 @@ class LocalizacionFragment : Fragment(), SearchView.OnQueryTextListener {
     private lateinit var chipNombre: Chip
     private lateinit var chipLote: Chip
     private lateinit var editTextBusqueda: EditText
+    private lateinit var filtracionService: FiltracionService
     private val xarxaViewModel: XarxaViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -60,9 +61,8 @@ class LocalizacionFragment : Fragment(), SearchView.OnQueryTextListener {
 
         _binding = LayoutLocalizacionBinding.inflate(inflater, container, false)
         val view = binding.root
-        requireActivity().findViewById<NavigationView>(R.id.navigationView).menu.findItem(R.id.localizacionOption).isChecked =
-            true
         setHasOptionsMenu(true)
+        filtracionService = FiltracionService()
         navController = NavHostFragment.findNavController(this)
         recyclerView = binding.recyclerAlumnosLocalizacion
         adaptadorAPIRest = APIRestAdapter()
@@ -89,7 +89,7 @@ class LocalizacionFragment : Fragment(), SearchView.OnQueryTextListener {
     private fun recibirGrupo() {
         val grupoObserver = Observer<String> { i -> grupo = i }
         xarxaViewModel.getGrupo().observe(requireActivity(), grupoObserver)
-        binding.cursoActualTextView.text = grupo
+        binding.grupoActualLocalizacionTextView.text = grupo
     }
 
     private fun logicaChips() {
@@ -118,14 +118,16 @@ class LocalizacionFragment : Fragment(), SearchView.OnQueryTextListener {
     private fun cargarRecyclerAlumnos(listaAlumnos: ArrayList<Alumno>) {
         adaptador = ListadoLocalizacionRecyclerAdapter(listaAlumnos)
         recyclerView.adapter = adaptador
-        recyclerView.layoutManager =
-            LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
+        if (activity != null) {
+            recyclerView.layoutManager =
+                LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
 
-        adaptador.onClickListenerAlumnos {
-            val posicion = recyclerView.getChildAdapterPosition(it)
-            xarxaViewModel.setNia(listaAlumnos[posicion].nia)
-            if (navController.currentDestination?.id == R.id.localizacionFragment)
-                navController.navigate(R.id.action_localizacionFragment_to_informacionAlumnoFragment)
+            adaptador.onClickListenerAlumnos {
+                val posicion = recyclerView.getChildAdapterPosition(it)
+                xarxaViewModel.setNia(listaAlumnos[posicion].nia)
+                if (navController.currentDestination?.id == R.id.localizacionFragment)
+                    navController.navigate(R.id.action_localizacionFragment_to_informacionAlumnoFragment)
+            }
         }
     }
 
@@ -153,16 +155,6 @@ class LocalizacionFragment : Fragment(), SearchView.OnQueryTextListener {
             R.id.escanearOption -> registerPermisosCamera.launch(Manifest.permission.CAMERA)
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    override fun onQueryTextSubmit(textoAFiltrar: String): Boolean {
-        filtrar(textoAFiltrar)
-        return false
-    }
-
-    override fun onQueryTextChange(textoAFiltrar: String): Boolean {
-        filtrar(textoAFiltrar)
-        return false
     }
 
     private fun crearContratoPermisosYAbreCamara() {
@@ -200,43 +192,30 @@ class LocalizacionFragment : Fragment(), SearchView.OnQueryTextListener {
         resultadoCamara.launch(cameraIntent)
     }
 
+    override fun onQueryTextSubmit(textoAFiltrar: String): Boolean {
+        filtrar(textoAFiltrar)
+        return false
+    }
+
+    override fun onQueryTextChange(textoAFiltrar: String): Boolean {
+        filtrar(textoAFiltrar)
+        return false
+    }
+
     private fun filtrar(textoAFiltrar: String) {
-        val textoFiltrarMinus = textoAFiltrar.lowercase()
-        if (TextUtils.isEmpty(textoAFiltrar)) {
-            cargarRecyclerAlumnos(listaAlumnos)
-        } else {
-            val listaFiltrada = ArrayList<Alumno>()
-            for (x in listaAlumnos) {
-                when {
-                    chipNia.isChecked -> {
-                        val niaAlumno = x.nia.toString().lowercase()
-                        if (niaAlumno.contains(textoFiltrarMinus)) {
-                            listaFiltrada.add(x)
-                        } else if (niaAlumno.indexOf(textoFiltrarMinus) == 0) {
-                            listaFiltrada.add(x)
-                        }
-                    }
-                    chipNombre.isChecked -> {
-                        val nombreAlumno = x.nombre.lowercase()
-                        if (nombreAlumno.contains(textoFiltrarMinus)) {
-                            listaFiltrada.add(x)
-                        } else if (nombreAlumno.indexOf(textoFiltrarMinus) == 0) {
-                            listaFiltrada.add(x)
-                        }
-                    }
-                    chipLote.isChecked -> {
-                        if (x.loteCollection.isNotEmpty()) {
-                            val lote = x.loteCollection[0].idLote.toString().lowercase()
-                            if (lote.contains(textoFiltrarMinus)) {
-                                listaFiltrada.add(x)
-                            } else if (lote.indexOf(textoFiltrarMinus) == 0) {
-                                listaFiltrada.add(x)
-                            }
-                        }
-                    }
-                }
-                cargarRecyclerAlumnos(listaFiltrada)
+        var listaFiltrada: ArrayList<Alumno> = arrayListOf()
+        when {
+            chipNia.isChecked -> {
+                listaFiltrada = filtracionService.filtrarPorNia(textoAFiltrar, listaAlumnos)
+            }
+            chipNombre.isChecked -> {
+                listaFiltrada = filtracionService.filtrarPorNombre(textoAFiltrar, listaAlumnos)
+            }
+            chipLote.isChecked -> {
+                listaFiltrada = filtracionService.filtrarPorNumeroLote(textoAFiltrar, listaAlumnos)
             }
         }
+        cargarRecyclerAlumnos(listaFiltrada)
     }
 }
+

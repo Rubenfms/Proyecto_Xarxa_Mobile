@@ -20,5 +20,9 @@
             android:id="@+id/localizacionOption"
             android:icon="@drawable/ic_baseline_person_search_24"
             android:title="@string/localizacion" />
+        <item
+            android:id="@+id/busquedaGlobalOption"
+            android:icon="@drawable/ic_document_scanner_white_24dp"
+            android:title="@string/b_squeda_global_de_alumno" />
     </group>
 </menu>

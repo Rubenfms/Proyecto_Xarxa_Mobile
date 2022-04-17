@@ -7,34 +7,37 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/entregaLotesCardView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/primaryColor"
+        style="@style/Widget.MyApp.CardViewTitle"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_margin="15dp">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/entregaLotesTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="5dp"
-            android:text="@string/entrega_lote"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-            android:textColor="@color/primaryTextColor"/>
+            style="@style/Widget.MyApp.TextView"
+            android:text="@string/entrega_lote" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/grupoActualEntregaCardView"
+        style="@style/Widget.MyApp.CardViewSubtitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/entregaLotesCardView">
+
+        <TextView
+            android:id="@+id/grupoActualEntregaTextView"
+            style="@style/Widget.MyApp.TextView" />
     </com.google.android.material.card.MaterialCardView>
 
     <TextView
         android:id="@+id/alumnosTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_marginStart="23dp"
+        android:layout_marginTop="8dp"
         android:text="@string/alumnos"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/entregaLotesCardView" />
+        app:layout_constraintTop_toBottomOf="@+id/grupoActualEntregaCardView" />
 
     <TextView
         android:id="@+id/loteEntregadoTextView"
@@ -45,7 +48,7 @@
         android:text="@string/lote_entregado"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/entregaLotesCardView" />
+        app:layout_constraintTop_toBottomOf="@+id/grupoActualEntregaCardView" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerAlumnosEntrega"

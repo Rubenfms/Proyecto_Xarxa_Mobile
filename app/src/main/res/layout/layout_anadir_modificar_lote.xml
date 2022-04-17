@@ -7,22 +7,25 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/eligeLoteCardView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:backgroundTint="@color/primaryColor"
+        style="@style/Widget.MyApp.CardViewTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/tituloTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="5dp"
-            android:text="@string/elige_un_lote"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-            android:textColor="@color/primaryTextColor" />
+            android:id="@+id/eligeLoteTextView"
+            style="@style/Widget.MyApp.TextView"
+            android:text="@string/elige_un_lote" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/informacionAccionLoteCView"
+        style="@style/Widget.MyApp.CardViewSubtitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/eligeLoteCardView">
+
+        <TextView
+            android:id="@+id/informacionAccionLoteTextView"
+            style="@style/Widget.MyApp.TextView" />
     </com.google.android.material.card.MaterialCardView>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -35,7 +38,7 @@
         android:layout_marginBottom="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/eligeLoteCardView" />
+        app:layout_constraintTop_toBottomOf="@id/informacionAccionLoteCView" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

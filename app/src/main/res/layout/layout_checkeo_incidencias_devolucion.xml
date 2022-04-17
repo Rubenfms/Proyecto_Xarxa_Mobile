@@ -11,22 +11,14 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/chequeaLibrosCardView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:backgroundTint="@color/primaryColor"
+            style="@style/Widget.MyApp.CardViewTitle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/chequeaLibrosTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="5dp"
-                android:text="@string/chequea_los_libros_a_devolver"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-                android:textColor="@color/primaryTextColor" />
+                style="@style/Widget.MyApp.TextView"
+                android:text="@string/chequea_los_libros_a_devolver" />
         </com.google.android.material.card.MaterialCardView>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -51,13 +43,13 @@
             android:text="@string/informacion_incidencias"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/recyclerLibrosDevolucion"/>
+            app:layout_constraintTop_toBottomOf="@id/recyclerLibrosDevolucion" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/observacionesDevolucionLibros"
             style="@style/Widget.MyApp.MaterialInputLayout"
-            android:layout_marginTop="3dp"
             android:layout_marginStart="20dp"
+            android:layout_marginTop="3dp"
             android:layout_marginEnd="20dp"
             android:hint="@string/observaciones_e_incidencias"
             app:layout_constraintStart_toStartOf="parent"

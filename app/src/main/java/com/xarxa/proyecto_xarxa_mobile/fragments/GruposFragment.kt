@@ -65,23 +65,25 @@ class GruposFragment : Fragment() {
     private fun cargarRecyclerGrupos() {
         adaptador = CursosGruposRecyclerAdapter(listaGrupos)
         recyclerView.adapter = adaptador
-        recyclerView.layoutManager =
-            LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
+        if (activity != null) {
+            recyclerView.layoutManager =
+                LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
 
-        adaptador.onClickListener {
-            val posicion = recyclerView.getChildAdapterPosition(it)
-            xarxaViewModel.setGrupo(listaGrupos[posicion])
-            if (navController.currentDestination?.id == R.id.gruposFragment) {
-                when (xarxaViewModel.getAccionElegida().value) {
-                    getString(R.string.entrega) -> {
-                        navController.navigate(R.id.action_gruposFragment_to_listadoAlumnosEntregaFragment)
+            adaptador.onClickListener {
+                val posicion = recyclerView.getChildAdapterPosition(it)
+                xarxaViewModel.setGrupo(listaGrupos[posicion])
+                if (navController.currentDestination?.id == R.id.gruposFragment) {
+                    when (xarxaViewModel.getAccionElegida().value) {
+                        getString(R.string.entrega) -> {
+                            navController.navigate(R.id.action_gruposFragment_to_listadoAlumnosEntregaFragment)
 
-                    }
-                    getString(R.string.devolucion) -> {
-                        navController.navigate(R.id.action_gruposFragment_to_listadoAlumnosDevolucionFragment)
-                    }
-                    getString(R.string.localizacion) -> {
-                        navController.navigate(R.id.action_gruposFragment_to_localizacionFragment)
+                        }
+                        getString(R.string.devolucion) -> {
+                            navController.navigate(R.id.action_gruposFragment_to_listadoAlumnosDevolucionFragment)
+                        }
+                        getString(R.string.localizacion) -> {
+                            navController.navigate(R.id.action_gruposFragment_to_localizacionFragment)
+                        }
                     }
                 }
             }
@@ -90,7 +92,7 @@ class GruposFragment : Fragment() {
 
     private fun logicaGrupos() {
         for (i in 0 until listaAlumnos.size) {
-            var grupoAlumno = listaAlumnos[i].grupo
+            val grupoAlumno = listaAlumnos[i].grupo
             if (!listaGrupos.contains(grupoAlumno)) {
                 listaGrupos.add(grupoAlumno)
             }

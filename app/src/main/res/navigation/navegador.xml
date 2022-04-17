@@ -13,10 +13,6 @@
             app:destination="@id/cursosFragment" />
     </fragment>
     <fragment
-        android:id="@+id/busquedaLibrosFragment"
-        android:name="com.xarxa.proyecto_xarxa_mobile.fragments.BusquedaLibrosFragment"
-        android:label="BusquedaLibrosFragment" />
-    <fragment
         android:id="@+id/cursosFragment"
         android:name="com.xarxa.proyecto_xarxa_mobile.fragments.CursosFragment"
         android:label="CursosFragment">
@@ -97,5 +93,15 @@
         <action
             android:id="@+id/action_añadirModificarLoteFragment_to_informacionLoteFragment"
             app:destination="@id/informacionLoteFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/busquedaAlumnoFragment"
+        android:name="com.xarxa.proyecto_xarxa_mobile.fragments.BusquedaAlumnoFragment"
+        android:label="BusquedaAlumnoFragment">
+        <action
+            android:id="@+id/action_busquedaAlumnoFragment_to_informacionAlumnoFragment"
+            app:destination="@id/informacionAlumnoFragment"
+            app:popUpTo="@id/principalFragment"
+            app:popUpToInclusive="false" />
     </fragment>
 </navigation>

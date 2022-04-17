@@ -17,22 +17,14 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/informacionAlumnoCardView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:backgroundTint="@color/primaryColor"
+                style="@style/Widget.MyApp.CardViewTitle"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
                     android:id="@+id/informacionAlumnoTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="5dp"
-                    android:text="@string/informacion_alumno"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-                    android:textColor="@color/primaryTextColor" />
+                    style="@style/Widget.MyApp.TextView"
+                    android:text="@string/informacion_alumno" />
             </com.google.android.material.card.MaterialCardView>
 
             <ImageView
@@ -115,13 +107,28 @@
                     android:text="@string/sin_lote" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/estadoLoteInformacion"
+                style="@style/Widget.MyApp.MaterialInputLayout"
+                android:hint="@string/estado_lote"
+                app:layout_constraintStart_toStartOf="@id/loteAlumnoInformacion"
+                app:layout_constraintTop_toBottomOf="@id/loteAlumnoInformacion">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/estadoLoteEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:singleLine="true" />
+            </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/verLoteButton"
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="160dp"
+                android:visibility="gone"
                 app:icon="@drawable/ic_baseline_remove_red_eye_24"
                 app:layout_constraintBottom_toBottomOf="@id/loteAlumnoInformacion"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -154,8 +161,8 @@
                 style="@style/Widget.MyApp.MaterialInputLayout"
                 android:layout_marginTop="5dp"
                 android:hint="@string/estado_matriculacion"
-                app:layout_constraintStart_toStartOf="@id/loteAlumnoInformacion"
-                app:layout_constraintTop_toBottomOf="@id/loteAlumnoInformacion">
+                app:layout_constraintStart_toStartOf="@id/estadoLoteInformacion"
+                app:layout_constraintTop_toBottomOf="@id/estadoLoteInformacion">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/estadoMatAlumnoEditText"
@@ -236,7 +243,7 @@
                     android:layout_height="150dp"
                     android:focusable="false"
                     android:gravity="top"
-                    android:text="@string/incidencias" />
+                    android:text="@string/sin_incidencias" />
             </com.google.android.material.textfield.TextInputLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

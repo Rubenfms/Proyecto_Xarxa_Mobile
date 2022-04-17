@@ -13,18 +13,30 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/nombreAlumnoListaDevolucion"
-            android:layout_width="200dp"
+            android:id="@+id/niaAlumnoListaDevolucion"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:layout_marginStart="6dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="@string/nombre_apellido1"
+            android:text="@string/nia"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/nombreAlumnoListaDevolucion"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="40dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/nombre"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/niaAlumnoListaDevolucion"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView

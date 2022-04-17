@@ -2,11 +2,7 @@ package com.xarxa.proyecto_xarxa_mobile.activities
 
 import android.app.AlertDialog
 import android.graphics.Color
-import android.graphics.Typeface
 import android.os.Bundle
-import android.util.Log
-import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.FrameLayout
@@ -17,7 +13,6 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.blue
 import androidx.core.graphics.green
 import androidx.core.graphics.red
-import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.bottomappbar.BottomAppBar
@@ -102,6 +97,7 @@ class AccionesActivity : AppCompatActivity() {
     }
 
     private fun navigationItemSelected(item: MenuItem) {
+        var mensajeInvitado = false
         when (item.itemId) {
             R.id.principalOption -> {
                 navController.navigate(R.id.action_global_principalFragment)
@@ -116,17 +112,28 @@ class AccionesActivity : AppCompatActivity() {
             }
             R.id.localizacionOption -> {
                 if (tipoUsuario == TipoUsuario.INVITADO.toString().lowercase()) {
+                    mensajeInvitado = true
                     navigationView.menu.getItem(3).isCheckable = false
-                    Toast.makeText(
-                        this,
-                        "No tienes acceso a ésta función, debes ser administrador para ello.",
-                        Toast.LENGTH_LONG
-                    ).show()
                 } else {
                     navController.navigate(R.id.cursosFragment)
                     xarxaViewModel.setAccionElegida(getString(R.string.localizacion))
                 }
             }
+            R.id.busquedaGlobalOption -> {
+                if (tipoUsuario == TipoUsuario.INVITADO.toString().lowercase()) {
+                    mensajeInvitado = true
+                    navigationView.menu.getItem(4).isCheckable = false
+                } else {
+                    navController.navigate(R.id.busquedaAlumnoFragment)
+                }
+            }
+        }
+        if (mensajeInvitado) {
+            Toast.makeText(
+                this,
+                "No tienes acceso a ésta función, debes ser administrador para ello.",
+                Toast.LENGTH_LONG
+            ).show()
         }
     }
 
@@ -134,16 +141,19 @@ class AccionesActivity : AppCompatActivity() {
         if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_SETTLING || bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
         } else {
-            if (navController.currentDestination?.id == R.id.principalFragment) {
-                mostrarDialogoPersonalizado()
-            } else {
-                super.onBackPressed()
+            when (navController.currentDestination?.id) {
+                R.id.principalFragment -> {
+                    mostrarDialogoPersonalizado()
+                }
+                else -> {
+                    super.onBackPressed()
+                }
             }
         }
     }
 
     private fun recibirTipoUsuario() {
-        var intento = intent
+        val intento = intent
         tipoUsuario = intento.getStringExtra("TIPO_USUARIO").toString()
     }
 
@@ -152,7 +162,7 @@ class AccionesActivity : AppCompatActivity() {
         builder.setMessage(
             "Estás cerrando la sesión. ¿Continuar?"
         )
-            .setPositiveButton("ACEPTAR") { _, _ ->
+            .setPositiveButton("Cerrar sesión") { _, _ ->
                 super.onBackPressed()
             }
             .setNegativeButton("CANCELAR")

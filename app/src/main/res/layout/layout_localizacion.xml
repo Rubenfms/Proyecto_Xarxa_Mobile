@@ -18,29 +18,18 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/alumnosLocalizacionCard"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:backgroundTint="@color/primaryColor"
+                style="@style/Widget.MyApp.CardViewTitle"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
                     android:id="@+id/alumnosTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="5dp"
-                    android:text="@string/alumnos"
-                    android:textAllCaps="true"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                    android:textColor="@color/primaryTextColor"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    style="@style/Widget.MyApp.TextView"
+                    android:text="@string/alumnos" />
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cursoActualCardView"
+                android:id="@+id/grupoActualLocalizacionCardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
@@ -51,13 +40,8 @@
                 app:layout_constraintTop_toBottomOf="@+id/alumnosLocalizacionCard">
 
                 <TextView
-                    android:id="@+id/cursoActualTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="5dp"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                    android:textColor="@color/primaryTextColor" />
+                    android:id="@+id/grupoActualLocalizacionTextView"
+                    style="@style/Widget.MyApp.TextView" />
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.chip.ChipGroup
@@ -66,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="35dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cursoActualCardView"
+                app:layout_constraintTop_toBottomOf="@+id/grupoActualLocalizacionCardView"
                 app:singleSelection="true">
 
                 <com.google.android.material.chip.Chip
@@ -118,8 +102,8 @@
                 android:id="@+id/numeroLoteTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:layout_marginStart="3dp"
+                android:layout_marginTop="8dp"
                 android:text="@string/lote"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
                 app:layout_constraintStart_toEndOf="@id/nombreAlumnoTextView"

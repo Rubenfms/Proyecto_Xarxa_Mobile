@@ -27,7 +27,6 @@ class InformacionLoteFragment : Fragment() {
     private val binding get() = _binding
     private lateinit var adaptador: LibrosInformacionLoteRecyclerAdapter
     private lateinit var recyclerView: RecyclerView
-    private lateinit var navController: NavController
     private var idLote: Int = 0
     private var lote = Lote()
     private lateinit var adaptadorAPIRest: APIRestAdapter
@@ -43,7 +42,6 @@ class InformacionLoteFragment : Fragment() {
         _binding = LayoutInformacionLoteBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        navController = NavHostFragment.findNavController(this)
         recyclerView = binding.recyclerLibrosLote
         adaptadorAPIRest = APIRestAdapter()
         recibirIDLote()
@@ -62,14 +60,16 @@ class InformacionLoteFragment : Fragment() {
     private fun cargarRecycler() {
         adaptador = LibrosInformacionLoteRecyclerAdapter(lote.xarxaCollection)
         recyclerView.adapter = adaptador
-        recyclerView.layoutManager =
-            LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
+        if (activity != null) {
+            recyclerView.layoutManager =
+                LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
+        }
     }
 
     private fun recibirIDLote() {
         val idObserver = Observer<Int> { i -> idLote = i }
         xarxaViewModel.getIdLote().observe(requireActivity(), idObserver)
-        binding.librosLoteTextView.text = "Lote con ID $idLote"
+        binding.informacionLoteTextView.text = "Lote con ID $idLote"
     }
 
 }

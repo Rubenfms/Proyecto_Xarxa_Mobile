@@ -62,16 +62,19 @@ class CursosFragment : Fragment() {
 
     private fun cargarRecyclerCursos() {
         adaptador = CursosGruposRecyclerAdapter(listaCursos)
-        recyclerView.adapter = adaptador
-        recyclerView.layoutManager =
-            LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
+        if (activity != null) {
+            recyclerView.adapter = adaptador
+            recyclerView.layoutManager =
+                LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
 
-        adaptador.onClickListener {
-            val posicion = recyclerView.getChildAdapterPosition(it)
-            xarxaViewModel.setCurso(listaCursos[posicion])
-            if (navController.currentDestination?.id == R.id.cursosFragment)
-                navController.navigate(R.id.action_cursosFragment_to_gruposFragment)
+            adaptador.onClickListener {
+                val posicion = recyclerView.getChildAdapterPosition(it)
+                xarxaViewModel.setCurso(listaCursos[posicion])
+                if (navController.currentDestination?.id == R.id.cursosFragment)
+                    navController.navigate(R.id.action_cursosFragment_to_gruposFragment)
+            }
         }
+
     }
 
     private fun logicaCursos() {

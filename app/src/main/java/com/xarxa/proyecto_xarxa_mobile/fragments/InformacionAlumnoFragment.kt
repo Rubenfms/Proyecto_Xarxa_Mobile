@@ -70,7 +70,10 @@ class InformacionAlumnoFragment : Fragment() {
                 mostrarDialogoPersonalizado()
             }
         }
-        if(!alumno.incidencias.isNullOrEmpty()) {
+        if (alumno.estadoLote.isNotEmpty()) {
+            binding.estadoLoteEditText.setText(alumno.estadoLote)
+        }
+        if (!alumno.incidencias.isNullOrEmpty()) {
             binding.incidenciasAlumnoEditText.setText(alumno.incidencias)
         }
     }
