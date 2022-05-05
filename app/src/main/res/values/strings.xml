@@ -64,4 +64,5 @@
     <string name="b_squeda_global_de_alumno">Búsqueda de alumno por lote</string>
     <string name="estado_lote">Estado lote</string>
     <string name="sin_incidencias">Sin incidencias</string>
+    <string name="cerrar_sesion">Cerrar sesión</string>
 </resources>

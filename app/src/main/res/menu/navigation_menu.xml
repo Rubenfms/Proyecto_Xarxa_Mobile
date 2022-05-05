@@ -1,28 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto">
     <group
-        android:id="@+id/opciones"
-        android:checkableBehavior="single">
+            android:id="@+id/opciones"
+            android:checkableBehavior="single">
         <item
-            android:id="@+id/principalOption"
-            android:icon="@drawable/ic_home_black_24dp"
-            android:title="@string/inicio" />
+                android:id="@+id/principalOption"
+                android:icon="@drawable/ic_home_black_24dp"
+                android:title="@string/inicio" />
         <item
-            android:id="@+id/entregaOption"
-            android:icon="@drawable/ic_baseline_keyboard_arrow_left_24"
-            android:title="@string/entrega" />
+                android:id="@+id/entregaOption"
+                android:icon="@drawable/ic_baseline_keyboard_arrow_left_24"
+                android:title="@string/entrega" />
         <item
-            android:id="@+id/devolucionOption"
-            android:icon="@drawable/ic_baseline_keyboard_arrow_right_24"
-            android:title="@string/devolucion" />
+                android:id="@+id/devolucionOption"
+                android:icon="@drawable/ic_baseline_keyboard_arrow_right_24"
+                android:title="@string/devolucion" />
         <item
-            android:id="@+id/localizacionOption"
-            android:icon="@drawable/ic_baseline_person_search_24"
-            android:title="@string/localizacion" />
+                android:id="@+id/localizacionOption"
+                android:icon="@drawable/ic_baseline_person_search_24"
+                android:title="@string/localizacion" />
         <item
-            android:id="@+id/busquedaGlobalOption"
-            android:icon="@drawable/ic_document_scanner_white_24dp"
-            android:title="@string/b_squeda_global_de_alumno" />
+                android:id="@+id/busquedaGlobalOption"
+                android:icon="@drawable/ic_document_scanner_white_24dp"
+                android:title="@string/b_squeda_global_de_alumno" />
+        <item
+                android:id="@+id/cerrarSesionOption"
+                android:icon="@drawable/ic_login_black_24dp"
+                android:title="@string/cerrar_sesion" />
     </group>
 </menu>

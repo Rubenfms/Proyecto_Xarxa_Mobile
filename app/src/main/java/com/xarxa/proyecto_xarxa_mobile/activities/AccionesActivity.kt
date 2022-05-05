@@ -1,6 +1,7 @@
 package com.xarxa.proyecto_xarxa_mobile.activities
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.MenuItem
@@ -127,6 +128,9 @@ class AccionesActivity : AppCompatActivity() {
                     navController.navigate(R.id.busquedaAlumnoFragment)
                 }
             }
+            R.id.cerrarSesionOption -> {
+                mostrarDialogoPersonalizado()
+            }
         }
         if (mensajeInvitado) {
             Toast.makeText(
@@ -163,7 +167,9 @@ class AccionesActivity : AppCompatActivity() {
             "Estás cerrando la sesión. ¿Continuar?"
         )
             .setPositiveButton("Cerrar sesión") { _, _ ->
-                super.onBackPressed()
+                val intento = Intent(this, MainActivity::class.java)
+                intento.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intento)
             }
             .setNegativeButton("CANCELAR")
             { _, _ -> }

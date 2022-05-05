@@ -58,5 +58,4 @@ interface ProveedorServicios {
     @Headers("Accept: application/json", "Content-Type: application/json")
     suspend fun getUsuario(@Path("nombre") nombre: String): Response<Usuario>
 
-
 }
