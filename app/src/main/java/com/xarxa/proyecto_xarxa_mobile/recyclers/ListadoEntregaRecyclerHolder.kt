@@ -17,7 +17,7 @@ class ListadoEntregaRecyclerHolder(itemView: View) : RecyclerView.ViewHolder(ite
     fun bind(alumno: Alumno) {
         nombreApellidos.text = "${alumno.nombre} ${alumno.apellido1.substring(0, 1)}"
         nia.text = alumno.nia.toString()
-        if (alumno.loteCollection.isEmpty()) loteEntregado.text = "No" else loteEntregado.text =
+        if (alumno.idLote == null) loteEntregado.text = "No" else loteEntregado.text =
             "Sí"
     }
 

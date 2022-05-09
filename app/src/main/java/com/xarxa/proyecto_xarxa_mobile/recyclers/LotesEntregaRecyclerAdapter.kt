@@ -47,7 +47,7 @@ class LotesEntregaRecyclerAdapter(datos: ArrayList<Lote>) :
         private var lote: TextView = itemView.findViewById(R.id.nombreLoteTextView)
 
         fun bind(l: Lote) {
-            lote.text = l.nombreModalidad
+            lote.text = l.modalidadLote.nombre
         }
     }
 

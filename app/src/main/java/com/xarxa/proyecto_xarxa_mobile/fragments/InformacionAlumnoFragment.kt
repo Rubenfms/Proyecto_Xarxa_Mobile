@@ -13,6 +13,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.xarxa.proyecto_xarxa_mobile.R
 import com.xarxa.proyecto_xarxa_mobile.databinding.LayoutInformacionAlumnoBinding
 import com.xarxa.proyecto_xarxa_mobile.modelos.Alumno
+import com.xarxa.proyecto_xarxa_mobile.modelos.Lote
 import com.xarxa.proyecto_xarxa_mobile.services.APIRestAdapter
 import com.xarxa.proyecto_xarxa_mobile.services.XarxaViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -63,8 +64,8 @@ class InformacionAlumnoFragment : Fragment() {
         binding.cursoAlumnoEditText.setText(alumno.curso)
         binding.grupoAlumnoEditText.setText(alumno.grupo)
         binding.perteneceXarxaCheckBox.isChecked = alumno.perteneceXarxa
-        if (alumno.loteCollection.isNotEmpty()) {
-            binding.loteAlumnoEditText.setText(alumno.loteCollection[0].idLote.toString())
+        if (alumno.idLote != null) {
+            binding.loteAlumnoEditText.setText(alumno.idLote.toString())
             binding.verLoteButton.visibility = View.VISIBLE
             binding.verLoteButton.setOnClickListener {
                 mostrarDialogoPersonalizado()
@@ -83,7 +84,7 @@ class InformacionAlumnoFragment : Fragment() {
         val builder: AlertDialog.Builder = AlertDialog.Builder(activity)
         builder.setMessage("¿Ver lote?")
             .setPositiveButton("Aceptar") { _, _ ->
-                xarxaViewModel.setIdLote(alumno.loteCollection[0].idLote)
+                xarxaViewModel.setIdLote(alumno.idLote!!)
                 if (navController.currentDestination?.id == R.id.informacionAlumnoFragment)
                     navController.navigate(R.id.action_informacionAlumnoFragment_to_informacionLoteFragment)
             }

@@ -75,7 +75,7 @@ class ListadoAlumnosDevolucionFragment : Fragment(), SearchView.OnQueryTextListe
 
             adaptador.clickListener {
                 val posicion = recyclerView.getChildAdapterPosition(it)
-                if (listaAlumnos[posicion].loteCollection.isNotEmpty())
+                if (listaAlumnos[posicion].idLote != null)
                     mostrarDialogoPersonalizado(posicion)
             }
         }

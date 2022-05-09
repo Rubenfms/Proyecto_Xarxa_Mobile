@@ -5,34 +5,32 @@ import java.util.*
 class Lote() {
 
     var idLote: Int
-    var idModalidad: Int
     var niaAlumno: Int?
-    var xarxaCollection: ArrayList<Xarxa>
-    var nombreModalidad : String
+    var librosLote: ArrayList<Xarxa>
+    var modalidadLote: Modalidad
 
     constructor(
         idLote: Int,
-        idModalidad: Int,
-        niaAlumno: Int,
-        nombreModalidad: String,
-        xarxaCollection: ArrayList<Xarxa>
+        niaAlumno: Int?,
+        librosLote: ArrayList<Xarxa>,
+        modalidadLote: Modalidad
     ) : this() {
         this.idLote = idLote
-        this.idModalidad = idModalidad
         this.niaAlumno = niaAlumno
-        this.nombreModalidad = nombreModalidad
-        this.xarxaCollection = xarxaCollection
+        this.librosLote = librosLote
+        this.modalidadLote = modalidadLote
     }
 
     init {
         niaAlumno = null
         idLote = 0
-        idModalidad = 0
-        nombreModalidad = ""
-        xarxaCollection = arrayListOf()
+        modalidadLote = Modalidad()
+        librosLote = arrayListOf()
     }
 
     override fun toString(): String {
-        return "Lote(idLote=$idLote, idModalidad=$idModalidad, xarxaCollection=$xarxaCollection)"
+        return "Lote(idLote=$idLote, niaAlumno=$niaAlumno, librosLote=$librosLote, modalidadLote=$modalidadLote)"
     }
+
+
 }

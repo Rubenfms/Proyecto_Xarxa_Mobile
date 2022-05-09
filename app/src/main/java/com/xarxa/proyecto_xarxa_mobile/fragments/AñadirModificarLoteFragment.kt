@@ -81,11 +81,6 @@ class AñadirModificarLoteFragment : Fragment(), SearchView.OnQueryTextListener 
     private fun getLotesOwnerless() {
         CoroutineScope(Dispatchers.Main).launch {
             listaLotes = adaptadorAPIRest.getLotesByNiaAsync(0).await()
-            for (lote in listaLotes) {
-                val modalidad: Modalidad =
-                    adaptadorAPIRest.getModalidadByIdAsync(lote.idModalidad).await()
-                lote.nombreModalidad = modalidad.nombre
-            }
             cargarRecyclerLotes(listaLotes)
         }
     }
@@ -173,7 +168,7 @@ class AñadirModificarLoteFragment : Fragment(), SearchView.OnQueryTextListener 
         } else {
             val listaFiltrada = ArrayList<Lote>()
             for (x in listaLotes) {
-                val text = x.nombreModalidad.lowercase()
+                val text = x.modalidadLote.nombre.lowercase()
                 if (text.contains(textoAFiltrar.lowercase())) listaFiltrada.add(x)
                 else if (text.indexOf(textoAFiltrar.lowercase()) == 0) listaFiltrada.add(
                     x
@@ -206,7 +201,7 @@ class AñadirModificarLoteFragment : Fragment(), SearchView.OnQueryTextListener 
     private fun mostrarDialogoPersonalizado(
         posicion: Int
     ) {
-        val nombreModalidad = listaLotes[posicion].nombreModalidad
+        val nombreModalidad = listaLotes[posicion].modalidadLote.nombre
         val builder: AlertDialog.Builder = AlertDialog.Builder(activity)
         val mensaje =
             if (alumnoConLote) "El alumno con NIA <b>$nia</b> ya tiene un lote asignado, si asignas un lote nuevo, se desasignará el anterior." +

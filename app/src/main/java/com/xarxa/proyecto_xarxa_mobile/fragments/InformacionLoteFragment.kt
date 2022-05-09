@@ -7,12 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.xarxa.proyecto_xarxa_mobile.databinding.LayoutInformacionLoteBinding
-import com.xarxa.proyecto_xarxa_mobile.modelos.Alumno
 import com.xarxa.proyecto_xarxa_mobile.modelos.Lote
 import com.xarxa.proyecto_xarxa_mobile.recyclers.LibrosInformacionLoteRecyclerAdapter
 import com.xarxa.proyecto_xarxa_mobile.services.APIRestAdapter
@@ -58,7 +55,7 @@ class InformacionLoteFragment : Fragment() {
     }
 
     private fun cargarRecycler() {
-        adaptador = LibrosInformacionLoteRecyclerAdapter(lote.xarxaCollection)
+        adaptador = LibrosInformacionLoteRecyclerAdapter(lote.modalidadLote.libroCollection)
         recyclerView.adapter = adaptador
         if (activity != null) {
             recyclerView.layoutManager =

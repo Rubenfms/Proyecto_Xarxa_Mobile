@@ -1,7 +1,5 @@
 package com.xarxa.proyecto_xarxa_mobile.modelos
 
-import java.util.*
-
 class Alumno() {
 
     var nia: Int
@@ -13,8 +11,8 @@ class Alumno() {
     var grupo: String
     var incidencias: String? = null
     var perteneceXarxa: Boolean
-    var loteCollection: ArrayList<Lote>
     var estadoLote: String
+    var idLote: Int? = null
 
     constructor(
         nia: Int,
@@ -26,8 +24,8 @@ class Alumno() {
         grupo: String,
         incidencias: String,
         perteneceXarxa: Boolean,
-        loteCollection: ArrayList<Lote>,
-        estadoLote : String
+        estadoLote : String,
+        idLote: Int?
     ) : this() {
         this.nia = nia
         this.nombre = nombre
@@ -38,8 +36,8 @@ class Alumno() {
         this.grupo = grupo
         this.incidencias = incidencias
         this.perteneceXarxa = perteneceXarxa
-        this.loteCollection = loteCollection
         this.estadoLote = estadoLote
+        this.idLote = idLote
     }
 
     init {
@@ -52,12 +50,10 @@ class Alumno() {
         grupo = ""
         estadoLote = ""
         perteneceXarxa = false
-        loteCollection = arrayListOf()
     }
 
     override fun toString(): String {
-        return "Alumno(nia=$nia, nombre='$nombre', apellido1='$apellido1', apellido2='$apellido2', estadoMatriculacion='$estadoMatriculacion', curso='$curso', grupo='$grupo', incidencias='$incidencias', perteneceXarxa=$perteneceXarxa, loteCollection=$loteCollection, estadoLote='$estadoLote')"
+        return "Alumno(nia=$nia, nombre='$nombre', apellido1='$apellido1', apellido2='$apellido2', estadoMatriculacion='$estadoMatriculacion', curso='$curso', grupo='$grupo', incidencias=$incidencias, perteneceXarxa=$perteneceXarxa, estadoLote='$estadoLote', idLote=$idLote)"
     }
-
 
 }

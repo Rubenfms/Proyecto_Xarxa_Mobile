@@ -89,11 +89,11 @@ class ListadoAlumnosEntregaFragment : Fragment(), SearchView.OnQueryTextListener
         menuEmergente.inflate(R.menu.entrega_lote_menu)
         menuEmergente.menu.setGroupVisible(
             R.id.opcionesLoteExistente,
-            listaAlumnos[posicion].loteCollection.isNotEmpty()
+            listaAlumnos[posicion].idLote != null
         )
         menuEmergente.menu.setGroupVisible(
             R.id.opcionesLoteNuevo,
-            listaAlumnos[posicion].loteCollection.isEmpty()
+            listaAlumnos[posicion].idLote == null
         )
 
         menuEmergente.setOnMenuItemClickListener {
@@ -124,13 +124,13 @@ class ListadoAlumnosEntregaFragment : Fragment(), SearchView.OnQueryTextListener
         posicion: Int
     ) {
         val builder: AlertDialog.Builder = AlertDialog.Builder(activity)
-        val idLote = listaAlumnos[posicion].loteCollection[0].idLote
+        val idLote = listaAlumnos[posicion].idLote
         builder.setMessage(
             "El número de lote de ${listaAlumnos[posicion].nombre} ${listaAlumnos[posicion].nombre} es el Nº" +
                     " $idLote ¿Deseas verlo con más detalle?"
         )
             .setPositiveButton("Ver") { _, _ ->
-                xarxaViewModel.setIdLote(idLote)
+                xarxaViewModel.setIdLote(idLote!!)
                 if (navController.currentDestination?.id == R.id.listadoAlumnosEntregaFragment)
                     navController.navigate(R.id.action_listadoAlumnosEntregaFragment_to_informacionLoteFragment)
             }

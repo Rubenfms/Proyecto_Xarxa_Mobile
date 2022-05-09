@@ -18,6 +18,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.xarxa.proyecto_xarxa_mobile.R
 import com.xarxa.proyecto_xarxa_mobile.databinding.LayoutCheckeoIncidenciasDevolucionBinding
 import com.xarxa.proyecto_xarxa_mobile.modelos.Alumno
+import com.xarxa.proyecto_xarxa_mobile.modelos.Lote
 import com.xarxa.proyecto_xarxa_mobile.modelos.Xarxa
 import com.xarxa.proyecto_xarxa_mobile.recyclers.LibrosDevolucionRecyclerAdapter
 import com.xarxa.proyecto_xarxa_mobile.services.APIRestAdapter
@@ -39,6 +40,7 @@ class CheckeoLibrosDevolucionFragment : Fragment() {
     private var listaCheckeoLibros: ArrayList<Xarxa> = ArrayList()
     private val xarxaViewModel: XarxaViewModel by activityViewModels()
     private var alumno = Alumno()
+    private var lote = Lote()
     private var nia: Int = 0
 
     override fun onCreateView(
@@ -66,6 +68,7 @@ class CheckeoLibrosDevolucionFragment : Fragment() {
     private fun getAlumno() {
         CoroutineScope(Dispatchers.Main).launch {
             alumno = adaptadorAPIRest.getAlumnoByNiaAsync(nia).await()
+            lote = adaptadorAPIRest.getLoteByIdAsync(alumno.idLote!!).await()
             cargarRecyclerCursos()
         }
     }
@@ -73,19 +76,20 @@ class CheckeoLibrosDevolucionFragment : Fragment() {
     private fun updateLote() {
         CoroutineScope(Dispatchers.Main).launch {
             val loteCompleto = listaCheckeoLibros.map { it.codigoXarxa }
-                .sorted() == alumno.loteCollection[0].xarxaCollection.map { it.codigoXarxa }
+                .sorted() == lote.librosLote.map { it.codigoXarxa }
                 .sorted()
-            alumno.loteCollection[0].niaAlumno = null
+            lote.niaAlumno = null
             alumno.estadoLote = "Devuelto${if (loteCompleto) " completo" else ""}"
             val incidenciasObservaciones = binding.observacionesDevolucionLibrosEditText.text
             if (incidenciasObservaciones!!.length >= 5) {
                 alumno.incidencias = incidenciasObservaciones.toString()
             }
-            val response1 = adaptadorAPIRest.updateLoteAsync(alumno.loteCollection[0]).await()
+            val response1 = adaptadorAPIRest.updateLoteAsync(lote).await()
             val response2 = adaptadorAPIRest.updateAlumnoAsync(alumno).await()
             respuestaPeticion(
                 "Lote devuelto correctamente",
                 "Ha ocurrido un error devolviendo el lote",
+                response1,
                 response2
             )
             navController.popBackStack()
@@ -95,9 +99,10 @@ class CheckeoLibrosDevolucionFragment : Fragment() {
     private fun respuestaPeticion(
         mensajeInfo: String,
         mensajeError: String,
-        response: Response<Void>
+        response1: Response<Void>,
+        response2: Response<Void>
     ) {
-        if (response.isSuccessful) {
+        if (response1.isSuccessful && response2.isSuccessful) {
             Snackbar.make(
                 requireActivity().findViewById(R.id.fragmentContainer),
                 mensajeInfo,
@@ -109,12 +114,13 @@ class CheckeoLibrosDevolucionFragment : Fragment() {
                 mensajeError,
                 Snackbar.LENGTH_LONG
             ).show()
-            Log.e("Error", response.toString())
+            Log.e("Error Response 1", response1.toString())
+            Log.e("Error Response 2", response2.toString())
         }
     }
 
     private fun cargarRecyclerCursos() {
-        listaCheckeoLibros = ArrayList(alumno.loteCollection[0].xarxaCollection)
+        listaCheckeoLibros = ArrayList(lote.librosLote)
         adaptador = LibrosDevolucionRecyclerAdapter(listaCheckeoLibros)
         recyclerView.adapter = adaptador
         if (activity != null) {

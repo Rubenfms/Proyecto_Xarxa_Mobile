@@ -54,8 +54,8 @@ class FiltracionService {
         } else {
             val listaFiltrada = ArrayList<Alumno>()
             for (x in listaAlumnos) {
-                if (x.loteCollection.isNotEmpty()) {
-                    val lote = x.loteCollection[0].idLote.toString().lowercase()
+                if (x.idLote != null) {
+                    val lote = x.idLote.toString().lowercase()
                     if (lote.contains(textoFiltrarMinus)) {
                         listaFiltrada.add(x)
                     } else if (lote.indexOf(textoFiltrarMinus) == 0) {

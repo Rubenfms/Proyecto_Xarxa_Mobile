@@ -61,7 +61,7 @@ class LibrosDevolucionRecyclerAdapter(datos: ArrayList<Xarxa>) :
 
         fun bind(xarxa: Xarxa) {
             this.xarxa = xarxa
-            libro.text = xarxa.isbn.titulo
+            libro.text = xarxa.titulo
         }
 
         fun onItemCheckListener(check: PasarDatosInterface) {

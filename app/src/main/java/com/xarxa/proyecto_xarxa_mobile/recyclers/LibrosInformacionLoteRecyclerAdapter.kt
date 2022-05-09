@@ -6,13 +6,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.xarxa.proyecto_xarxa_mobile.R
-import com.xarxa.proyecto_xarxa_mobile.modelos.Xarxa
+import com.xarxa.proyecto_xarxa_mobile.modelos.Libro
 
-class LibrosInformacionLoteRecyclerAdapter(datos: ArrayList<Xarxa>) :
+class LibrosInformacionLoteRecyclerAdapter(datos: ArrayList<Libro>) :
     RecyclerView.Adapter<LibrosInformacionLoteRecyclerAdapter.LibrosRecyclerHolder>() {
 
     private lateinit var view: View
-    private var datos: ArrayList<Xarxa> = datos
+    private var datos: ArrayList<Libro> = datos
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -40,10 +40,10 @@ class LibrosInformacionLoteRecyclerAdapter(datos: ArrayList<Xarxa>) :
         private var editorial: TextView = itemView.findViewById(R.id.editorialLibroTextView)
 
 
-        fun bind(xarxa: Xarxa) {
-            nombre.text = xarxa.isbn.titulo
-            curso.text = xarxa.isbn.curso
-            editorial.text = xarxa.isbn.editorial
+        fun bind(libro: Libro) {
+            nombre.text = libro.titulo
+            curso.text = libro.curso
+            editorial.text = libro.editorial
         }
     }
 }

@@ -57,8 +57,8 @@ class ListadoLocalizacionRecyclerAdapter(datos: ArrayList<Alumno>) :
         fun bind(alumno: Alumno) {
             nombreApellidos.text = "${alumno.nombre} ${alumno.apellido1.substring(0, 1)}"
             nia.text = alumno.nia.toString()
-            if (alumno.loteCollection.isNotEmpty()) {
-                lote.text = alumno.loteCollection[0].idLote.toString()
+            if (alumno.idLote != null) {
+                lote.text = alumno.idLote.toString()
             }
         }
     }
