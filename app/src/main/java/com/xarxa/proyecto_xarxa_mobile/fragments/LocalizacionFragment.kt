@@ -81,7 +81,7 @@ class LocalizacionFragment : Fragment(), SearchView.OnQueryTextListener {
 
     private fun getAlumnos() {
         CoroutineScope(Dispatchers.Main).launch {
-            listaAlumnos = adaptadorAPIRest.getAlumnosByGrupoAsync(grupo).await()
+            listaAlumnos = adaptadorAPIRest.getAlumnosByGrupoAsync(grupo, xarxaViewModel.getSessionIdString()).await()
             cargarRecyclerAlumnos(listaAlumnos)
         }
     }

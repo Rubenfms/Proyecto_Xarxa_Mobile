@@ -1,6 +1,7 @@
 package com.xarxa.proyecto_xarxa_mobile.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -55,7 +56,7 @@ class CursosFragment : Fragment() {
 
     private fun getAlumnos() {
         CoroutineScope(Dispatchers.Main).launch {
-            listaAlumnos = adaptadorAPIRest.getAlumnosAsync().await()
+            listaAlumnos = adaptadorAPIRest.getAlumnosAsync(xarxaViewModel.getSessionIdString()).await()
             logicaCursos()
         }
     }

@@ -50,7 +50,7 @@ class InformacionAlumnoFragment : Fragment() {
 
     private fun getAlumno() {
         CoroutineScope(Dispatchers.Main).launch {
-            alumno = adaptadorAPIRest.getAlumnoByNiaAsync(nia).await()
+            alumno = adaptadorAPIRest.getAlumnoByNiaAsync(nia, xarxaViewModel.getSessionIdString()).await()
             rellenarControles()
         }
     }

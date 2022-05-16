@@ -50,7 +50,7 @@ class AccionesActivity : AppCompatActivity() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragmentContainer) as NavHostFragment
         navController = navHostFragment.navController
-        recibirTipoUsuario()
+        recibirDatosIntent()
         logicaNavigation()
     }
 
@@ -156,9 +156,10 @@ class AccionesActivity : AppCompatActivity() {
         }
     }
 
-    private fun recibirTipoUsuario() {
+    private fun recibirDatosIntent() {
         val intento = intent
         tipoUsuario = intento.getStringExtra("TIPO_USUARIO").toString()
+        xarxaViewModel.setSessionId(intento.getStringExtra("SESSION-ID").toString())
     }
 
     private fun mostrarDialogoPersonalizado() {

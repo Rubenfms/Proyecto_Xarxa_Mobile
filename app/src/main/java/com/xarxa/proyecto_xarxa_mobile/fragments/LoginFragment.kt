@@ -2,15 +2,19 @@ package com.xarxa.proyecto_xarxa_mobile.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import com.xarxa.proyecto_xarxa_mobile.R
 import com.xarxa.proyecto_xarxa_mobile.activities.AccionesActivity
 import com.xarxa.proyecto_xarxa_mobile.databinding.LayoutLoginBinding
 import com.xarxa.proyecto_xarxa_mobile.modelos.Usuario
 import com.xarxa.proyecto_xarxa_mobile.services.APIRestAdapter
+import com.xarxa.proyecto_xarxa_mobile.services.XarxaViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -21,7 +25,7 @@ class LoginFragment : Fragment() {
     private lateinit var _binding: LayoutLoginBinding
     private val binding get() = _binding
     private lateinit var adaptadorAPIRest: APIRestAdapter
-    private var usuario = Usuario()
+    private var usuarioLogin = Usuario()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,24 +55,39 @@ class LoginFragment : Fragment() {
         CoroutineScope(Dispatchers.Main).launch {
             val nombreUsuario = binding.nombreUsuarioEditText.text
             val password = binding.contrasenyaEditText.text
-            usuario = adaptadorAPIRest.getUsuarioByNombreAsync(nombreUsuario.toString().lowercase())
-                .await()
-            val contrasenyaCorrecta = usuario.contrasenya == sha256Encrypt(password.toString())
-            if (contrasenyaCorrecta) {
+
+            usuarioLogin.nombreUsuario = nombreUsuario.toString().lowercase()
+            usuarioLogin.contrasenya = sha256Encrypt(password.toString())
+            val response = adaptadorAPIRest.loginUsuarioAsync(usuarioLogin).await()
+            if (response.isSuccessful) {
                 binding.loginErrorTextView.visibility = View.GONE
-                val intento = Intent(requireActivity(), AccionesActivity::class.java)
-                intento.putExtra("TIPO_USUARIO", usuario.tipoUsuario)
-                startActivity(intento)
+                val sessionId = limpiarCookie(response.headers().get("Set-Cookie")!!)
+                val usuario = adaptadorAPIRest.getUsuarioByNombreAsync(
+                    nombreUsuario.toString().lowercase(),
+                    sessionId
+                ).await()
+                val contrasenyaCorrecta = usuario.contrasenya == sha256Encrypt(password.toString())
+                if (contrasenyaCorrecta) {
+                    val intento = Intent(requireActivity(), AccionesActivity::class.java)
+                    intento.putExtra("TIPO_USUARIO", usuario.tipoUsuario)
+                    intento.putExtra("SESSION-ID", sessionId)
+                    startActivity(intento)
+                }
             } else {
                 binding.loginErrorTextView.visibility = View.VISIBLE
             }
         }
     }
 
+
     private fun sha256Encrypt(password: String): String {
         return MessageDigest
             .getInstance("SHA-256")
             .digest(password.toByteArray())
             .fold("") { str, it -> str + "%02x".format(it) }
+    }
+
+    private fun limpiarCookie(cookie: String): String {
+        return cookie.split(';')[0]
     }
 }

@@ -8,43 +8,43 @@ interface ProveedorServicios {
 
     @GET("alumnos")
     @Headers("Accept: application/json", "Content-Type: application/json")
-    suspend fun getAlumnos(): Response<ArrayList<Alumno>>
+    suspend fun getAlumnos(@Header("Cookie") sessionId : String): Response<ArrayList<Alumno>>
 
     @GET("alumnos/{nia}")
     @Headers("Accept: application/json", "Content-Type: application/json")
-    suspend fun getAlumno(@Path("nia") nia: Int): Response<Alumno>
+    suspend fun getAlumno(@Path("nia") nia: Int, @Header("Cookie") sessionId : String) : Response<Alumno>
 
     @GET("alumnos/curso/{curso}")
     @Headers("Accept: application/json", "Content-Type: application/json")
-    suspend fun getAlumnosByCurso(@Path("curso") curso: String): Response<ArrayList<Alumno>>
+    suspend fun getAlumnosByCurso(@Path("curso") curso: String, @Header("Cookie") sessionId : String): Response<ArrayList<Alumno>>
 
     @GET("alumnos/grupo/{grupo}")
     @Headers("Accept: application/json", "Content-Type: application/json")
-    suspend fun getAlumnosByGrupo(@Path("grupo") grupo: String): Response<ArrayList<Alumno>>
+    suspend fun getAlumnosByGrupo(@Path("grupo") grupo: String, @Header("Cookie") sessionId : String): Response<ArrayList<Alumno>>
 
     @PUT("alumnos")
     @Headers("Accept: application/json", "Content-Type: application/json")
-    suspend fun updateAlumno(@Body alumno: Alumno): Response<Void>
+    suspend fun updateAlumno(@Body alumno: Alumno, @Header("Cookie") sessionId : String): Response<Void>
 
     @GET("lotes")
     @Headers("Accept: application/json", "Content-Type: application/json")
-    suspend fun getLotes(): Response<ArrayList<Lote>>
+    suspend fun getLotes(@Header("Cookie") sessionId : String): Response<ArrayList<Lote>>
 
     @GET("lotes/{id}")
     @Headers("Accept: application/json", "Content-Type: application/json")
-    suspend fun getLote(@Path("id") id: Int): Response<Lote>
+    suspend fun getLote(@Path("id") id: Int, @Header("Cookie") sessionId : String): Response<Lote>
 
     @GET("lotes/nia/{nia}")
     @Headers("Accept: application/json", "Content-Type: application/json")
-    suspend fun getLotesByNia(@Path("nia") nia: Int): Response<ArrayList<Lote>>
+    suspend fun getLotesByNia(@Path("nia") nia: Int, @Header("Cookie") sessionId : String): Response<ArrayList<Lote>>
 
     @PUT("lotes")
     @Headers("Accept: application/json", "Content-Type: application/json")
-    suspend fun updateLote(@Body lote: Lote): Response<Void>
+    suspend fun updateLote(@Body lote: Lote, @Header("Cookie") sessionId : String): Response<Void>
 
     @GET("modalidades/{id}")
     @Headers("Accept: application/json", "Content-Type: application/json")
-    suspend fun getModalidad(@Path("id") id: Int): Response<Modalidad>
+    suspend fun getModalidad(@Path("id") id: Int, @Header("Cookie") sessionId : String): Response<Modalidad>
 
     @GET("libros")
     @Headers("Accept: application/json", "Content-Type: application/json")
@@ -56,6 +56,14 @@ interface ProveedorServicios {
 
     @GET("usuarios/{nombre}")
     @Headers("Accept: application/json", "Content-Type: application/json")
-    suspend fun getUsuario(@Path("nombre") nombre: String): Response<Usuario>
+    suspend fun getUsuario(@Path("nombre") nombre: String, @Header("Cookie") sessionId : String): Response<Usuario>
+
+    @POST("auth/login")
+    @Headers("Accept: application/json", "Content-Type: application/json")
+    suspend fun loginUsuario(@Body usuario: Usuario): Response<Void>
+
+    @POST("auth/logout")
+    @Headers("Accept: application/json", "Content-Type: application/json")
+    suspend fun logout(): Response<Void>
 
 }

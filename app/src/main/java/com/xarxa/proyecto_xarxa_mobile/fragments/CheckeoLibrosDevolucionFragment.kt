@@ -67,8 +67,8 @@ class CheckeoLibrosDevolucionFragment : Fragment() {
 
     private fun getAlumno() {
         CoroutineScope(Dispatchers.Main).launch {
-            alumno = adaptadorAPIRest.getAlumnoByNiaAsync(nia).await()
-            lote = adaptadorAPIRest.getLoteByIdAsync(alumno.idLote!!).await()
+            alumno = adaptadorAPIRest.getAlumnoByNiaAsync(nia, xarxaViewModel.getSessionIdString()).await()
+            lote = adaptadorAPIRest.getLoteByIdAsync(alumno.idLote!!, xarxaViewModel.getSessionIdString()).await()
             cargarRecyclerCursos()
         }
     }
@@ -84,8 +84,8 @@ class CheckeoLibrosDevolucionFragment : Fragment() {
             if (incidenciasObservaciones!!.length >= 5) {
                 alumno.incidencias = incidenciasObservaciones.toString()
             }
-            val response1 = adaptadorAPIRest.updateLoteAsync(lote).await()
-            val response2 = adaptadorAPIRest.updateAlumnoAsync(alumno).await()
+            val response1 = adaptadorAPIRest.updateLoteAsync(lote, xarxaViewModel.getSessionIdString()).await()
+            val response2 = adaptadorAPIRest.updateAlumnoAsync(alumno, xarxaViewModel.getSessionIdString()).await()
             respuestaPeticion(
                 "Lote devuelto correctamente",
                 "Ha ocurrido un error devolviendo el lote",
