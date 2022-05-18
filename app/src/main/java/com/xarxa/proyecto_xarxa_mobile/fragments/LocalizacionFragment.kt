@@ -19,7 +19,6 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
-import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.xarxa.proyecto_xarxa_mobile.R
 import com.xarxa.proyecto_xarxa_mobile.databinding.LayoutLocalizacionBinding
@@ -81,7 +80,9 @@ class LocalizacionFragment : Fragment(), SearchView.OnQueryTextListener {
 
     private fun getAlumnos() {
         CoroutineScope(Dispatchers.Main).launch {
-            listaAlumnos = adaptadorAPIRest.getAlumnosByGrupoAsync(grupo, xarxaViewModel.getSessionIdString()).await()
+            listaAlumnos =
+                adaptadorAPIRest.getAlumnosByGrupoAsync(grupo, xarxaViewModel.getSessionIdString())
+                    .await()
             cargarRecyclerAlumnos(listaAlumnos)
         }
     }

@@ -2,13 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:id="@+id/opciones">
         <item
-            android:id="@+id/seleccionarLoteOption"
-            android:title="@string/seleccionar_lote" />
+                android:id="@+id/seleccionarLoteOption"
+                android:title="@string/seleccionar_lote" />
         <item
-            android:id="@+id/verLoteOption"
-            android:title="@string/ver_lote" />
+                android:id="@+id/verLoteOption"
+                android:title="@string/ver_lote" />
         <item
-            android:id="@+id/cancelarOption"
-            android:title="@string/cancelar" />
+                android:id="@+id/cancelarOption"
+                android:title="@string/cancelar" />
     </group>
 </menu>

@@ -1,76 +1,76 @@
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nestedScrollView"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/chequeaLibrosCardView"
-            style="@style/Widget.MyApp.CardViewTitle"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+                android:id="@+id/chequeaLibrosCardView"
+                style="@style/Widget.MyApp.CardViewTitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/chequeaLibrosTextView"
-                style="@style/Widget.MyApp.TextView"
-                android:text="@string/chequea_los_libros_a_devolver" />
+                    android:id="@+id/chequeaLibrosTextView"
+                    style="@style/Widget.MyApp.TextView"
+                    android:text="@string/chequea_los_libros_a_devolver" />
         </com.google.android.material.card.MaterialCardView>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerLibrosDevolucion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="10dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/chequeaLibrosCardView" />
+                android:id="@+id/recyclerLibrosDevolucion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/chequeaLibrosCardView" />
 
         <TextView
-            android:id="@+id/informacionIncidenciasTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="20dp"
-            android:text="@string/informacion_incidencias"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/recyclerLibrosDevolucion" />
+                android:id="@+id/informacionIncidenciasTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="20dp"
+                android:text="@string/informacion_incidencias"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recyclerLibrosDevolucion" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/observacionesDevolucionLibros"
-            style="@style/Widget.MyApp.MaterialInputLayout"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginEnd="20dp"
-            android:hint="@string/observaciones_e_incidencias"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/informacionIncidenciasTextView">
+                android:id="@+id/observacionesDevolucionLibros"
+                style="@style/Widget.MyApp.MaterialInputLayout"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="20dp"
+                android:hint="@string/observaciones_e_incidencias"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/informacionIncidenciasTextView">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/observacionesDevolucionLibrosEditText"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:gravity="top" />
+                    android:id="@+id/observacionesDevolucionLibrosEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:gravity="top" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/aceptarButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/secondaryColor"
-            android:padding="10dp"
-            android:text="@string/aceptar"
-            app:layout_constraintEnd_toEndOf="@id/observacionesDevolucionLibros"
-            app:layout_constraintTop_toBottomOf="@id/observacionesDevolucionLibros" />
+                android:id="@+id/aceptarButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/secondaryColor"
+                android:padding="10dp"
+                android:text="@string/aceptar"
+                app:layout_constraintEnd_toEndOf="@id/observacionesDevolucionLibros"
+                app:layout_constraintTop_toBottomOf="@id/observacionesDevolucionLibros" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

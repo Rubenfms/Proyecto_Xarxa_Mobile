@@ -1,63 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/entregaLotesCardView"
-        style="@style/Widget.MyApp.CardViewTitle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+            android:id="@+id/entregaLotesCardView"
+            style="@style/Widget.MyApp.CardViewTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/entregaLotesTextView"
-            style="@style/Widget.MyApp.TextView"
-            android:text="@string/entrega_lote" />
+                android:id="@+id/entregaLotesTextView"
+                style="@style/Widget.MyApp.TextView"
+                android:text="@string/entrega_lote" />
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/grupoActualEntregaCardView"
-        style="@style/Widget.MyApp.CardViewSubtitle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/entregaLotesCardView">
+            android:id="@+id/grupoActualEntregaCardView"
+            style="@style/Widget.MyApp.CardViewSubtitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/entregaLotesCardView">
 
         <TextView
-            android:id="@+id/grupoActualEntregaTextView"
-            style="@style/Widget.MyApp.TextView" />
+                android:id="@+id/grupoActualEntregaTextView"
+                style="@style/Widget.MyApp.TextView" />
     </com.google.android.material.card.MaterialCardView>
 
     <TextView
-        android:id="@+id/alumnosTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="23dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/alumnos"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/grupoActualEntregaCardView" />
+            android:id="@+id/alumnosTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="23dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/alumnos"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/grupoActualEntregaCardView" />
 
     <TextView
-        android:id="@+id/loteEntregadoTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="23dp"
-        android:text="@string/lote_entregado"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/grupoActualEntregaCardView" />
+            android:id="@+id/loteEntregadoTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="23dp"
+            android:text="@string/lote_entregado"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/grupoActualEntregaCardView" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerAlumnosEntrega"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/alumnosTextView" />
+            android:id="@+id/recyclerAlumnosEntrega"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/alumnosTextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

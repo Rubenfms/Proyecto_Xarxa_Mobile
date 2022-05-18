@@ -47,7 +47,8 @@ class BusquedaAlumnoFragment : Fragment() {
 
     private fun getLote(idLote: Int) {
         CoroutineScope(Dispatchers.Main).launch {
-            lote = adaptadorAPIRest.getLoteByIdAsync(idLote, xarxaViewModel.getSessionIdString()).await()
+            lote = adaptadorAPIRest.getLoteByIdAsync(idLote, xarxaViewModel.getSessionIdString())
+                .await()
             val textoSnackbar: String
             if (lote.niaAlumno != null) {
                 xarxaViewModel.setNia(lote.niaAlumno!!)

@@ -21,7 +21,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.xarxa.proyecto_xarxa_mobile.R
 import com.xarxa.proyecto_xarxa_mobile.databinding.LayoutAnadirModificarLoteBinding
 import com.xarxa.proyecto_xarxa_mobile.modelos.Lote
-import com.xarxa.proyecto_xarxa_mobile.modelos.Modalidad
 import com.xarxa.proyecto_xarxa_mobile.recyclers.LotesEntregaRecyclerAdapter
 import com.xarxa.proyecto_xarxa_mobile.services.APIRestAdapter
 import com.xarxa.proyecto_xarxa_mobile.services.XarxaViewModel
@@ -68,7 +67,8 @@ class AñadirModificarLoteFragment : Fragment(), SearchView.OnQueryTextListener 
     private fun getLotesAlumno() {
         CoroutineScope(Dispatchers.Main).launch {
             lotesAlumno =
-                adaptadorAPIRest.getLotesByNiaAsync(nia, xarxaViewModel.getSessionIdString()).await()
+                adaptadorAPIRest.getLotesByNiaAsync(nia, xarxaViewModel.getSessionIdString())
+                    .await()
             alumnoConLote = lotesAlumno.isNotEmpty()
             if (alumnoConLote) {
                 binding.informacionAccionLoteTextView.text = "MODIFICAR"
@@ -80,7 +80,8 @@ class AñadirModificarLoteFragment : Fragment(), SearchView.OnQueryTextListener 
 
     private fun getLotesOwnerless() {
         CoroutineScope(Dispatchers.Main).launch {
-            listaLotes = adaptadorAPIRest.getLotesByNiaAsync(0, xarxaViewModel.getSessionIdString()).await()
+            listaLotes =
+                adaptadorAPIRest.getLotesByNiaAsync(0, xarxaViewModel.getSessionIdString()).await()
             cargarRecyclerLotes(listaLotes)
         }
     }
@@ -124,10 +125,16 @@ class AñadirModificarLoteFragment : Fragment(), SearchView.OnQueryTextListener 
         CoroutineScope(Dispatchers.Main).launch {
             if (alumnoConLote) {
                 lotesAlumno[0].niaAlumno = null
-                adaptadorAPIRest.updateLoteAsync(lotesAlumno[0], xarxaViewModel.getSessionIdString()).await()
+                adaptadorAPIRest.updateLoteAsync(
+                    lotesAlumno[0],
+                    xarxaViewModel.getSessionIdString()
+                ).await()
             }
             listaLotes[posicion].niaAlumno = nia
-            val response = adaptadorAPIRest.updateLoteAsync(listaLotes[posicion], xarxaViewModel.getSessionIdString()).await()
+            val response = adaptadorAPIRest.updateLoteAsync(
+                listaLotes[posicion],
+                xarxaViewModel.getSessionIdString()
+            ).await()
             respuestaPeticion(
                 "Lote asignado correctamente",
                 "Ha ocurrido un error asignando el lote",
@@ -198,9 +205,7 @@ class AñadirModificarLoteFragment : Fragment(), SearchView.OnQueryTextListener 
         menuEmergente.show()
     }
 
-    private fun mostrarDialogoPersonalizado(
-        posicion: Int
-    ) {
+    private fun mostrarDialogoPersonalizado(posicion: Int) {
         val nombreModalidad = listaLotes[posicion].modalidadLote.nombre
         val builder: AlertDialog.Builder = AlertDialog.Builder(activity)
         val mensaje =

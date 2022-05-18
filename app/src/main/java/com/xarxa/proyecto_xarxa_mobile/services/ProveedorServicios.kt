@@ -46,14 +46,6 @@ interface ProveedorServicios {
     @Headers("Accept: application/json", "Content-Type: application/json")
     suspend fun getModalidad(@Path("id") id: Int, @Header("Cookie") sessionId : String): Response<Modalidad>
 
-    @GET("libros")
-    @Headers("Accept: application/json", "Content-Type: application/json")
-    suspend fun getLibros(): Response<ArrayList<Libro>>
-
-    @GET("libros/{id}")
-    @Headers("Accept: application/json", "Content-Type: application/json")
-    suspend fun getLibro(@Path("id") id: Int): Response<Libro>
-
     @GET("usuarios/{nombre}")
     @Headers("Accept: application/json", "Content-Type: application/json")
     suspend fun getUsuario(@Path("nombre") nombre: String, @Header("Cookie") sessionId : String): Response<Usuario>

@@ -9,16 +9,15 @@ class XarxaViewModel : ViewModel() {
     private val nia = MutableLiveData<Int>()
     private val curso = MutableLiveData<String>()
     private val grupo = MutableLiveData<String>()
-    private val tipoUsuario = MutableLiveData<String>()
     private val idLote = MutableLiveData<Int>()
     private val accionElegida = MutableLiveData<String>()
     private val sessionId = MutableLiveData<String>()
 
-    fun setSessionId(id : String) {
+    fun setSessionId(id: String) {
         sessionId.value = id
     }
 
-    fun getSessionId() : LiveData<String> {
+    fun getSessionId(): LiveData<String> {
         return sessionId
     }
 
@@ -32,14 +31,6 @@ class XarxaViewModel : ViewModel() {
 
     fun getIdLote(): LiveData<Int> {
         return idLote
-    }
-
-    fun setTipoUsuario(usuario: String) {
-        tipoUsuario.value = usuario
-    }
-
-    fun getTipoUsuario(): LiveData<String> {
-        return tipoUsuario
     }
 
     fun setAccionElegida(accion: String) {

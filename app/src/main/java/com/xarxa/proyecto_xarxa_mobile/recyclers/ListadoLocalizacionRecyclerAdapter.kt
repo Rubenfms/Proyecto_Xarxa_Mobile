@@ -1,6 +1,5 @@
 package com.xarxa.proyecto_xarxa_mobile.recyclers
 
-import android.text.TextUtils.substring
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

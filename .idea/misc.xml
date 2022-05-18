@@ -9,7 +9,7 @@
         <entry key="..\:/ProyectosAndroid/ProyectoTFG/Proyecto_Xarxa_Mobile/app/src/main/res/layout/activity_acciones.xml" value="0.5" />
         <entry key="..\:/ProyectosAndroid/ProyectoTFG/Proyecto_Xarxa_Mobile/app/src/main/res/layout/activity_main.xml" value="0.2674772036474164" />
         <entry key="..\:/ProyectosAndroid/ProyectoTFG/Proyecto_Xarxa_Mobile/app/src/main/res/layout/busqueda_global.xml" value="0.26874366767983787" />
-        <entry key="..\:/ProyectosAndroid/ProyectoTFG/Proyecto_Xarxa_Mobile/app/src/main/res/layout/drawer_header.xml" value="0.67" />
+        <entry key="..\:/ProyectosAndroid/ProyectoTFG/Proyecto_Xarxa_Mobile/app/src/main/res/layout/drawer_header.xml" value="0.33" />
         <entry key="..\:/ProyectosAndroid/ProyectoTFG/Proyecto_Xarxa_Mobile/app/src/main/res/layout/layout_anadir_modificar_lote.xml" value="0.33" />
         <entry key="..\:/ProyectosAndroid/ProyectoTFG/Proyecto_Xarxa_Mobile/app/src/main/res/layout/layout_añadir_modificar_lote.xml" value="0.521875" />
         <entry key="..\:/ProyectosAndroid/ProyectoTFG/Proyecto_Xarxa_Mobile/app/src/main/res/layout/layout_busqueda_libros.xml" value="0.30833333333333335" />
@@ -40,6 +40,7 @@
         <entry key="..\:/ProyectosAndroid/ProyectoTFG/Proyecto_Xarxa_Mobile/app/src/main/res/menu/navigation_menu.xml" value="0.30833333333333335" />
         <entry key="..\:/ProyectosAndroid/ProyectoTFG/Proyecto_Xarxa_Mobile/app/src/main/res/menu/searchview_menu.xml" value="0.31197916666666664" />
         <entry key="..\:/ProyectosAndroid/ProyectoTFG/Proyecto_Xarxa_Mobile/app/src/main/res/menu/seleccion_lote_menu.xml" value="0.5441025641025641" />
+        <entry key="..\:/ProyectosAndroid/ProyectoTFG/Proyecto_Xarxa_Mobile/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.3755" />
         <entry key="..\:/ProyectosAndroid/ProyectoTFG/Proyecto_Xarxa_Mobile/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.248" />
         <entry key="..\:/Users/Juandi/Documents/GitHub/Proyecto_Xarxa_Mobile/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.3165" />
         <entry key="..\:/Users/Juandi/Documents/GitHub/Proyecto_Xarxa_Mobile/app/src/main/res/drawable/ic_baseline_camera_alt_24.xml" value="0.316" />

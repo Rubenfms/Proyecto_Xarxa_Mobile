@@ -13,7 +13,6 @@ import androidx.navigation.fragment.NavHostFragment
 import com.xarxa.proyecto_xarxa_mobile.R
 import com.xarxa.proyecto_xarxa_mobile.databinding.LayoutInformacionAlumnoBinding
 import com.xarxa.proyecto_xarxa_mobile.modelos.Alumno
-import com.xarxa.proyecto_xarxa_mobile.modelos.Lote
 import com.xarxa.proyecto_xarxa_mobile.services.APIRestAdapter
 import com.xarxa.proyecto_xarxa_mobile.services.XarxaViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -50,7 +49,8 @@ class InformacionAlumnoFragment : Fragment() {
 
     private fun getAlumno() {
         CoroutineScope(Dispatchers.Main).launch {
-            alumno = adaptadorAPIRest.getAlumnoByNiaAsync(nia, xarxaViewModel.getSessionIdString()).await()
+            alumno = adaptadorAPIRest.getAlumnoByNiaAsync(nia, xarxaViewModel.getSessionIdString())
+                .await()
             rellenarControles()
         }
     }

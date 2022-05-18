@@ -1,44 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@android:color/white">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white">
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/eligeLoteCardView"
-        style="@style/Widget.MyApp.CardViewTitle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+            android:id="@+id/eligeLoteCardView"
+            style="@style/Widget.MyApp.CardViewTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/eligeLoteTextView"
-            style="@style/Widget.MyApp.TextView"
-            android:text="@string/elige_un_lote" />
+                android:id="@+id/eligeLoteTextView"
+                style="@style/Widget.MyApp.TextView"
+                android:text="@string/elige_un_lote" />
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/informacionAccionLoteCView"
-        style="@style/Widget.MyApp.CardViewSubtitle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/eligeLoteCardView">
+            android:id="@+id/informacionAccionLoteCView"
+            style="@style/Widget.MyApp.CardViewSubtitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/eligeLoteCardView">
 
         <TextView
-            android:id="@+id/informacionAccionLoteTextView"
-            style="@style/Widget.MyApp.TextView" />
+                android:id="@+id/informacionAccionLoteTextView"
+                style="@style/Widget.MyApp.TextView" />
     </com.google.android.material.card.MaterialCardView>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerLotesEntrega"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/informacionAccionLoteCView" />
+            android:id="@+id/recyclerLotesEntrega"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/informacionAccionLoteCView" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

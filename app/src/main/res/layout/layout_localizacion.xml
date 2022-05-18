@@ -1,123 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/coordinator"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/coordinator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/nestedScrollView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            android:id="@+id/nestedScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/alumnosLocalizacionCard"
-                style="@style/Widget.MyApp.CardViewTitle"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                    android:id="@+id/alumnosLocalizacionCard"
+                    style="@style/Widget.MyApp.CardViewTitle"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:id="@+id/alumnosTextView"
-                    style="@style/Widget.MyApp.TextView"
-                    android:text="@string/alumnos" />
+                        android:id="@+id/alumnosTextView"
+                        style="@style/Widget.MyApp.TextView"
+                        android:text="@string/alumnos" />
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/grupoActualLocalizacionCardView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginEnd="30dp"
-                android:backgroundTint="@color/primaryColor"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/alumnosLocalizacionCard">
+                    android:id="@+id/grupoActualLocalizacionCardView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginEnd="30dp"
+                    android:backgroundTint="@color/primaryColor"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/alumnosLocalizacionCard">
 
                 <TextView
-                    android:id="@+id/grupoActualLocalizacionTextView"
-                    style="@style/Widget.MyApp.TextView" />
+                        android:id="@+id/grupoActualLocalizacionTextView"
+                        style="@style/Widget.MyApp.TextView" />
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chipGroup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="35dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/grupoActualLocalizacionCardView"
-                app:singleSelection="true">
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipNIA"
-                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:id="@+id/chipGroup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="true"
-                    android:text="@string/nia"
-                    android:textIsSelectable="false" />
+                    android:layout_marginStart="35dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/grupoActualLocalizacionCardView"
+                    app:singleSelection="true">
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/chipNombre"
-                    style="@style/Widget.MaterialComponents.Chip.Filter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/nombre" />
+                        android:id="@+id/chipNIA"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="@string/nia"
+                        android:textIsSelectable="false" />
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/chipLote"
-                    style="@style/Widget.MaterialComponents.Chip.Filter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/numero_lote" />
+                        android:id="@+id/chipNombre"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/nombre" />
+
+                <com.google.android.material.chip.Chip
+                        android:id="@+id/chipLote"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/numero_lote" />
             </com.google.android.material.chip.ChipGroup>
 
             <TextView
-                android:id="@+id/niaAlumnoTextView"
-                android:layout_width="125dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/nia"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/chipGroup" />
+                    android:id="@+id/niaAlumnoTextView"
+                    android:layout_width="125dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/nia"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/chipGroup" />
 
             <TextView
-                android:id="@+id/nombreAlumnoTextView"
-                android:layout_width="160dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/nombre"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                app:layout_constraintStart_toEndOf="@id/niaAlumnoTextView"
-                app:layout_constraintTop_toBottomOf="@+id/chipGroup" />
+                    android:id="@+id/nombreAlumnoTextView"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/nombre"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    app:layout_constraintStart_toEndOf="@id/niaAlumnoTextView"
+                    app:layout_constraintTop_toBottomOf="@+id/chipGroup" />
 
             <TextView
-                android:id="@+id/numeroLoteTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="3dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/lote"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                app:layout_constraintStart_toEndOf="@id/nombreAlumnoTextView"
-                app:layout_constraintTop_toBottomOf="@+id/chipGroup" />
+                    android:id="@+id/numeroLoteTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/lote"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    app:layout_constraintStart_toEndOf="@id/nombreAlumnoTextView"
+                    app:layout_constraintTop_toBottomOf="@+id/chipGroup" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerAlumnosLocalizacion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/niaAlumnoTextView" />
+                    android:id="@+id/recyclerAlumnosLocalizacion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/niaAlumnoTextView" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

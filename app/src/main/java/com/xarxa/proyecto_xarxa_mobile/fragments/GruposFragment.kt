@@ -57,7 +57,9 @@ class GruposFragment : Fragment() {
 
     private fun getAlumnos() {
         CoroutineScope(Dispatchers.Main).launch {
-            listaAlumnos = adaptadorAPIRest.getAlumnosByCursoAsync(curso, xarxaViewModel.getSessionIdString()).await()
+            listaAlumnos =
+                adaptadorAPIRest.getAlumnosByCursoAsync(curso, xarxaViewModel.getSessionIdString())
+                    .await()
             logicaGrupos()
         }
     }

@@ -176,5 +176,4 @@ class AccionesActivity : AppCompatActivity() {
             { _, _ -> }
             .show()
     }
-
 }

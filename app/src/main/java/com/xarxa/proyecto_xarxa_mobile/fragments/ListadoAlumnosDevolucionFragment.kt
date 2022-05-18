@@ -14,9 +14,9 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.xarxa.proyecto_xarxa_mobile.R
-import com.xarxa.proyecto_xarxa_mobile.recyclers.ListadoDevolucionRecyclerAdapter
 import com.xarxa.proyecto_xarxa_mobile.databinding.LayoutListaAlumnosDevolucionBinding
 import com.xarxa.proyecto_xarxa_mobile.modelos.Alumno
+import com.xarxa.proyecto_xarxa_mobile.recyclers.ListadoDevolucionRecyclerAdapter
 import com.xarxa.proyecto_xarxa_mobile.services.APIRestAdapter
 import com.xarxa.proyecto_xarxa_mobile.services.FiltracionService
 import com.xarxa.proyecto_xarxa_mobile.services.XarxaViewModel
@@ -61,7 +61,9 @@ class ListadoAlumnosDevolucionFragment : Fragment(), SearchView.OnQueryTextListe
 
     private fun getAlumnos() {
         CoroutineScope(Dispatchers.Main).launch {
-            listaAlumnos = adaptadorAPIRest.getAlumnosByGrupoAsync(grupo, xarxaViewModel.getSessionIdString()).await()
+            listaAlumnos =
+                adaptadorAPIRest.getAlumnosByGrupoAsync(grupo, xarxaViewModel.getSessionIdString())
+                    .await()
             cargarRecyclerAlumnos(listaAlumnos)
         }
     }
@@ -139,5 +141,4 @@ class ListadoAlumnosDevolucionFragment : Fragment(), SearchView.OnQueryTextListe
         val listaFiltrada = filtracionService.filtrarPorNia(textoAFiltrar, listaAlumnos)
         cargarRecyclerAlumnos(listaFiltrada)
     }
-
 }

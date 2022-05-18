@@ -49,7 +49,8 @@ class InformacionLoteFragment : Fragment() {
 
     private fun getLote() {
         CoroutineScope(Dispatchers.Main).launch {
-            lote = adaptadorAPIRest.getLoteByIdAsync(idLote, xarxaViewModel.getSessionIdString()).await()
+            lote = adaptadorAPIRest.getLoteByIdAsync(idLote, xarxaViewModel.getSessionIdString())
+                .await()
             cargarRecycler()
         }
     }

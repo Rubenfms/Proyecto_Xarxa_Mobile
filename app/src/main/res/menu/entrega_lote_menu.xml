@@ -3,19 +3,19 @@
 
     <group android:id="@+id/opcionesLoteNuevo">
         <item
-            android:id="@+id/añadirLoteOption"
-            android:title="@string/añadir_lote" />
+                android:id="@+id/añadirLoteOption"
+                android:title="@string/añadir_lote" />
     </group>
 
     <group android:id="@+id/opcionesLoteExistente">
         <item
-            android:id="@+id/verLoteOption"
-            android:title="@string/ver_lote" />
+                android:id="@+id/verLoteOption"
+                android:title="@string/ver_lote" />
         <item
-            android:id="@+id/modificarLoteOption"
-            android:title="@string/modificar_lote" />
+                android:id="@+id/modificarLoteOption"
+                android:title="@string/modificar_lote" />
     </group>
     <item
-        android:id="@+id/cancelarOption"
-        android:title="@string/cancelar" />
+            android:id="@+id/cancelarOption"
+            android:title="@string/cancelar" />
 </menu>

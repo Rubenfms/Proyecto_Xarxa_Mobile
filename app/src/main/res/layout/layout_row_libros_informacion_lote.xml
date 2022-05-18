@@ -1,52 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="3dp"
-    app:cardCornerRadius="5dp">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        app:cardCornerRadius="5dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/iconoImageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:src="@drawable/ic_book_white_24dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/primaryDarkColor" />
+                android:id="@+id/iconoImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:src="@drawable/ic_book_white_24dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/primaryDarkColor" />
 
         <TextView
-            android:id="@+id/nombreLibroTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:text="@string/libro"
-            app:layout_constraintStart_toEndOf="@+id/iconoImageView"
-            app:layout_constraintTop_toTopOf="@id/iconoImageView" />
+                android:id="@+id/nombreLibroTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="@string/libro"
+                app:layout_constraintStart_toEndOf="@+id/iconoImageView"
+                app:layout_constraintTop_toTopOf="@id/iconoImageView" />
 
         <TextView
-            android:id="@+id/cursoLibroTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-            android:text="@string/curso_minusculas"
-            app:layout_constraintStart_toStartOf="@id/nombreLibroTextView"
-            app:layout_constraintTop_toBottomOf="@id/nombreLibroTextView" />
+                android:id="@+id/cursoLibroTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:text="@string/curso_minusculas"
+                app:layout_constraintStart_toStartOf="@id/nombreLibroTextView"
+                app:layout_constraintTop_toBottomOf="@id/nombreLibroTextView" />
 
         <TextView
-            android:id="@+id/editorialLibroTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-            android:text="@string/editorial"
-            app:layout_constraintStart_toStartOf="@id/cursoLibroTextView"
-            app:layout_constraintTop_toBottomOf="@id/cursoLibroTextView" />
-
+                android:id="@+id/editorialLibroTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:text="@string/editorial"
+                app:layout_constraintStart_toStartOf="@id/cursoLibroTextView"
+                app:layout_constraintTop_toBottomOf="@id/cursoLibroTextView" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,249 +1,249 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/coordinator"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/coordinator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/nestedScrollView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            android:id="@+id/nestedScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/informacionAlumnoCardView"
-                style="@style/Widget.MyApp.CardViewTitle"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                    android:id="@+id/informacionAlumnoCardView"
+                    style="@style/Widget.MyApp.CardViewTitle"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:id="@+id/informacionAlumnoTextView"
-                    style="@style/Widget.MyApp.TextView"
-                    android:text="@string/informacion_alumno" />
+                        android:id="@+id/informacionAlumnoTextView"
+                        style="@style/Widget.MyApp.TextView"
+                        android:text="@string/informacion_alumno" />
             </com.google.android.material.card.MaterialCardView>
 
             <ImageView
-                android:id="@+id/alumnoImageView"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="40dp"
-                android:src="@drawable/ic_person_black_24dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/informacionAlumnoCardView"
-                app:tint="@color/primaryDarkColor" />
+                    android:id="@+id/alumnoImageView"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="40dp"
+                    android:src="@drawable/ic_person_black_24dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/informacionAlumnoCardView"
+                    app:tint="@color/primaryDarkColor" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/niaAlumnoInformacion"
-                style="@style/Widget.MyApp.MaterialInputLayout"
-                android:hint="@string/nia"
-                app:layout_constraintBottom_toBottomOf="@id/alumnoImageView"
-                app:layout_constraintStart_toEndOf="@id/alumnoImageView"
-                app:layout_constraintTop_toTopOf="@id/alumnoImageView">
+                    android:id="@+id/niaAlumnoInformacion"
+                    style="@style/Widget.MyApp.MaterialInputLayout"
+                    android:hint="@string/nia"
+                    app:layout_constraintBottom_toBottomOf="@id/alumnoImageView"
+                    app:layout_constraintStart_toEndOf="@id/alumnoImageView"
+                    app:layout_constraintTop_toTopOf="@id/alumnoImageView">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/niaAlumnoEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:focusable="false"
-                    android:singleLine="true"
-                    android:text="@string/nia" />
+                        android:id="@+id/niaAlumnoEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:singleLine="true"
+                        android:text="@string/nia" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/nombreAlumnoInformacion"
-                style="@style/Widget.MyApp.MaterialInputLayout"
-                android:layout_marginTop="5dp"
-                android:hint="@string/nombre"
-                app:layout_constraintStart_toStartOf="@id/niaAlumnoInformacion"
-                app:layout_constraintTop_toBottomOf="@id/niaAlumnoInformacion">
+                    android:id="@+id/nombreAlumnoInformacion"
+                    style="@style/Widget.MyApp.MaterialInputLayout"
+                    android:layout_marginTop="5dp"
+                    android:hint="@string/nombre"
+                    app:layout_constraintStart_toStartOf="@id/niaAlumnoInformacion"
+                    app:layout_constraintTop_toBottomOf="@id/niaAlumnoInformacion">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/nombreAlumnoEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:focusable="false"
-                    android:singleLine="true"
-                    android:text="@string/nombre" />
+                        android:id="@+id/nombreAlumnoEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:singleLine="true"
+                        android:text="@string/nombre" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/apellidosAlumnoInformacion"
-                style="@style/Widget.MyApp.MaterialInputLayout"
-                android:layout_marginTop="5dp"
-                android:hint="@string/apellidos"
-                app:layout_constraintStart_toStartOf="@id/nombreAlumnoInformacion"
-                app:layout_constraintTop_toBottomOf="@id/nombreAlumnoInformacion">
+                    android:id="@+id/apellidosAlumnoInformacion"
+                    style="@style/Widget.MyApp.MaterialInputLayout"
+                    android:layout_marginTop="5dp"
+                    android:hint="@string/apellidos"
+                    app:layout_constraintStart_toStartOf="@id/nombreAlumnoInformacion"
+                    app:layout_constraintTop_toBottomOf="@id/nombreAlumnoInformacion">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/apellidosAlumnoEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:focusable="false"
-                    android:singleLine="true"
-                    android:text="@string/apellidos" />
+                        android:id="@+id/apellidosAlumnoEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:singleLine="true"
+                        android:text="@string/apellidos" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/loteAlumnoInformacion"
-                style="@style/Widget.MyApp.MaterialInputLayout"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="200dp"
-                android:hint="@string/lote"
-                app:layout_constraintStart_toStartOf="@id/apellidosAlumnoInformacion"
-                app:layout_constraintTop_toBottomOf="@id/apellidosAlumnoInformacion">
+                    android:id="@+id/loteAlumnoInformacion"
+                    style="@style/Widget.MyApp.MaterialInputLayout"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="200dp"
+                    android:hint="@string/lote"
+                    app:layout_constraintStart_toStartOf="@id/apellidosAlumnoInformacion"
+                    app:layout_constraintTop_toBottomOf="@id/apellidosAlumnoInformacion">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/loteAlumnoEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:focusable="false"
-                    android:singleLine="true"
-                    android:text="@string/sin_lote" />
+                        android:id="@+id/loteAlumnoEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:singleLine="true"
+                        android:text="@string/sin_lote" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/estadoLoteInformacion"
-                style="@style/Widget.MyApp.MaterialInputLayout"
-                android:hint="@string/estado_lote"
-                app:layout_constraintStart_toStartOf="@id/loteAlumnoInformacion"
-                app:layout_constraintTop_toBottomOf="@id/loteAlumnoInformacion">
+                    android:id="@+id/estadoLoteInformacion"
+                    style="@style/Widget.MyApp.MaterialInputLayout"
+                    android:hint="@string/estado_lote"
+                    app:layout_constraintStart_toStartOf="@id/loteAlumnoInformacion"
+                    app:layout_constraintTop_toBottomOf="@id/loteAlumnoInformacion">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/estadoLoteEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:focusable="false"
-                    android:singleLine="true" />
+                        android:id="@+id/estadoLoteEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:singleLine="true" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/verLoteButton"
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="160dp"
-                android:visibility="gone"
-                app:icon="@drawable/ic_baseline_remove_red_eye_24"
-                app:layout_constraintBottom_toBottomOf="@id/loteAlumnoInformacion"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/loteAlumnoInformacion" />
+                    android:id="@+id/verLoteButton"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="160dp"
+                    android:visibility="gone"
+                    app:icon="@drawable/ic_baseline_remove_red_eye_24"
+                    app:layout_constraintBottom_toBottomOf="@id/loteAlumnoInformacion"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/loteAlumnoInformacion" />
 
             <ImageView
-                android:id="@+id/bookImageView"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="15dp"
-                android:src="@drawable/ic_baseline_library_books_24"
-                app:layout_constraintBottom_toBottomOf="@id/loteAlumnoInformacion"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/loteAlumnoInformacion"
-                app:tint="@color/primaryDarkColor" />
+                    android:id="@+id/bookImageView"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="15dp"
+                    android:src="@drawable/ic_baseline_library_books_24"
+                    app:layout_constraintBottom_toBottomOf="@id/loteAlumnoInformacion"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/loteAlumnoInformacion"
+                    app:tint="@color/primaryDarkColor" />
 
             <ImageView
-                android:id="@+id/classImageView"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="15dp"
-                android:src="@drawable/ic_school_black_24dp"
-                app:layout_constraintBottom_toBottomOf="@id/estadoMatAlumnoInformacion"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/estadoMatAlumnoInformacion"
-                app:tint="@color/primaryDarkColor" />
+                    android:id="@+id/classImageView"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="15dp"
+                    android:src="@drawable/ic_school_black_24dp"
+                    app:layout_constraintBottom_toBottomOf="@id/estadoMatAlumnoInformacion"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/estadoMatAlumnoInformacion"
+                    app:tint="@color/primaryDarkColor" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/estadoMatAlumnoInformacion"
-                style="@style/Widget.MyApp.MaterialInputLayout"
-                android:layout_marginTop="5dp"
-                android:hint="@string/estado_matriculacion"
-                app:layout_constraintStart_toStartOf="@id/estadoLoteInformacion"
-                app:layout_constraintTop_toBottomOf="@id/estadoLoteInformacion">
+                    android:id="@+id/estadoMatAlumnoInformacion"
+                    style="@style/Widget.MyApp.MaterialInputLayout"
+                    android:layout_marginTop="5dp"
+                    android:hint="@string/estado_matriculacion"
+                    app:layout_constraintStart_toStartOf="@id/estadoLoteInformacion"
+                    app:layout_constraintTop_toBottomOf="@id/estadoLoteInformacion">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/estadoMatAlumnoEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:focusable="false"
-                    android:singleLine="true"
-                    android:text="@string/estado_matriculacion" />
+                        android:id="@+id/estadoMatAlumnoEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:singleLine="true"
+                        android:text="@string/estado_matriculacion" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/cursoAlumnoInformacion"
-                style="@style/Widget.MyApp.MaterialInputLayout"
-                android:layout_marginTop="5dp"
-                android:hint="@string/curso_minusculas"
-                app:layout_constraintStart_toStartOf="@id/estadoMatAlumnoInformacion"
-                app:layout_constraintTop_toBottomOf="@id/estadoMatAlumnoInformacion">
+                    android:id="@+id/cursoAlumnoInformacion"
+                    style="@style/Widget.MyApp.MaterialInputLayout"
+                    android:layout_marginTop="5dp"
+                    android:hint="@string/curso_minusculas"
+                    app:layout_constraintStart_toStartOf="@id/estadoMatAlumnoInformacion"
+                    app:layout_constraintTop_toBottomOf="@id/estadoMatAlumnoInformacion">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/cursoAlumnoEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:focusable="false"
-                    android:singleLine="true"
-                    android:text="@string/curso_minusculas" />
+                        android:id="@+id/cursoAlumnoEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:singleLine="true"
+                        android:text="@string/curso_minusculas" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/grupoAlumnoInformacion"
-                style="@style/Widget.MyApp.MaterialInputLayout"
-                android:layout_marginTop="5dp"
-                android:hint="@string/grupo"
-                app:layout_constraintStart_toStartOf="@id/cursoAlumnoInformacion"
-                app:layout_constraintTop_toBottomOf="@id/cursoAlumnoInformacion">
+                    android:id="@+id/grupoAlumnoInformacion"
+                    style="@style/Widget.MyApp.MaterialInputLayout"
+                    android:layout_marginTop="5dp"
+                    android:hint="@string/grupo"
+                    app:layout_constraintStart_toStartOf="@id/cursoAlumnoInformacion"
+                    app:layout_constraintTop_toBottomOf="@id/cursoAlumnoInformacion">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/grupoAlumnoEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:focusable="false"
-                    android:singleLine="true"
-                    android:text="@string/grupo" />
+                        android:id="@+id/grupoAlumnoEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:singleLine="true"
+                        android:text="@string/grupo" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/perteneceXarxaCheckBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="5dp"
-                android:clickable="false"
-                android:text="@string/pertenece_xarxa"
-                app:layout_constraintStart_toStartOf="@id/grupoAlumnoInformacion"
-                app:layout_constraintTop_toBottomOf="@id/grupoAlumnoInformacion" />
+                    android:id="@+id/perteneceXarxaCheckBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="5dp"
+                    android:clickable="false"
+                    android:text="@string/pertenece_xarxa"
+                    app:layout_constraintStart_toStartOf="@id/grupoAlumnoInformacion"
+                    app:layout_constraintTop_toBottomOf="@id/grupoAlumnoInformacion" />
 
             <ImageView
-                android:id="@+id/pencilImageView"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="10dp"
-                android:src="@drawable/ic_edit_black_24dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/incidenciasAlumnoInformacion"
-                app:tint="@color/primaryDarkColor" />
+                    android:id="@+id/pencilImageView"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/ic_edit_black_24dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/incidenciasAlumnoInformacion"
+                    app:tint="@color/primaryDarkColor" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/incidenciasAlumnoInformacion"
-                style="@style/Widget.MyApp.MaterialInputLayout"
-                android:layout_marginTop="5dp"
-                android:hint="@string/incidencias"
-                app:layout_constraintStart_toStartOf="@id/perteneceXarxaCheckBox"
-                app:layout_constraintTop_toBottomOf="@id/perteneceXarxaCheckBox">
+                    android:id="@+id/incidenciasAlumnoInformacion"
+                    style="@style/Widget.MyApp.MaterialInputLayout"
+                    android:layout_marginTop="5dp"
+                    android:hint="@string/incidencias"
+                    app:layout_constraintStart_toStartOf="@id/perteneceXarxaCheckBox"
+                    app:layout_constraintTop_toBottomOf="@id/perteneceXarxaCheckBox">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/incidenciasAlumnoEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:focusable="false"
-                    android:gravity="top"
-                    android:text="@string/sin_incidencias" />
+                        android:id="@+id/incidenciasAlumnoEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:focusable="false"
+                        android:gravity="top"
+                        android:text="@string/sin_incidencias" />
             </com.google.android.material.textfield.TextInputLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

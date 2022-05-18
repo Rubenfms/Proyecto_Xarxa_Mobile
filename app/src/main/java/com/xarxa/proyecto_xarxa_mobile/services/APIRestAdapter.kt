@@ -1,12 +1,14 @@
 package com.xarxa.proyecto_xarxa_mobile.services
 
 import android.util.Log
-import android.widget.Toast
 import com.xarxa.proyecto_xarxa_mobile.modelos.Alumno
 import com.xarxa.proyecto_xarxa_mobile.modelos.Lote
 import com.xarxa.proyecto_xarxa_mobile.modelos.Modalidad
 import com.xarxa.proyecto_xarxa_mobile.modelos.Usuario
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -64,7 +66,8 @@ class APIRestAdapter {
         val proveedorServicios: ProveedorServicios = inicializarRetrofit()
         var respuesta = ArrayList<Alumno>()
         return CoroutineScope(Dispatchers.Main).async {
-            val response: Response<ArrayList<Alumno>> = proveedorServicios.getAlumnosByCurso(curso, sessionId)
+            val response: Response<ArrayList<Alumno>> =
+                proveedorServicios.getAlumnosByCurso(curso, sessionId)
             if (response.isSuccessful) {
                 val alumnosResponse = response.body()
                 if (alumnosResponse != null) {
@@ -81,7 +84,8 @@ class APIRestAdapter {
         val proveedorServicios: ProveedorServicios = inicializarRetrofit()
         var respuesta = ArrayList<Alumno>()
         return CoroutineScope(Dispatchers.Main).async {
-            val response: Response<ArrayList<Alumno>> = proveedorServicios.getAlumnosByGrupo(grupo, sessionId)
+            val response: Response<ArrayList<Alumno>> =
+                proveedorServicios.getAlumnosByGrupo(grupo, sessionId)
             if (response.isSuccessful) {
                 val alumnosResponse = response.body()
                 if (alumnosResponse != null) {
@@ -122,7 +126,8 @@ class APIRestAdapter {
         val proveedorServicios: ProveedorServicios = inicializarRetrofit()
         var respuesta = ArrayList<Lote>()
         return CoroutineScope(Dispatchers.Main).async {
-            val response: Response<ArrayList<Lote>> = proveedorServicios.getLotesByNia(nia, sessionId)
+            val response: Response<ArrayList<Lote>> =
+                proveedorServicios.getLotesByNia(nia, sessionId)
             if (response.isSuccessful) {
                 val lotesResponse = response.body()
                 if (lotesResponse != null) {
@@ -193,7 +198,7 @@ class APIRestAdapter {
         }
     }
 
-    fun loginUsuarioAsync(usuario: Usuario,): Deferred<Response<Void>> {
+    fun loginUsuarioAsync(usuario: Usuario): Deferred<Response<Void>> {
         val proveedorServicios: ProveedorServicios = inicializarRetrofit()
         return CoroutineScope(Dispatchers.IO).async {
             proveedorServicios.loginUsuario(usuario)
@@ -206,7 +211,6 @@ class APIRestAdapter {
             proveedorServicios.logout()
         }
     }
-
 
 
 }
