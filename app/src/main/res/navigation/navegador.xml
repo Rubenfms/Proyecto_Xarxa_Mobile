@@ -19,6 +19,15 @@
         <action
             android:id="@+id/action_cursosFragment_to_gruposFragment"
             app:destination="@id/gruposFragment" />
+        <action
+                android:id="@+id/action_cursosFragment_to_localizacionFragment"
+                app:destination="@id/localizacionFragment" />
+        <action
+                android:id="@+id/action_cursosFragment_to_listadoAlumnosEntregaFragment"
+                app:destination="@id/listadoAlumnosEntregaFragment" />
+        <action
+                android:id="@+id/action_cursosFragment_to_listadoAlumnosDevolucionFragment"
+                app:destination="@id/listadoAlumnosDevolucionFragment" />
     </fragment>
     <fragment
         android:id="@+id/gruposFragment"

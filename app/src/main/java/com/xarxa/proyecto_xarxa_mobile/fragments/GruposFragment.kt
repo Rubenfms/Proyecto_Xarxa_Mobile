@@ -1,5 +1,6 @@
 package com.xarxa.proyecto_xarxa_mobile.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -108,19 +109,20 @@ class GruposFragment : Fragment() {
         xarxaViewModel.getCurso().observe(requireActivity(), cursoObserver)
     }
 
+    @SuppressLint("SetTextI18n")
     private fun recibirAccionElegida() {
         val accionObserver = Observer<String> { i -> accionElegida = i }
         xarxaViewModel.getAccionElegida().observe(requireActivity(), accionObserver)
         val accionElegidaInformacion = binding.informacionAccionGruposTextView
         when (xarxaViewModel.getAccionElegida().value) {
             getString(R.string.entrega) -> {
-                accionElegidaInformacion.text = getString(R.string.entrega).uppercase()
+                accionElegidaInformacion.text = "${getString(R.string.entrega).uppercase()} - $curso"
             }
             getString(R.string.devolucion) -> {
-                accionElegidaInformacion.text = getString(R.string.devolucion).uppercase()
+                accionElegidaInformacion.text = "${getString(R.string.devolucion).uppercase()} - $curso"
             }
             getString(R.string.localizacion) -> {
-                accionElegidaInformacion.text = getString(R.string.localizacion).uppercase()
+                accionElegidaInformacion.text = "${getString(R.string.localizacion).uppercase()} - $curso"
             }
         }
     }

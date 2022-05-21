@@ -38,7 +38,7 @@ class CursosFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         super.onCreateView(inflater, container, savedInstanceState)
 
         _binding = LayoutCursosBinding.inflate(inflater, container, false)
@@ -70,12 +70,30 @@ class CursosFragment : Fragment() {
 
             adaptador.onClickListener {
                 val posicion = recyclerView.getChildAdapterPosition(it)
+                val curso = listaCursos[posicion]
                 xarxaViewModel.setCurso(listaCursos[posicion])
-                if (navController.currentDestination?.id == R.id.cursosFragment)
-                    navController.navigate(R.id.action_cursosFragment_to_gruposFragment)
+                if (curso.contains("ESO")) {
+                    if (navController.currentDestination?.id == R.id.cursosFragment)
+                        navController.navigate(R.id.action_cursosFragment_to_gruposFragment)
+                } else {
+                    xarxaViewModel.setGrupo("")
+                    if (navController.currentDestination?.id == R.id.cursosFragment) {
+                        when (xarxaViewModel.getAccionElegida().value) {
+                            getString(R.string.entrega) -> {
+                                navController.navigate(R.id.action_cursosFragment_to_listadoAlumnosEntregaFragment)
+                            }
+                            getString(R.string.devolucion) -> {
+                                navController.navigate(R.id.action_cursosFragment_to_listadoAlumnosDevolucionFragment)
+                            }
+                            getString(R.string.localizacion) -> {
+                                navController.navigate(R.id.action_cursosFragment_to_localizacionFragment)
+                            }
+                        }
+                    }
+                }
             }
-        }
 
+        }
     }
 
     private fun logicaCursos() {

@@ -36,6 +36,7 @@ class ListadoAlumnosEntregaFragment : Fragment(), SearchView.OnQueryTextListener
     private lateinit var navController: NavController
     private lateinit var anyadirModificarDialog: AñadirModificarLoteFragment
     private lateinit var grupo: String
+    private lateinit var curso: String
     private lateinit var adaptadorAPIRest: APIRestAdapter
     private lateinit var editTextBusqueda: EditText
     private lateinit var filtracionService: FiltracionService
@@ -57,6 +58,7 @@ class ListadoAlumnosEntregaFragment : Fragment(), SearchView.OnQueryTextListener
         recyclerView = binding.recyclerAlumnosEntrega
         adaptadorAPIRest = APIRestAdapter()
         anyadirModificarDialog = AñadirModificarLoteFragment()
+        recibirCurso()
         recibirGrupo()
         getAlumnos()
 
@@ -66,8 +68,9 @@ class ListadoAlumnosEntregaFragment : Fragment(), SearchView.OnQueryTextListener
     private fun getAlumnos() {
         CoroutineScope(Dispatchers.Main).launch {
             listaAlumnos =
-                adaptadorAPIRest.getAlumnosByGrupoAsync(grupo, xarxaViewModel.getSessionIdString())
+                adaptadorAPIRest.getAlumnosByCursoAsync(curso, xarxaViewModel.getSessionIdString())
                     .await()
+            listaAlumnos = listaAlumnos.filter { alumno -> alumno.grupo == grupo } as ArrayList<Alumno>
             cargarRecyclerAlumnos(listaAlumnos)
         }
     }
@@ -143,7 +146,12 @@ class ListadoAlumnosEntregaFragment : Fragment(), SearchView.OnQueryTextListener
     private fun recibirGrupo() {
         val grupoObserver = Observer<String> { i -> grupo = i }
         xarxaViewModel.getGrupo().observe(requireActivity(), grupoObserver)
-        binding.grupoActualEntregaTextView.text = grupo
+        binding.grupoActualEntregaTextView.text = "$curso$grupo"
+    }
+
+    private fun recibirCurso() {
+        val cursoObserver = Observer<String> { i -> curso = i }
+        xarxaViewModel.getCurso().observe(requireActivity(), cursoObserver)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

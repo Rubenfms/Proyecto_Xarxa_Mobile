@@ -44,6 +44,7 @@ class LocalizacionFragment : Fragment(), SearchView.OnQueryTextListener {
     private lateinit var navController: NavController
     private lateinit var adaptadorAPIRest: APIRestAdapter
     private lateinit var grupo: String
+    private lateinit var curso: String
     private lateinit var chipNia: Chip
     private lateinit var chipNombre: Chip
     private lateinit var chipLote: Chip
@@ -69,6 +70,7 @@ class LocalizacionFragment : Fragment(), SearchView.OnQueryTextListener {
         chipNombre = binding.chipNombre
         chipLote = binding.chipLote
 
+        recibirCurso()
         recibirGrupo()
         getAlumnos()
         creaContrato()
@@ -81,8 +83,9 @@ class LocalizacionFragment : Fragment(), SearchView.OnQueryTextListener {
     private fun getAlumnos() {
         CoroutineScope(Dispatchers.Main).launch {
             listaAlumnos =
-                adaptadorAPIRest.getAlumnosByGrupoAsync(grupo, xarxaViewModel.getSessionIdString())
+                adaptadorAPIRest.getAlumnosByCursoAsync(curso, xarxaViewModel.getSessionIdString())
                     .await()
+            listaAlumnos = listaAlumnos.filter { alumno -> alumno.grupo == grupo } as ArrayList<Alumno>
             cargarRecyclerAlumnos(listaAlumnos)
         }
     }
@@ -90,7 +93,12 @@ class LocalizacionFragment : Fragment(), SearchView.OnQueryTextListener {
     private fun recibirGrupo() {
         val grupoObserver = Observer<String> { i -> grupo = i }
         xarxaViewModel.getGrupo().observe(requireActivity(), grupoObserver)
-        binding.grupoActualLocalizacionTextView.text = grupo
+        binding.grupoActualLocalizacionTextView.text = "$curso$grupo"
+    }
+
+    private fun recibirCurso() {
+        val cursoObserver = Observer<String> { i -> curso = i }
+        xarxaViewModel.getCurso().observe(requireActivity(), cursoObserver)
     }
 
     private fun logicaChips() {

@@ -32,6 +32,7 @@ class ListadoAlumnosDevolucionFragment : Fragment(), SearchView.OnQueryTextListe
     private lateinit var adaptador: ListadoDevolucionRecyclerAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var grupo: String
+    private lateinit var curso: String
     private lateinit var navController: NavController
     private lateinit var adaptadorAPIRest: APIRestAdapter
     private lateinit var editTextBusqueda: EditText
@@ -53,6 +54,7 @@ class ListadoAlumnosDevolucionFragment : Fragment(), SearchView.OnQueryTextListe
         navController = NavHostFragment.findNavController(this)
         recyclerView = binding.recyclerAlumnosDevolucion
         adaptadorAPIRest = APIRestAdapter()
+        recibirCurso()
         recibirGrupo()
         getAlumnos()
 
@@ -62,8 +64,9 @@ class ListadoAlumnosDevolucionFragment : Fragment(), SearchView.OnQueryTextListe
     private fun getAlumnos() {
         CoroutineScope(Dispatchers.Main).launch {
             listaAlumnos =
-                adaptadorAPIRest.getAlumnosByGrupoAsync(grupo, xarxaViewModel.getSessionIdString())
+                adaptadorAPIRest.getAlumnosByCursoAsync(curso, xarxaViewModel.getSessionIdString())
                     .await()
+            listaAlumnos = listaAlumnos.filter { alumno -> alumno.grupo == grupo } as ArrayList<Alumno>
             cargarRecyclerAlumnos(listaAlumnos)
         }
     }
@@ -86,7 +89,12 @@ class ListadoAlumnosDevolucionFragment : Fragment(), SearchView.OnQueryTextListe
     private fun recibirGrupo() {
         val grupoObserver = Observer<String> { i -> grupo = i }
         xarxaViewModel.getGrupo().observe(requireActivity(), grupoObserver)
-        binding.grupoActualDevolucionTextView.text = grupo
+        binding.grupoActualDevolucionTextView.text = "$curso$grupo"
+    }
+
+    private fun recibirCurso() {
+        val cursoObserver = Observer<String> { i -> curso = i }
+        xarxaViewModel.getCurso().observe(requireActivity(), cursoObserver)
     }
 
     private fun mostrarDialogoPersonalizado(
