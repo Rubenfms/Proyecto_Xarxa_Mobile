@@ -120,8 +120,6 @@ class CheckeoLibrosDevolucionFragment : Fragment() {
                 mensajeError,
                 Snackbar.LENGTH_LONG
             ).show()
-            Log.e("Error Response 1", response1.toString())
-            Log.e("Error Response 2", response2.toString())
         }
     }
 
