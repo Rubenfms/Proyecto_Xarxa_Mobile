@@ -17,7 +17,6 @@ class APIRestAdapter {
 
     private fun inicializarRetrofit(): ProveedorServicios {
 
-        //val url = "http://10.0.2.2:8081/apixarxa/xarxa/"
         val url = "http://xarxa.eastus.cloudapp.azure.com:8081/apixarxa/xarxa/"
 
         val retrofit = Retrofit.Builder()

@@ -70,7 +70,8 @@ class ListadoAlumnosEntregaFragment : Fragment(), SearchView.OnQueryTextListener
             listaAlumnos =
                 adaptadorAPIRest.getAlumnosByCursoAsync(curso, xarxaViewModel.getSessionIdString())
                     .await()
-            listaAlumnos = listaAlumnos.filter { alumno -> alumno.grupo == grupo } as ArrayList<Alumno>
+            listaAlumnos =
+                listaAlumnos.filter { alumno -> alumno.grupo == grupo } as ArrayList<Alumno>
             cargarRecyclerAlumnos(listaAlumnos)
         }
     }

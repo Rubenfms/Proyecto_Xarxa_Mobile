@@ -98,7 +98,7 @@ class CursosFragment : Fragment() {
 
     private fun logicaCursos() {
         for (i in 0 until listaAlumnos.size) {
-            var cursoAlumno = listaAlumnos[i].curso
+            val cursoAlumno = listaAlumnos[i].curso
             if (!listaCursos.contains(cursoAlumno)) {
                 listaCursos.add(cursoAlumno)
             }

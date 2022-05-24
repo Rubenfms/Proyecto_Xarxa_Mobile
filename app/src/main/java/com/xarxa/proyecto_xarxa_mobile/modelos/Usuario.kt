@@ -17,6 +17,4 @@ class Usuario() {
         contrasenya = ""
         tipoUsuario = ""
     }
-
-
 }

@@ -24,7 +24,7 @@ class Alumno() {
         grupo: String,
         incidencias: String,
         perteneceXarxa: Boolean,
-        estadoLote : String,
+        estadoLote: String,
         idLote: Int?
     ) : this() {
         this.nia = nia

@@ -1,7 +1,5 @@
 package com.xarxa.proyecto_xarxa_mobile.modelos
 
-import java.util.*
-
 class Lote() {
 
     var idLote: Int

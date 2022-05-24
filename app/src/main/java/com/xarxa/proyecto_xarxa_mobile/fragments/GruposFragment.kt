@@ -116,13 +116,16 @@ class GruposFragment : Fragment() {
         val accionElegidaInformacion = binding.informacionAccionGruposTextView
         when (xarxaViewModel.getAccionElegida().value) {
             getString(R.string.entrega) -> {
-                accionElegidaInformacion.text = "${getString(R.string.entrega).uppercase()} - $curso"
+                accionElegidaInformacion.text =
+                    "${getString(R.string.entrega).uppercase()} - $curso"
             }
             getString(R.string.devolucion) -> {
-                accionElegidaInformacion.text = "${getString(R.string.devolucion).uppercase()} - $curso"
+                accionElegidaInformacion.text =
+                    "${getString(R.string.devolucion).uppercase()} - $curso"
             }
             getString(R.string.localizacion) -> {
-                accionElegidaInformacion.text = "${getString(R.string.localizacion).uppercase()} - $curso"
+                accionElegidaInformacion.text =
+                    "${getString(R.string.localizacion).uppercase()} - $curso"
             }
         }
     }

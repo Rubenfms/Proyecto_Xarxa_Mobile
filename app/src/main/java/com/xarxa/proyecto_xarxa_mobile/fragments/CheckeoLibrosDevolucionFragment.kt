@@ -2,7 +2,6 @@ package com.xarxa.proyecto_xarxa_mobile.fragments
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,7 +45,7 @@ class CheckeoLibrosDevolucionFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         super.onCreateView(inflater, container, savedInstanceState)
 
         _binding = LayoutCheckeoIncidenciasDevolucionBinding.inflate(inflater, container, false)
@@ -92,32 +91,25 @@ class CheckeoLibrosDevolucionFragment : Fragment() {
             val response2 =
                 adaptadorAPIRest.updateAlumnoAsync(alumno, xarxaViewModel.getSessionIdString())
                     .await()
-            respuestaPeticion(
-                "Lote devuelto correctamente",
-                "Ha ocurrido un error devolviendo el lote",
-                response1,
-                response2
-            )
+            respuestaPeticion(response1, response2)
             navController.popBackStack()
         }
     }
 
     private fun respuestaPeticion(
-        mensajeInfo: String,
-        mensajeError: String,
         response1: Response<Void>,
         response2: Response<Void>
     ) {
         if (response1.isSuccessful && response2.isSuccessful) {
             Snackbar.make(
                 requireActivity().findViewById(R.id.fragmentContainer),
-                mensajeInfo,
+                "Lote devuelto correctamente",
                 Snackbar.LENGTH_LONG
             ).show()
         } else {
             Snackbar.make(
                 requireActivity().findViewById(R.id.fragmentContainer),
-                mensajeError,
+                "Ha ocurrido un error devolviendo el lote",
                 Snackbar.LENGTH_LONG
             ).show()
         }

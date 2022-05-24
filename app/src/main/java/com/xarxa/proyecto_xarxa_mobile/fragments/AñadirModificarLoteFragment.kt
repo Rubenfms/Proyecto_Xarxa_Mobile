@@ -5,7 +5,8 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.*
-import android.widget.*
+import android.widget.EditText
+import android.widget.PopupMenu
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.core.text.HtmlCompat
@@ -100,21 +101,17 @@ class AñadirModificarLoteFragment : Fragment(), SearchView.OnQueryTextListener 
         }
     }
 
-    private fun respuestaPeticion(
-        mensajeInfo: String,
-        mensajeError: String,
-        response: Response<Void>
-    ) {
+    private fun respuestaPeticion(response: Response<Void>) {
         if (response.isSuccessful) {
             Snackbar.make(
                 requireActivity().findViewById(R.id.fragmentContainer),
-                mensajeInfo,
+                "Lote asignado correctamente",
                 Snackbar.LENGTH_LONG
             ).show()
         } else {
             Snackbar.make(
                 requireActivity().findViewById(R.id.fragmentContainer),
-                mensajeError,
+                "Ha ocurrido un error asignando el lote",
                 Snackbar.LENGTH_LONG
             ).show()
             Log.e("Error", response.errorBody()!!.string())
@@ -135,11 +132,7 @@ class AñadirModificarLoteFragment : Fragment(), SearchView.OnQueryTextListener 
                 listaLotes[posicion],
                 xarxaViewModel.getSessionIdString()
             ).await()
-            respuestaPeticion(
-                "Lote asignado correctamente",
-                "Ha ocurrido un error asignando el lote",
-                response
-            )
+            respuestaPeticion(response)
             navController.popBackStack()
         }
     }
