@@ -184,7 +184,7 @@ class LocalizacionFragment : Fragment(), SearchView.OnQueryTextListener {
         resultadoCamara =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 if (result.resultCode == Activity.RESULT_OK) {
-                    val resultado = result.data!!.getStringExtra("codigo").toString()
+                    val resultado = result.data!!.getStringExtra("codigo").toString().dropLast(1)
                     chipLote.isChecked = true
                     filtrar(resultado)
                     Snackbar.make(

@@ -57,7 +57,7 @@ class BusquedaAlumnoFragment : Fragment() {
                 textoSnackbar = "Filtrando alumno con número del lote: ($idLote)..."
 
             } else {
-                textoSnackbar = "El lote buscado no tiene ningún alumno asignado."
+                textoSnackbar = "El lote buscado (${idLote}) no tiene ningún alumno asignado."
                 navController.navigate(R.id.principalFragment)
             }
             Snackbar.make(
@@ -87,7 +87,7 @@ class BusquedaAlumnoFragment : Fragment() {
         resultadoCamara =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 if (result.resultCode == Activity.RESULT_OK) {
-                    val resultado = result.data!!.getStringExtra("codigo").toString().toInt()
+                    val resultado = result.data!!.getStringExtra("codigo").toString().dropLast(1).toInt()
                     getLote(resultado)
                 } else {
                     navController.navigate(R.id.action_global_principalFragment)
